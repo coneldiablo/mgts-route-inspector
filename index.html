@@ -83,7 +83,7 @@
       <div class="method-detail"><h3>Три режима распознавания</h3><p id="validation-context"></p><table class="benchmarks"><caption>Macro-F1 двух дефектов</caption><thead><tr><th scope="col">Режим</th><th scope="col">Macro-F1</th></tr></thead><tbody id="modes"></tbody></table><p id="hybrid-check"></p>
         <h4>Локальная серверная модель v0.4</h4><dl class="validation-results" id="validation-results"></dl>
         <div class="method-note" id="model-note"></div>
-        <details class="technical"><summary>Как проверяли</summary><p>Похожие кадры объединяли в группы и целиком оставляли в одном из пяти внешних фолдов. Для типа шкафа использовали его выделенную область, для дефектов — признаки изображения. Пользовательские фото в браузере обрабатывает отдельная компактная модель DINOv2. При таймауте облачного запроса гибрид использует локальную оценку. <a href="./registry/public-protocol.json">Открыть исходный протокол ↗</a></p></details>
+        <details class="technical"><summary>Как проверяли</summary><p>Похожие кадры объединяли в группы и целиком оставляли в одном из пяти внешних фолдов. Для типа шкафа использовали его выделенную область, для дефектов — признаки изображения. При загрузке фото доступен полный анализ на сервере со вторым мнением. В режиме «Только на устройстве» снимок обрабатывает компактная модель DINOv2. При таймауте облачного запроса гибрид использует локальную оценку. <a href="./registry/public-protocol.json">Открыть исходный протокол ↗</a></p></details>
       </div>
     </section>
     <section class="pilot wrap" id="pilot" aria-labelledby="pilot-title">
