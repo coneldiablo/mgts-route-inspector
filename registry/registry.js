@@ -81,7 +81,7 @@ function createRow(result) {
   button.setAttribute('aria-haspopup', 'dialog');
   const identity = element('span', 'identity');
   identity.append(element('b', '', result.id), element('small', '', result.fitted.object));
-  if (hasDisagreement(result)) identity.append(element('span', 'discord', 'Расхождение Argon'));
+  if (hasDisagreement(result)) identity.append(element('span', 'discord', 'Расхождение Qwen'));
   button.append(identity, tag(result.fitted.condition, conditionLabels), tag(result.fitted.action, actionLabels),
     element('span', 'coord', `Координаты ${coordinates.toLowerCase()}`), arrow());
   button.addEventListener('click', () => openCard(result, button));
@@ -159,13 +159,13 @@ function argonOpinion(local, argon, primary) {
   if (!scores) return [];
   const box = element('details', 'detail-oof detail-argon');
   box.open = primary;
-  box.append(element('summary', '', 'Второе мнение Gemini 4 Argon'));
+  box.append(element('summary', '', 'Второе мнение Qwen3.8-27B'));
   const body = element('div', 'oof-body');
   body.append(element('p', '', 'Сохранённый ответ по этому снимку. Тип и рекомендацию определяет локальная модель.'));
   const {weight, threshold} = argonConfig;
-  const info = argon.status === 'timeout' ? 'Таймаут Argon. Использованы локальные оценки.'
-    : argon.readable ? `${percent.format(1-weight)} локальная оценка + ${percent.format(weight)} Argon. Расхождение отмечено при разных решениях на пороге ${percent.format(threshold)}.`
-      : 'Argon не смог оценить читаемость. Использованы локальные оценки.';
+  const info = argon.status === 'timeout' ? 'Таймаут Qwen. Использованы локальные оценки.'
+    : argon.readable ? `${percent.format(1-weight)} локальная оценка + ${percent.format(weight)} Qwen. Расхождение отмечено при разных решениях на пороге ${percent.format(threshold)}.`
+      : 'Qwen не смог оценить читаемость. Использованы локальные оценки.';
   body.append(element('p', 'argon-note', info));
   const values = element('div', 'detail-signals');
   for (const [code, valuesForSignal] of Object.entries(scores)) {
@@ -173,14 +173,14 @@ function argonOpinion(local, argon, primary) {
     const cell = element('div');
     cell.append(element('strong', '', signalLabels[code]),
       element('small', '', `Локально ${percent.format(base)}`),
-      element('small', '', cloud === null ? 'Argon —' : `Argon ${percent.format(cloud)}`),
+      element('small', '', cloud === null ? 'Qwen —' : `Qwen ${percent.format(cloud)}`),
       element('strong', '', `${cloud === null ? 'Итог' : 'Смесь'} ${percent.format(blend)}`));
     if (disagreement) cell.append(element('span', 'discord', 'Расхождение'));
     values.append(cell);
   }
   body.append(values);
   if (argon.cues?.length) {
-    body.append(element('p', 'argon-note', `Признаки по Argon — ${argon.cues.join(' · ')}.`));
+    body.append(element('p', 'argon-note', `Признаки по Qwen — ${argon.cues.join(' · ')}.`));
   }
   box.append(body);
   return [box];
@@ -210,7 +210,7 @@ function csvField(value) {
 
 function downloadCsv() {
   const header = ['Кадр', 'Тип объекта', 'Состояние', 'Рекомендация', 'МП, %', 'ЛКП, %', 'Координаты', 'Разметка'];
-  if (argonConfig) header.push('Ответ Argon', 'Argon МП, %', 'Argon ЛКП, %', 'Смесь МП, %', 'Смесь ЛКП, %', 'Расхождения');
+  if (argonConfig) header.push('Ответ Qwen', 'Qwen МП, %', 'Qwen ЛКП, %', 'Смесь МП, %', 'Смесь ЛКП, %', 'Расхождения');
   const csvPercent = value => value === null ? '' : (100 * value).toFixed(2).replace('.', ',');
   const body = filtered.map(row => [row.id, row.fitted.object, conditionLabels[row.fitted.condition],
     actionLabels[row.fitted.action], csvPercent(row.fitted.scores.mechanical), csvPercent(row.fitted.scores.coating), coordinates,
@@ -250,7 +250,7 @@ function resultsSummary(validation) {
   );
   const argon = argonConfig?.validation;
   if (argon) {
-    get('validation-facts').append(element('p', '', `С сохранёнными ответами Argon и переходом на локальную оценку при таймауте macro-F1 составил ${percent.format(argon.macroF1)} на тех же ${labeled} кадрах OOF. Определены ${argon.tp} из ${argon.positives} кадров с повреждениями. Ложные срабатывания — ${argon.fp} из ${argon.negatives} штатных кадров.`));
+    get('validation-facts').append(element('p', '', `С сохранёнными ответами Qwen и переходом на локальную оценку при таймауте macro-F1 составил ${percent.format(argon.macroF1)} на тех же ${labeled} кадрах OOF. Определены ${argon.tp} из ${argon.positives} кадров с повреждениями. Ложные срабатывания — ${argon.fp} из ${argon.negatives} штатных кадров.`));
   }
   get('validation').hidden = false;
 }
