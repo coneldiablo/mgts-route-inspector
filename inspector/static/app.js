@@ -363,7 +363,7 @@ function renderLocationMap(cards) {
 function bboxOverlay(card) {
   if (!card.bbox_pct) return "";
   const [x1, y1, x2, y2] = card.bbox_pct;
-  const label = card.localization?.source === "vertex_confirmed" ? "рамка Gemini" : "область объекта";
+  const label = card.localization?.source === "vertex_confirmed" ? "рамка Qwen" : "область объекта";
   return `<div class="bbox" style="left:${x1}%;top:${y1}%;width:${x2 - x1}%;height:${y2 - y1}%">
       <span class="bbox-label">${label}</span>
     </div>`;
@@ -457,7 +457,7 @@ function renderCloudReview(cloud) {
   if (!cloud) return "";
   const labels = { normal: "крышка на месте", open_hatch: "проём открыт", uncertain: "состояние неясно" };
   const messages = {
-    confirmed_bbox: "Рамку предложил Gemini, состояние совпало с локальной оценкой",
+    confirmed_bbox: "Рамку предложил Qwen, состояние совпало с локальной оценкой",
     local_disagreement: "Модели разошлись, оставлена локальная оценка",
     advisory: "Дополнительная оценка",
     unavailable: "Сервис не вернул оценку",
@@ -466,7 +466,7 @@ function renderCloudReview(cloud) {
   const status = cloud.confirmation === "unavailable" ? message : `${message} · ${labels[cloud.prediction] || labels.uncertain}`;
   return `
     <div class="panel" style="margin-bottom:12px">
-      <h3>Перепроверка ${esc(cloud.model)}</h3>
+      <h3>Перепроверка ${/^gemini/i.test(cloud.model) ? "кадра" : esc(cloud.model)}</h3>
       <p>${esc(status)}</p>
       ${cloud.evidence ? `<p class="muted">${esc(cloud.evidence)}</p>` : ""}
     </div>`;

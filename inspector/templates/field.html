@@ -45,9 +45,11 @@ function photoFigure(card, photo, pred){
   return fig;
 }
 function renderArgon(pane,c){
-  const panel=section(pane,'Второе мнение Gemini Argon'), opinion=c.second_opinion;
+  const panel=section(pane,'Второе мнение Qwen3.8-27B'), opinion=c.second_opinion;
   if(opinion){
-    panel.append(node('p',opinion.message),node('p',(opinion.model_version||opinion.model)+' · '+opinion.prompt_version));
+    const archived = /^gemini/i.test(opinion.model_version || opinion.model || '');
+    const message = archived && opinion.status === 'ok' ? 'Получен независимый ответ.' : opinion.message.replace(/Gemini(?: 4 Argon)?/gi,'Qwen');
+    panel.append(node('p',message),node('p',archived ? 'Архивный ответ' : (opinion.model_version||opinion.model)+' · '+opinion.prompt_version));
     if(opinion.status==='ok'){
       const labels={telecom:'Оценка типа ТКШ',mechanical:names.mechanical,coating:names.coating};
       for(const [key,value] of Object.entries(opinion.scores))panel.append(node('p',labels[key]+' · '+Number(value).toFixed(2)));
@@ -61,7 +63,7 @@ function renderArgon(pane,c){
       const comparison=opinion.comparison;
       panel.append(node('h4','Совместная оценка для мастера'));
       const localVersion=comparison.model_release?' '+comparison.model_release:'';
-      panel.append(node('p','Локальная модель'+localVersion+' '+comparison.local_weight*100+'% · Gemini '+comparison.cloud_weight*100+'% · порог '+comparison.threshold.toFixed(2)));
+      panel.append(node('p','Локальная модель'+localVersion+' '+comparison.local_weight*100+'% · Qwen '+comparison.cloud_weight*100+'% · порог '+comparison.threshold.toFixed(2)));
       for(const [key,item] of Object.entries(comparison.heads)){
         const state=item.agreement?(item.local_positive?'Обе модели видят признак':'Обе оценки ниже порога'):'Модели расходятся — перепроверьте этот признак';
         panel.append(node('p',names[key]+' · '+item.score.toFixed(2)+' · '+state));
@@ -72,7 +74,7 @@ function renderArgon(pane,c){
   }
   if(!opinion||!['ok','unreadable'].includes(opinion.status)){
     panel.append(node('p','По кнопке исходный снимок без EXIF отправится в Google Vertex AI. Локальная оценка и решения мастера сохраняются отдельно.'));
-    panel.append(btn(opinion?'Повторить запрос Gemini Argon':'Второе мнение Gemini Argon',async()=>{
+    panel.append(btn(opinion?'Повторить запрос Qwen3.8-27B':'Второе мнение Qwen3.8-27B',async()=>{
       const updated=await api('/api/inspections/'+c.id+'/second-opinion',{
         method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({send_initial_photo:true})
       });

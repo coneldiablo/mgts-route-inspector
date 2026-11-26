@@ -350,7 +350,7 @@ const precisePercent = new Intl.NumberFormat('ru-RU', { style: 'percent', minimu
 const hybrid = vertex.runs['42'].blend_full_with_fallback
 const browserRun = browserMetrics.seeds[browserMetrics.primary_seed].local_mean
 for (const [mode, value] of [
-  ['Сервер v0.4 + Gemini 4 Argon', hybrid.defect_macro_f1],
+  ['Сервер v0.4 + Qwen3.8-27B', hybrid.defect_macro_f1],
   ['Сервер v0.4 без облака', metrics.metrics.defect_macro_f1],
   ['Браузер · DINOv2 INT8', browserRun.defect_macro_f1],
 ]) {
@@ -364,7 +364,7 @@ for (const [mode, value] of [
   $('#modes').append(row)
 }
 const cloudDamage = hybrid.any_damage
-$('#hybrid-check').textContent = `В гибриде 75% оценки даёт локальная модель, 25% — Gemini. Найдено ${cloudDamage.tp} из ${cloudDamage.tp + cloudDamage.fn} кадров с повреждением. Ложных тревог — ${cloudDamage.fp} на ${cloudDamage.fp + cloudDamage.tn} исправных кадрах. При таймауте использована локальная оценка.`
+$('#hybrid-check').textContent = `В гибриде 75% оценки даёт локальная модель, 25% — Qwen. Найдено ${cloudDamage.tp} из ${cloudDamage.tp + cloudDamage.fn} кадров с повреждением. Ложных тревог — ${cloudDamage.fp} на ${cloudDamage.fp + cloudDamage.tn} исправных кадрах. При таймауте использована локальная оценка.`
 const damage = metrics.metrics.any_damage
 $('#validation-context').textContent = `${metrics.labeled} снимок с разметкой · ${metrics.groups} группы · ${metrics.folds} внешних фолдов`
 for (const [label, value] of [
