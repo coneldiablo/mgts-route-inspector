@@ -97,3 +97,15 @@ MGTS_CABINET_MODEL="$A/v04/model.joblib" \
 Откройте [рабочее место мастера](http://127.0.0.1:8883/field). Если добавить `--activate` к команде сборки HR, она установит артефакт и соответствующие агрегаты в стандартные каталоги `artifacts/final-cabinet` и `runs/final-cabinet`. Тогда `--model` и `MGTS_CABINET_MODEL` при запуске можно опустить.
 
 Для компактного режима используйте артефакт `$A/roi-release/model.joblib`. В свежей установке команда `python -m scripts.cabinet_final prepare --without-hr` скачает только его энкодеры. При запуске v0.4 без HR-весов API сообщает о переходе на v0.3. Источник типа отдельно указан для каждой карточки.
+
+## Проверка второго мнения Gemini
+
+Для нового сравнения нужны обе выданные папки и настроенные Application Default Credentials с доступом к Vertex AI. Следующая команда отправляет уменьшенные снимки в облако. Веса типа и дефектов локального ансамбля остаются фиксированными. Пять наборов обезличенных прогнозов из релиза уже доступны в `runs/final-cabinet/oof_by_seed.json`.
+
+```bash
+python -m pip install -e '.[cabinet,vertex]'
+python -m scripts.benchmark_cabinet_vertex \
+  --source ../Датасет-ДСС --source ../Датасет-ДСС-2
+```
+
+При повторном запуске в той же папке скрипт использует локальный кэш ответов. Для проверки опубликованных чисел без облачных запросов доступны [протокол](../runs/cabinet-vertex/public-protocol.json), [результаты по пяти разбиениям](../runs/cabinet-vertex/public-benchmark.json) и [реестр с сохранёнными вторыми мнениями](https://coneldiablo.github.io/mgts-route-inspector/registry/). Кнопка в рабочем месте запрашивает отдельный живой ответ для выбранной карточки.
