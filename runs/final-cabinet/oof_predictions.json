@@ -1,0 +1,2094 @@
+[
+  {
+    "image_id": "DSS-001",
+    "fold": 0,
+    "group": 0,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.70987,
+    "scores": {
+      "mechanical": 0.88989,
+      "coating": 0.34772
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.88989
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9211,
+      "sharpness": 637.14,
+      "brightness": 168.39,
+      "contrast": 50.8,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-002",
+    "fold": 1,
+    "group": 1,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.7032,
+    "scores": {
+      "mechanical": 0.64194,
+      "coating": 0.30159
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.64194
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9786,
+      "sharpness": 920.5,
+      "brightness": 117.03,
+      "contrast": 58.84,
+      "area_fraction": null,
+      "width": 450,
+      "height": 1000,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-003",
+    "fold": 1,
+    "group": 1,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.7499,
+    "scores": {
+      "mechanical": 0.76568,
+      "coating": 0.40568
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.76568
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9857,
+      "sharpness": 871.61,
+      "brightness": 120.69,
+      "contrast": 59.26,
+      "area_fraction": null,
+      "width": 450,
+      "height": 1000,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-004",
+    "fold": 3,
+    "group": 3,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.9066,
+    "scores": {
+      "mechanical": 0.74604,
+      "coating": 0.84095
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.74604
+      },
+      {
+        "code": "coating",
+        "score": 0.84095
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.944,
+      "sharpness": 1082.39,
+      "brightness": 99.33,
+      "contrast": 56.32,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-005",
+    "fold": 3,
+    "group": 4,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.82241,
+    "scores": {
+      "mechanical": 0.52504,
+      "coating": 0.23185
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.52504
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.8874,
+      "sharpness": 333.1,
+      "brightness": 70.35,
+      "contrast": 47.71,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-006",
+    "fold": 3,
+    "group": 5,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.77946,
+    "scores": {
+      "mechanical": 0.51591,
+      "coating": 0.23982
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.51591
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9847,
+      "sharpness": 1363.46,
+      "brightness": 120.16,
+      "contrast": 62.26,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-007",
+    "fold": 2,
+    "group": 6,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.80338,
+    "scores": {
+      "mechanical": 0.76245,
+      "coating": 0.23805
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.76245
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9591,
+      "sharpness": 1431.3,
+      "brightness": 107.04,
+      "contrast": 60.29,
+      "area_fraction": null,
+      "width": 694,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-008",
+    "fold": 2,
+    "group": 6,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.86416,
+    "scores": {
+      "mechanical": 0.7383,
+      "coating": 0.43119
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.7383
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9753,
+      "sharpness": 1763.83,
+      "brightness": 115.34,
+      "contrast": 61.51,
+      "area_fraction": null,
+      "width": 694,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-009",
+    "fold": 0,
+    "group": 8,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.63161,
+    "scores": {
+      "mechanical": 0.79825,
+      "coating": 0.54846
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.79825
+      },
+      {
+        "code": "coating",
+        "score": 0.54846
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9303,
+      "sharpness": 539.63,
+      "brightness": 99.79,
+      "contrast": 41.72,
+      "area_fraction": null,
+      "width": 1154,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-010",
+    "fold": 4,
+    "group": 9,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.57286,
+    "scores": {
+      "mechanical": 0.53776,
+      "coating": 0.67858
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.53776
+      },
+      {
+        "code": "coating",
+        "score": 0.67858
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9196,
+      "sharpness": 271.27,
+      "brightness": 86.82,
+      "contrast": 45.36,
+      "area_fraction": null,
+      "width": 720,
+      "height": 1280,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-011",
+    "fold": 4,
+    "group": 9,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.54053,
+    "scores": {
+      "mechanical": 0.29665,
+      "coating": 0.7197
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.7197
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9693,
+      "sharpness": 591.02,
+      "brightness": 112.27,
+      "contrast": 78.87,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-012",
+    "fold": 2,
+    "group": 11,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.79158,
+    "scores": {
+      "mechanical": 0.33535,
+      "coating": 0.35294
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.908,
+      "sharpness": 1012.1,
+      "brightness": 175.13,
+      "contrast": 55.23,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-013",
+    "fold": 4,
+    "group": 12,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.69281,
+    "scores": {
+      "mechanical": 0.3207,
+      "coating": 0.61124
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.61124
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9751,
+      "sharpness": 1591.14,
+      "brightness": 140.76,
+      "contrast": 54.65,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-014",
+    "fold": 3,
+    "group": 13,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.5028,
+    "scores": {
+      "mechanical": 0.36941,
+      "coating": 0.3857
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9738,
+      "sharpness": 3013.99,
+      "brightness": 114.57,
+      "contrast": 65.84,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-015",
+    "fold": 2,
+    "group": 14,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.67586,
+    "scores": {
+      "mechanical": 0.43269,
+      "coating": 0.59054
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.59054
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.992,
+      "sharpness": 1281.92,
+      "brightness": 123.88,
+      "contrast": 56.76,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-016",
+    "fold": 1,
+    "group": 15,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.90654,
+    "scores": {
+      "mechanical": 0.24707,
+      "coating": 0.34189
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9138,
+      "sharpness": 339.2,
+      "brightness": 143.35,
+      "contrast": 32.34,
+      "area_fraction": null,
+      "width": 450,
+      "height": 800,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-017",
+    "fold": 4,
+    "group": 16,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.72767,
+    "scores": {
+      "mechanical": 0.33567,
+      "coating": 0.57426
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.57426
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.999,
+      "sharpness": 704.17,
+      "brightness": 128.49,
+      "contrast": 73.0,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-018",
+    "fold": 0,
+    "group": 17,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.59668,
+    "scores": {
+      "mechanical": 0.76014,
+      "coating": 0.45952
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.76014
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.96,
+      "sharpness": 1216.19,
+      "brightness": 148.5,
+      "contrast": 59.46,
+      "area_fraction": null,
+      "width": 864,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-019",
+    "fold": 3,
+    "group": 18,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.84303,
+    "scores": {
+      "mechanical": 0.21717,
+      "coating": 0.26437
+    },
+    "findings": [],
+    "action": "no_action",
+    "reason": "Видимые признаки механического повреждения и дефекта покрытия не выявлены.",
+    "quality": {
+      "ok": true,
+      "score": 0.9692,
+      "sharpness": 1959.24,
+      "brightness": 112.22,
+      "contrast": 52.1,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-020",
+    "fold": 1,
+    "group": 19,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.51439,
+    "scores": {
+      "mechanical": 0.38528,
+      "coating": 0.75337
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.75337
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9698,
+      "sharpness": 668.34,
+      "brightness": 143.46,
+      "contrast": 71.12,
+      "area_fraction": null,
+      "width": 780,
+      "height": 1040,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-021",
+    "fold": 0,
+    "group": 20,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.91426,
+    "scores": {
+      "mechanical": 0.27688,
+      "coating": 0.26478
+    },
+    "findings": [],
+    "action": "no_action",
+    "reason": "Видимые признаки механического повреждения и дефекта покрытия не выявлены.",
+    "quality": {
+      "ok": true,
+      "score": 0.9705,
+      "sharpness": 1061.83,
+      "brightness": 112.91,
+      "contrast": 45.93,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-023",
+    "fold": 4,
+    "group": 22,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.7793,
+    "scores": {
+      "mechanical": 0.78668,
+      "coating": 0.32018
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.78668
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9222,
+      "sharpness": 1040.94,
+      "brightness": 88.18,
+      "contrast": 51.21,
+      "area_fraction": null,
+      "width": 864,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-024",
+    "fold": 4,
+    "group": 23,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.83441,
+    "scores": {
+      "mechanical": 0.55674,
+      "coating": 0.41374
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.55674
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9919,
+      "sharpness": 524.62,
+      "brightness": 132.16,
+      "contrast": 50.31,
+      "area_fraction": null,
+      "width": 727,
+      "height": 969,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-025",
+    "fold": 1,
+    "group": 1,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.73469,
+    "scores": {
+      "mechanical": 0.57922,
+      "coating": 0.23799
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.57922
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9853,
+      "sharpness": 1375.83,
+      "brightness": 120.48,
+      "contrast": 45.49,
+      "area_fraction": null,
+      "width": 521,
+      "height": 1156,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-026",
+    "fold": 2,
+    "group": 25,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.69279,
+    "scores": {
+      "mechanical": 0.77284,
+      "coating": 0.10648
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.77284
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9908,
+      "sharpness": 922.51,
+      "brightness": 123.3,
+      "contrast": 53.36,
+      "area_fraction": null,
+      "width": 693,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-027",
+    "fold": 3,
+    "group": 26,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.79047,
+    "scores": {
+      "mechanical": 0.76398,
+      "coating": 0.12789
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.76398
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9664,
+      "sharpness": 1462.37,
+      "brightness": 110.81,
+      "contrast": 55.46,
+      "area_fraction": null,
+      "width": 436,
+      "height": 665,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-028",
+    "fold": 1,
+    "group": 27,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.66545,
+    "scores": {
+      "mechanical": 0.7487,
+      "coating": 0.26646
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.7487
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9528,
+      "sharpness": 679.95,
+      "brightness": 103.84,
+      "contrast": 66.13,
+      "area_fraction": null,
+      "width": 691,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-029",
+    "fold": 0,
+    "group": 28,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.83264,
+    "scores": {
+      "mechanical": 0.7948,
+      "coating": 0.36118
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.7948
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.989,
+      "sharpness": 2041.7,
+      "brightness": 133.65,
+      "contrast": 53.3,
+      "area_fraction": null,
+      "width": 691,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-030",
+    "fold": 0,
+    "group": 28,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.74487,
+    "scores": {
+      "mechanical": 0.36868,
+      "coating": 0.86214
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.86214
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9929,
+      "sharpness": 1728.36,
+      "brightness": 131.62,
+      "contrast": 59.61,
+      "area_fraction": null,
+      "width": 479,
+      "height": 642,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-031",
+    "fold": 2,
+    "group": 25,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.61149,
+    "scores": {
+      "mechanical": 0.47409,
+      "coating": 0.37157
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9437,
+      "sharpness": 872.88,
+      "brightness": 99.16,
+      "contrast": 81.71,
+      "area_fraction": null,
+      "width": 811,
+      "height": 1079,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-032",
+    "fold": 0,
+    "group": 28,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 1,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.51356,
+    "scores": {
+      "mechanical": 0.37532,
+      "coating": 0.15394
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 1.0,
+      "sharpness": 1108.83,
+      "brightness": 127.99,
+      "contrast": 77.94,
+      "area_fraction": null,
+      "width": 560,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-033",
+    "fold": 1,
+    "group": 32,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.82259,
+    "scores": {
+      "mechanical": 0.46232,
+      "coating": 0.86162
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.86162
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9558,
+      "sharpness": 1252.4,
+      "brightness": 105.37,
+      "contrast": 80.01,
+      "area_fraction": null,
+      "width": 864,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-034",
+    "fold": 0,
+    "group": 33,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.71838,
+    "scores": {
+      "mechanical": 0.1498,
+      "coating": 0.5151
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.5151
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.8965,
+      "sharpness": 1814.47,
+      "brightness": 180.99,
+      "contrast": 84.36,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-035",
+    "fold": 0,
+    "group": 34,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.85285,
+    "scores": {
+      "mechanical": 0.29509,
+      "coating": 0.93367
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.93367
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9966,
+      "sharpness": 812.01,
+      "brightness": 126.26,
+      "contrast": 70.42,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-036",
+    "fold": 3,
+    "group": 35,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.60594,
+    "scores": {
+      "mechanical": 0.25973,
+      "coating": 0.65982
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.65982
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9706,
+      "sharpness": 366.7,
+      "brightness": 143.07,
+      "contrast": 67.27,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-037",
+    "fold": 4,
+    "group": 36,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.73778,
+    "scores": {
+      "mechanical": 0.35124,
+      "coating": 0.85348
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.85348
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9808,
+      "sharpness": 708.25,
+      "brightness": 118.16,
+      "contrast": 58.58,
+      "area_fraction": null,
+      "width": 691,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-038",
+    "fold": 2,
+    "group": 37,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.5446,
+    "scores": {
+      "mechanical": 0.52942,
+      "coating": 0.53118
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.52942
+      },
+      {
+        "code": "coating",
+        "score": 0.53118
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9975,
+      "sharpness": 1434.49,
+      "brightness": 129.29,
+      "contrast": 66.05,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-039",
+    "fold": 4,
+    "group": 38,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.60525,
+    "scores": {
+      "mechanical": 0.54742,
+      "coating": 0.86431
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.54742
+      },
+      {
+        "code": "coating",
+        "score": 0.86431
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.98,
+      "sharpness": 1004.51,
+      "brightness": 117.74,
+      "contrast": 58.13,
+      "area_fraction": null,
+      "width": 691,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-040",
+    "fold": 1,
+    "group": 39,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.6477,
+    "scores": {
+      "mechanical": 0.4893,
+      "coating": 0.75673
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.75673
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9006,
+      "sharpness": 430.3,
+      "brightness": 77.09,
+      "contrast": 72.09,
+      "area_fraction": null,
+      "width": 1153,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-041",
+    "fold": 3,
+    "group": 35,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.64213,
+    "scores": {
+      "mechanical": 0.10955,
+      "coating": 0.66781
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.66781
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9702,
+      "sharpness": 301.57,
+      "brightness": 143.25,
+      "contrast": 61.47,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-042",
+    "fold": 2,
+    "group": 41,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.69033,
+    "scores": {
+      "mechanical": 0.5575,
+      "coating": 0.86694
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.5575
+      },
+      {
+        "code": "coating",
+        "score": 0.86694
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9871,
+      "sharpness": 966.15,
+      "brightness": 121.4,
+      "contrast": 52.15,
+      "area_fraction": null,
+      "width": 864,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-043",
+    "fold": 0,
+    "group": 42,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.77995,
+    "scores": {
+      "mechanical": 0.80149,
+      "coating": 0.72158
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.80149
+      },
+      {
+        "code": "coating",
+        "score": 0.72158
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9998,
+      "sharpness": 910.3,
+      "brightness": 127.91,
+      "contrast": 61.25,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 985,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-044",
+    "fold": 1,
+    "group": 43,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.59891,
+    "scores": {
+      "mechanical": 0.42381,
+      "coating": 0.45403
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9814,
+      "sharpness": 1460.24,
+      "brightness": 137.53,
+      "contrast": 67.82,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 864,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-045",
+    "fold": 1,
+    "group": 44,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.81327,
+    "scores": {
+      "mechanical": 0.39989,
+      "coating": 0.43069
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9884,
+      "sharpness": 727.56,
+      "brightness": 133.93,
+      "contrast": 54.84,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-046",
+    "fold": 3,
+    "group": 45,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.5126,
+    "scores": {
+      "mechanical": 0.13812,
+      "coating": 0.16176
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9474,
+      "sharpness": 981.36,
+      "brightness": 154.92,
+      "contrast": 71.24,
+      "area_fraction": null,
+      "width": 907,
+      "height": 1206,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-047",
+    "fold": 4,
+    "group": 36,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.61903,
+    "scores": {
+      "mechanical": 0.48913,
+      "coating": 0.64326
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.64326
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.8541,
+      "sharpness": 617.08,
+      "brightness": 202.71,
+      "contrast": 63.34,
+      "area_fraction": null,
+      "width": 863,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-048",
+    "fold": 2,
+    "group": 47,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.56743,
+    "scores": {
+      "mechanical": 0.47848,
+      "coating": 0.57188
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.57188
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.985,
+      "sharpness": 1243.3,
+      "brightness": 135.66,
+      "contrast": 70.36,
+      "area_fraction": null,
+      "width": 691,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-049",
+    "fold": 2,
+    "group": 48,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.5109,
+    "scores": {
+      "mechanical": 0.27443,
+      "coating": 0.27184
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9602,
+      "sharpness": 889.5,
+      "brightness": 148.38,
+      "contrast": 77.04,
+      "area_fraction": null,
+      "width": 1157,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-050",
+    "fold": 4,
+    "group": 49,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.74666,
+    "scores": {
+      "mechanical": 0.27238,
+      "coating": 0.96504
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.96504
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9824,
+      "sharpness": 909.03,
+      "brightness": 137.01,
+      "contrast": 55.26,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 695,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-051",
+    "fold": 0,
+    "group": 50,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.6431,
+    "scores": {
+      "mechanical": 0.71815,
+      "coating": 0.52448
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.71815
+      },
+      {
+        "code": "coating",
+        "score": 0.52448
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9778,
+      "sharpness": 567.85,
+      "brightness": 139.35,
+      "contrast": 72.14,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-052",
+    "fold": 3,
+    "group": 51,
+    "truth": {
+      "telecom": 1,
+      "mechanical": 0,
+      "coating": 1
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.82003,
+    "scores": {
+      "mechanical": 0.09546,
+      "coating": 0.70167
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.70167
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9418,
+      "sharpness": 1293.04,
+      "brightness": 157.81,
+      "contrast": 66.07,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-053",
+    "fold": 0,
+    "group": 52,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.58273,
+    "scores": {
+      "mechanical": 0.69054,
+      "coating": 0.212
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.69054
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9748,
+      "sharpness": 6381.15,
+      "brightness": 115.1,
+      "contrast": 54.7,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-054",
+    "fold": 3,
+    "group": 53,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.68596,
+    "scores": {
+      "mechanical": 0.36766,
+      "coating": 0.35352
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9983,
+      "sharpness": 901.83,
+      "brightness": 128.87,
+      "contrast": 72.89,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-055",
+    "fold": 4,
+    "group": 54,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.81304,
+    "scores": {
+      "mechanical": 0.55253,
+      "coating": 0.39841
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.55253
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9928,
+      "sharpness": 728.13,
+      "brightness": 124.34,
+      "contrast": 61.28,
+      "area_fraction": null,
+      "width": 747,
+      "height": 1328,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-056",
+    "fold": 3,
+    "group": 55,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.6474,
+    "scores": {
+      "mechanical": 0.22794,
+      "coating": 0.53287
+    },
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.53287
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.8956,
+      "sharpness": 504.13,
+      "brightness": 74.56,
+      "contrast": 55.62,
+      "area_fraction": null,
+      "width": 1536,
+      "height": 1152,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-057",
+    "fold": 1,
+    "group": 56,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.62005,
+    "scores": {
+      "mechanical": 0.86709,
+      "coating": 0.22363
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.86709
+      }
+    ],
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9699,
+      "sharpness": 1500.39,
+      "brightness": 112.61,
+      "contrast": 75.5,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-058",
+    "fold": 0,
+    "group": 57,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.54955,
+    "scores": {
+      "mechanical": 0.596,
+      "coating": 0.42312
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.596
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9852,
+      "sharpness": 456.58,
+      "brightness": 120.41,
+      "contrast": 78.63,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-059",
+    "fold": 4,
+    "group": 58,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.84537,
+    "scores": {
+      "mechanical": 0.6838,
+      "coating": 0.47235
+    },
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.6838
+      }
+    ],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9871,
+      "sharpness": 645.77,
+      "brightness": 121.39,
+      "contrast": 60.0,
+      "area_fraction": null,
+      "width": 747,
+      "height": 1328,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-060",
+    "fold": 2,
+    "group": 59,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.52038,
+    "scores": {
+      "mechanical": 0.29184,
+      "coating": 0.35195
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9884,
+      "sharpness": 1600.13,
+      "brightness": 122.06,
+      "contrast": 46.29,
+      "area_fraction": null,
+      "width": 1152,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-061",
+    "fold": 1,
+    "group": 60,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "distribution_board",
+    "object_type_score": 0.66686,
+    "scores": {
+      "mechanical": 0.46801,
+      "coating": 0.16972
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9772,
+      "sharpness": 1834.7,
+      "brightness": 116.33,
+      "contrast": 50.48,
+      "area_fraction": null,
+      "width": 864,
+      "height": 1536,
+      "reasons": []
+    }
+  },
+  {
+    "image_id": "DSS-062",
+    "fold": 2,
+    "group": 61,
+    "truth": {
+      "telecom": 0,
+      "mechanical": 0,
+      "coating": 0
+    },
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.53757,
+    "scores": {
+      "mechanical": 0.34052,
+      "coating": 0.20221
+    },
+    "findings": [],
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
+    "quality": {
+      "ok": true,
+      "score": 0.9719,
+      "sharpness": 3880.85,
+      "brightness": 142.37,
+      "contrast": 63.02,
+      "area_fraction": null,
+      "width": 863,
+      "height": 1536,
+      "reasons": []
+    }
+  }
+]

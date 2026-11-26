@@ -1,0 +1,10 @@
+{
+  "labeled": 61,
+  "groups": 52,
+  "folds": 5,
+  "defectMacroF1": 0.6938775510204082,
+  "baselineMacroF1": 0.5725,
+  "damageRecall": 0.8536585365853658,
+  "priorityDamage": 10,
+  "priorityTotal": 11
+}

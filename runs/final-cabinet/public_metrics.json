@@ -1,0 +1,184 @@
+{
+  "labeled": 61,
+  "unlabeled": 1,
+  "total": 62,
+  "dual": 3,
+  "groups": 52,
+  "folds": 5,
+  "gps_exif": 2,
+  "label_counts": {
+    "telecom": 30,
+    "mechanical": 21,
+    "coating": 23
+  },
+  "model": {
+    "name": "DINOv2 × SigLIP 2 · три независимые головы",
+    "validation": "5 внешних групповых OOF-фолдов, три лучшие модели каждой головы по 3 внутренним фолдам",
+    "macroF1": 0.6938775510204082,
+    "signalMetrics": [
+      {
+        "code": "telecom",
+        "label": "ТКШ",
+        "tp": 22,
+        "fp": 10,
+        "fn": 8,
+        "tn": 21,
+        "precision": 0.6875,
+        "recall": 0.7333333333333333,
+        "f1": 0.7096774193548387,
+        "accuracy": 0.7049180327868853
+      },
+      {
+        "code": "mechanical",
+        "label": "Механическое повреждение",
+        "tp": 17,
+        "fp": 11,
+        "fn": 4,
+        "tn": 29,
+        "precision": 0.6071428571428571,
+        "recall": 0.8095238095238095,
+        "f1": 0.6938775510204082,
+        "accuracy": 0.7540983606557377
+      },
+      {
+        "code": "coating",
+        "label": "Дефект ЛКП",
+        "tp": 17,
+        "fp": 9,
+        "fn": 6,
+        "tn": 29,
+        "precision": 0.6538461538461539,
+        "recall": 0.7391304347826086,
+        "f1": 0.6938775510204082,
+        "accuracy": 0.7540983606557377
+      }
+    ],
+    "features": {
+      "telecom": [
+        "siglip_multi",
+        "mobile",
+        "siglip_dino"
+      ],
+      "mechanical": [
+        "hybrid",
+        "multiscale",
+        "siglip"
+      ],
+      "coating": [
+        "siglip_multi",
+        "siglip",
+        "siglip_dino"
+      ]
+    }
+  },
+  "metrics": {
+    "telecom": {
+      "tp": 22,
+      "fp": 10,
+      "fn": 8,
+      "tn": 21,
+      "precision": 0.6875,
+      "recall": 0.7333333333333333,
+      "f1": 0.7096774193548387,
+      "accuracy": 0.7049180327868853
+    },
+    "mechanical": {
+      "tp": 17,
+      "fp": 11,
+      "fn": 4,
+      "tn": 29,
+      "precision": 0.6071428571428571,
+      "recall": 0.8095238095238095,
+      "f1": 0.6938775510204082,
+      "accuracy": 0.7540983606557377
+    },
+    "coating": {
+      "tp": 17,
+      "fp": 9,
+      "fn": 6,
+      "tn": 29,
+      "precision": 0.6538461538461539,
+      "recall": 0.7391304347826086,
+      "f1": 0.6938775510204082,
+      "accuracy": 0.7540983606557377
+    },
+    "any_damage": {
+      "tp": 35,
+      "fp": 11,
+      "fn": 6,
+      "tn": 9,
+      "precision": 0.7608695652173914,
+      "recall": 0.8536585365853658,
+      "f1": 0.8045977011494253,
+      "accuracy": 0.7213114754098361
+    },
+    "object_macro_f1": 0.7048387096774194,
+    "defect_macro_f1": 0.6938775510204082,
+    "defect_exact_match": 0.5409836065573771
+  },
+  "baseline": {
+    "telecom": {
+      "tp": 22,
+      "fp": 15,
+      "fn": 8,
+      "tn": 16,
+      "precision": 0.5945945945945946,
+      "recall": 0.7333333333333333,
+      "f1": 0.6567164179104478,
+      "accuracy": 0.6229508196721312
+    },
+    "mechanical": {
+      "tp": 13,
+      "fp": 16,
+      "fn": 8,
+      "tn": 24,
+      "precision": 0.4482758620689655,
+      "recall": 0.6190476190476191,
+      "f1": 0.52,
+      "accuracy": 0.6065573770491803
+    },
+    "coating": {
+      "tp": 15,
+      "fp": 10,
+      "fn": 8,
+      "tn": 28,
+      "precision": 0.6,
+      "recall": 0.6521739130434783,
+      "f1": 0.625,
+      "accuracy": 0.7049180327868853
+    },
+    "any_damage": {
+      "tp": 34,
+      "fp": 12,
+      "fn": 7,
+      "tn": 8,
+      "precision": 0.7391304347826086,
+      "recall": 0.8292682926829268,
+      "f1": 0.7816091954022989,
+      "accuracy": 0.6885245901639344
+    },
+    "object_macro_f1": 0.6192672998643147,
+    "defect_macro_f1": 0.5725,
+    "defect_exact_match": 0.45901639344262296
+  },
+  "policy_oof": {
+    "repair": {
+      "damage": 10,
+      "normal": 1
+    },
+    "inspect": {
+      "damage": 31,
+      "normal": 17
+    },
+    "no_action": {
+      "damage": 0,
+      "normal": 2
+    }
+  },
+  "prediction_counts": {
+    "repair": 35,
+    "inspect": 13,
+    "no_action": 14
+  },
+  "seconds": 25.22
+}
