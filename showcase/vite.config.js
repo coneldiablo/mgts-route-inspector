@@ -17,7 +17,7 @@ function includeFiles(source, destination, files) {
 const predict = join(root, '../browser-ml')
 includeFiles(predict, 'predict', [
   ...readdirSync(predict).filter(file => /\.(?:js|css)$/.test(file)),
-  'index.html', 'heads-v2.json', 'oof-summary.json', 'input-quality-report.json',
+  'index.html', 'hybrid-config.json', 'heads-v2.json', 'oof-summary.json', 'input-quality-report.json',
 ])
 includeFiles(join(predict, 'runtime'), 'predict/runtime', [
   'dino-int8.onnx', 'ort.wasm.min.mjs', 'ort-wasm-simd-threaded.mjs', 'ort-wasm-simd-threaded.wasm',

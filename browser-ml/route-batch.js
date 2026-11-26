@@ -1,6 +1,6 @@
 import {condition,recommendation} from './order-state.js';
 // Route metadata contains no images. Confirmed work and coordinates are read from the current card at export.
-import {listOrders, showOrder} from './workorder.js';
+import {listOrders, showOrder} from './workorder.js?v=20261126-hybrid1';
 
 const prefix = 'mgts-route-report-v1/';
 const temporary = new Map();

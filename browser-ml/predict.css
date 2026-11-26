@@ -129,7 +129,7 @@ button, summary { cursor: pointer; }
     align-content: space-between;
   }
   #input .route-field input { width: 100%; min-height: 54px; border-radius: 8px; }
-  #analyze { grid-area: 2 / 3; min-height: 54px; }
+  #analyze { grid-column: 3; align-self: end; min-height: 54px; }
 }
 .wo { --wo-blue: #134074; font-variant-numeric: tabular-nums; }
 .wo-signal h4 { line-height: 1.35; }
@@ -141,4 +141,24 @@ button, summary { cursor: pointer; }
 @media (max-width: 680px) {
   .wo-button, .wo-history summary, .wo-compare summary, .wo-field select, .wo-field input { min-height: 44px; }
   .wo-identity { align-items: center; min-height: 44px; }
+}
+
+#input .analysis-options {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 22px;
+  margin: 2px 0 0; padding: 8px 0 0; border: 0; min-inline-size: 0;
+}
+.analysis-options legend { color: var(--navy); font-size: .91rem; font-weight: 700; padding: 0; }
+#input .analysis-options label { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; font-size: .94rem; cursor: pointer; }
+.analysis-options input { accent-color: var(--navy); width: 17px; height: 17px; margin: 0; }
+.analysis-disclosure { grid-column: 1 / -1; margin: 0; max-width: 78ch; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+#input > #analyze { justify-self: start; }
+.wo-analysis { margin: 0 0 16px; padding: 12px 15px; border-radius: 8px; background: #edf5fa; overflow-wrap: anywhere; }
+.wo .wo-analysis h3 { margin: 0 0 3px; color: var(--navy); font-size: .94rem; }
+.wo .wo-analysis p { font-size: .83rem; margin: 2px 0; }
+.wo-sources { display: flex; flex-wrap: wrap; gap: 5px 14px; margin: 6px 0 8px; font-size: .76rem; }
+.wo-sources div { display: grid; gap: 1px; }
+.wo-sources dt { color: var(--muted); }
+.wo-sources dd { margin: 0; font-weight: 720; color: var(--navy); }
+@media (min-width: 820px) {
+  #input .analysis-disclosure { grid-column: 1 / 3; align-self: center; }
 }

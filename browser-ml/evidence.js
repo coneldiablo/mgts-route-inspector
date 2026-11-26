@@ -1,3 +1,4 @@
+import {modeNames} from './hybrid.js?v=20261126-hybrid1';
 import {condition,recommendation} from './order-state.js';
 // Legacy cards predate evidence identifiers. Their latest post-repair image is the only possible receipt.
 export function evidenceId(entry) {
@@ -56,7 +57,14 @@ export async function downloadReport(order,signals,views) {
   append(body,'p','Рекомендация: '+recommendation(order));
   if(order.routeName)append(body,'p','Рейс: '+order.routeName);
   if(order.assetId)append(body,'p','ID оборудования: '+order.assetId);
+  if(order.mode)append(body,'p',modeNames[order.mode]);
   if(order.model_version)append(body,'p','Модель: '+order.model_version);
+  if(order.analysis) {
+    append(body,'p','Локальная модель сервера · '+order.analysis.local.model);
+    if(order.analysis.cloud.model)append(body,'p',(order.mode==='hybrid'?'Ответ Google Vertex AI · ':'Запрошенная облачная модель · ')+order.analysis.cloud.model);
+    if(order.mode==='hybrid')append(body,'p','Вклад локальной и облачной моделей · '+Math.round(order.analysis.weights.local*100)+'% / '+Math.round(order.analysis.weights.cloud*100)+'%');
+  }
+  if(order.modeDetail)append(body,'p',order.modeDetail);
   append(body,'p',order.location?'Положение объекта (WGS84, введено мастером): '+order.location.lat+', '+order.location.lon:'Положение объекта не указано.');
   const figures=new Map();
   async function photo(e,caption) {
@@ -79,6 +87,11 @@ export async function downloadReport(order,signals,views) {
   for(const [key,sig] of Object.entries(signals)){
     const state=order.signals[key],sec=append(body,'section');append(sec,'h3',sig.title);
     if(Number.isFinite(order.scores[key]))append(sec,'p','Оценка модели: '+(100*order.scores[key]).toFixed(1).replace('.',',')+'%');
+    if(order.analysis) {
+      const pct=value=>new Intl.NumberFormat('ru-RU',{style:'percent',maximumFractionDigits:1}).format(value);
+      append(sec,'p','Локальная оценка · '+pct(order.analysis.local.scores[key]));
+      append(sec,'p',order.mode==='hybrid'?'Облачная оценка · '+pct(order.analysis.cloud.scores[key]):'Облачная оценка отсутствует');
+    }
     const region=strongestRegion(order,key);if(region)append(sec,'p','Наибольший вклад в оценку: '+regionName(region)+' исходного кадра.');
     append(sec,'p',sig.task);
     append(sec,'p','Решение мастера: '+({pending:'ожидает проверки',confirmed:'работа подтверждена',dismissed:'признак снят'}[state.decision]));

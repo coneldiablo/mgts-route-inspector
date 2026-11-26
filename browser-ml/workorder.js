@@ -1,6 +1,7 @@
+import {modeNames} from './hybrid.js?v=20261126-hybrid1'
 import {condition,recommendation} from './order-state.js'
 import {assessInputQuality} from './input-quality.js'
-import {allAfter, croppedCanvas, downloadReport, evidenceId, previousRetakes, receiptFor, regionName, strongestRegion} from './evidence.js'
+import {allAfter, croppedCanvas, downloadReport, evidenceId, previousRetakes, receiptFor, regionName, strongestRegion} from './evidence.js?v=20261126-hybrid1'
 
 const DATABASE = 'mgts-browser-work-orders'
 const STORE = 'orders'
@@ -184,6 +185,40 @@ function photoPane(host) {
   return pane
 }
 
+function analysisPane(order) {
+  const section = node('section', 'wo-analysis')
+  section.append(node('h3', '', modeNames[order.mode] || 'Сведения о модели'))
+  if (order.analysis) {
+    section.append(node('p', '', 'Локальная модель сервера · ' + order.analysis.local.model))
+    if (order.analysis.cloud.model) {
+      const label = order.mode === 'hybrid' ? 'Ответ Google Vertex AI' : 'Запрошенная облачная модель'
+      section.append(node('p', '', label + ' · ' + order.analysis.cloud.model))
+    }
+    if (order.mode === 'hybrid') {
+      const {local, cloud} = order.analysis.weights
+      section.append(node('p', '', 'Вклад в итог · ' + percent.format(local) + ' локальная модель / ' + percent.format(cloud) + ' облачная'))
+    }
+  } else if (order.model_version) {
+    section.append(node('p', '', order.model_version))
+  }
+  if (order.modeDetail) section.append(node('p', '', order.modeDetail))
+  return section
+}
+
+function scoreBreakdown(order, key) {
+  const list = node('dl', 'wo-sources')
+  for (const [label, value] of [
+    ['Локальная', order.analysis.local.scores[key]],
+    ['Облачная', order.mode === 'hybrid' ? order.analysis.cloud.scores[key] : null],
+    ['Итог', order.scores[key]],
+  ]) {
+    const item = node('div')
+    item.append(node('dt', '', label), node('dd', '', Number.isFinite(value) ? percent.format(value) : 'Нет оценки'))
+    list.append(item)
+  }
+  return list
+}
+
 function signalPane(host) {
   const pane = node('div', 'wo-signals')
   pane.append(node('h3', '', 'Работы по каждому признаку'))
@@ -194,7 +229,9 @@ function signalPane(host) {
     const heading = node('div', 'wo-signal-title')
     heading.append(node('span', `wo-signal-code wo-${key}`, signal.code), node('h4', '', signal.title))
     if (Number.isFinite(score)) heading.append(node('span', 'wo-score', percent.format(score)))
-    card.append(heading, node('p', '', signal.task))
+    card.append(heading)
+    if (host.order.analysis) card.append(scoreBreakdown(host.order, key))
+    card.append(node('p', '', signal.task))
     if (strongestRegion(host.order,key)) card.append(pressedButton('Показать фрагмент',host.region===key,()=>{
       host.region=host.region===key?null:key;host.archiveId=null;host.photo='before';render(host)
     }))
@@ -584,7 +621,9 @@ async function render(host) {
   const note = node('p', 'wo-muted wo-storage', storageNote(host))
   note.dataset.storageNote = ''
   note.setAttribute('aria-live', 'polite')
-  card.append(header, main, followUp, locationPane(host), note)
+  card.append(header)
+  if (host.order.mode || host.order.model_version) card.append(analysisPane(host.order))
+  card.append(main, followUp, locationPane(host), note)
   host.container.hidden = false
   host.container.replaceChildren(card)
   if (focusInside) {
@@ -622,7 +661,7 @@ function automaticRequest(scores) {
   return { signal, view, source: 'model', score: scores[signal] }
 }
 
-export async function openOrder(container, { object_type, scores, filename, image, regions, model_version, routeName }) {
+export async function openOrder(container, { object_type, scores, filename, image, regions, model_version, routeName, mode, modeDetail, analysis, object_type_score }) {
   const timestamp = Date.now()
   const id = `ОСМ-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
   const safeScore = (value) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : null
@@ -631,6 +670,7 @@ export async function openOrder(container, { object_type, scores, filename, imag
     id,
     object_type: String(object_type || 'Шкаф'),
     scores: normalizedScores, regions:regions||{}, model_version, routeName:routeName||'',
+    mode, modeDetail, analysis, object_type_score: safeScore(object_type_score),
     retakeHistory:[],afterHistory:[],
     createdAt: timestamp,
     updatedAt: timestamp,
