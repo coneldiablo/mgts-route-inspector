@@ -1,7 +1,50 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Распознать шкаф · Маршрутный осмотр МГТС</title><link rel="stylesheet" href="workorder.css"><link rel="stylesheet" href="predict.css"></head>
-<body><nav><a href="../">← Маршрутный осмотр</a><a href="https://github.com/coneldiablo/mgts-route-inspector/blob/main/docs/FINAL.md">Документация ↗</a></nav><main>
-<header><span>МГТС / Компьютерное зрение</span><h1>Распознать шкаф</h1><p>Выберите фотографию РЩ или ТКШ. Модель оценит механическое повреждение и состояние покрытия, а вы сможете проверить каждое замечание.</p></header>
-<form id="input"><label for="photo">Фотография шкафа</label><input type="file" id="photo" accept="image/jpeg,image/png,image/webp" required><button id="analyze">Распознать фото</button><div class="hint">JPEG, PNG или WebP · до 20 МБ. Анализ выполняется на вашем устройстве.</div></form>
-<div id="status" role="status" aria-live="polite"></div><section id="order"></section>
-<details class="about"><summary>О браузерной модели</summary><p>DINOv2 Small в формате INT8 анализирует четыре перекрывающиеся области кадра. Три независимые оценки дают тип шкафа и два признака повреждения. При оценке дефекта от 0,40 до 0,60 карточка автоматически запрашивает крупный план нужной зоны. Для работы модели в кадре должен быть шкаф.</p><p>На 61 размеченном кадре, в пяти групповых фолдах, модель обнаружила хотя бы один признак на 37 из 41 повреждённых кадров. Среднее F1 двух дефектов составило 0,679 против 0,585 у исходной браузерной модели. <a href="./oof-summary.json">Результаты и повторные разбиения</a>.</p></details>
-</main><script type="module" src="./upload.js"></script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#134074">
+  <title>Распознать шкаф · Маршрутный осмотр МГТС</title>
+  <link rel="stylesheet" href="./workorder.css">
+  <link rel="stylesheet" href="./predict.css">
+  <link rel="stylesheet" href="./route-batch.css">
+</head>
+<body>
+  <nav class="site-links" aria-label="Навигация по маршруту">
+    <a href="../">← К маршруту</a>
+    <div>
+      <a href="../registry/">Реестр поездки</a>
+      <a href="https://github.com/coneldiablo/mgts-route-inspector/blob/main/docs/FINAL.md">Документация ↗</a>
+    </div>
+  </nav>
+  <main>
+    <header class="predict-header">
+      <div>
+        <span class="product-label">МГТС / Москва · РЩ и ТКШ</span>
+        <h1>Распознать шкаф</h1>
+        <p>Выберите один снимок или весь рейс. Модель оценит корпус и покрытие каждого шкафа. Проверьте признаки и назначьте работы в карточке осмотра.</p>
+      </div>
+      <aside class="field-guide" aria-label="Подсказка к осмотру">
+        <img src="../assets/mascot.svg" width="108" height="108" alt="">
+        <div><strong>Контур · осмотр</strong><p>Снимайте шкаф целиком. Оставьте в кадре дверь, петли и покрытие.</p></div>
+      </aside>
+    </header>
+    <form id="input">
+      <label for="photo">Фотографии шкафов</label>
+      <input type="file" id="photo" multiple accept="image/jpeg,image/png,image/webp" aria-describedby="upload-hint" required>
+      <div class="route-field"><label for="route-name">Название рейса <small>(необязательно)</small></label><input id="route-name" type="text" maxlength="80" list="route-names" placeholder="Например, утренний выезд"><datalist id="route-names"></datalist></div>
+      <button id="analyze">Распознать фото</button>
+      <div class="hint" id="upload-hint">JPEG, PNG или WebP · до 20 МБ. Анализ выполняется на вашем устройстве.</div>
+    </form>
+    <div id="status" role="status" aria-live="polite"></div>
+    <section id="route-results" hidden aria-label="Итоги рейса"></section>
+    <section id="order" aria-label="Результат осмотра"></section>
+    <details class="about">
+      <summary>О браузерной модели</summary>
+      <p>DINOv2 Small в формате INT8 анализирует четыре перекрывающиеся области кадра. Три независимые оценки дают тип шкафа и два признака повреждения. При оценке дефекта от 0,40 до 0,60 карточка автоматически запрашивает крупный план нужной зоны. Для работы модели в кадре должен быть шкаф.</p>
+      <p>На 61 размеченном кадре в пяти групповых фолдах браузерная модель обнаружила хотя бы один признак на 37 из 41 повреждённого кадра. Среднее F1 двух дефектов составило 0,679 против 0,585 у исходной браузерной модели. <a href="./oof-summary.json">Результаты и повторные разбиения</a>.</p>
+    </details>
+  </main>
+  <script type="module" src="./upload.js"></script>
+</body>
+</html>

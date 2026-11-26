@@ -1,3 +1,4 @@
+import {condition,recommendation} from './order-state.js';
 // Legacy cards predate evidence identifiers. Their latest post-repair image is the only possible receipt.
 export function evidenceId(entry) {
   if (!entry) return null;
@@ -51,6 +52,10 @@ export async function downloadReport(order,signals,views) {
   const body=report.body,dt=new Intl.DateTimeFormat('ru',{dateStyle:'short',timeStyle:'short'});
   append(body,'h1','Акт осмотра '+order.id);
   append(body,'p',order.object_type+' · Осмотр от '+dt.format(order.createdAt));
+  append(body,'p','Состояние по фото: '+condition(order));
+  append(body,'p','Рекомендация: '+recommendation(order));
+  if(order.routeName)append(body,'p','Рейс: '+order.routeName);
+  if(order.assetId)append(body,'p','ID оборудования: '+order.assetId);
   if(order.model_version)append(body,'p','Модель: '+order.model_version);
   append(body,'p',order.location?'Положение объекта (WGS84, введено мастером): '+order.location.lat+', '+order.location.lon:'Положение объекта не указано.');
   const figures=new Map();

@@ -1,3 +1,4 @@
+import {condition,recommendation} from './order-state.js'
 import {assessInputQuality} from './input-quality.js'
 import {allAfter, croppedCanvas, downloadReport, evidenceId, previousRetakes, receiptFor, regionName, strongestRegion} from './evidence.js'
 
@@ -465,6 +466,16 @@ function locationPane(host) {
     node('h3', '', 'Координаты шкафа'),
     node('p', 'wo-muted', location ? 'Источник координат · ручная привязка, WGS84' : 'Местоположение неизвестно. Введите широту и долготу шкафа в WGS84.'),
   )
+  const identity = node('form','wo-form')
+  const asset = node('input')
+  asset.maxLength = 80
+  asset.value = host.order.assetId || ''
+  const save = node('button','wo-button','Сохранить ID')
+  save.type='submit'
+  const saved=node('span','wo-muted',host.order.assetId ? 'ID сохранён' : '')
+  identity.append(field('ID оборудования из реестра',asset),save,saved)
+  identity.onsubmit=async event=>{event.preventDefault();await mutate(host,order=>{order.assetId=asset.value.trim()})}
+  pane.append(identity)
   const form = node('form', 'wo-form wo-coordinate-form')
   const latitude = node('input')
   const longitude = node('input')
@@ -556,6 +567,9 @@ async function render(host) {
   const titleHeading = node('h2', '', `${host.order.object_type} · ${host.order.id}`)
   titleHeading.tabIndex = -1
   title.append(node('span', 'wo-eyebrow', 'КАРТОЧКА ОСМОТРА'), titleHeading)
+  title.append(node('p','wo-summary','Состояние по фото · '+condition(host.order)),node('p','wo-muted','Рекомендация · '+recommendation(host.order)))
+  if(host.order.routeName)title.append(node('p','wo-muted','Рейс · '+host.order.routeName))
+  if(host.order.assetId)title.append(node('p','wo-muted','Оборудование · '+host.order.assetId))
   const exportButton=button('Скачать акт осмотра',async()=>{
     exportButton.disabled=true
     try {await downloadReport(host.order,SIGNALS,VIEWS)}
@@ -608,7 +622,7 @@ function automaticRequest(scores) {
   return { signal, view, source: 'model', score: scores[signal] }
 }
 
-export async function openOrder(container, { object_type, scores, filename, image, regions, model_version }) {
+export async function openOrder(container, { object_type, scores, filename, image, regions, model_version, routeName }) {
   const timestamp = Date.now()
   const id = `ОСМ-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
   const safeScore = (value) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : null
@@ -616,7 +630,7 @@ export async function openOrder(container, { object_type, scores, filename, imag
   const order = {
     id,
     object_type: String(object_type || 'Шкаф'),
-    scores: normalizedScores, regions:regions||{}, model_version,
+    scores: normalizedScores, regions:regions||{}, model_version, routeName:routeName||'',
     retakeHistory:[],afterHistory:[],
     createdAt: timestamp,
     updatedAt: timestamp,
@@ -630,6 +644,18 @@ export async function openOrder(container, { object_type, scores, filename, imag
   const host = mount(container, order)
   await persist(host)
   await render(host)
+  return order.id
+}
+
+export async function listOrders() {
+  return loadHistory()
+}
+
+export async function showOrder(container,id) {
+  const order=(await loadHistory()).find(entry=>entry.id===id)
+  if (!order) return false
+  await render(mount(container,structuredClone(order)))
+  return true
 }
 
 export async function restoreOrder(container) {

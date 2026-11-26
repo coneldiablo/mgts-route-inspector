@@ -1,49 +1,50 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f5f9fc" />
-  <meta name="description" content="Интерактивный прототип маршрутного осмотра шкафов МГТС для хакатона «Код Города»." />
-  <title>Маршрутный осмотр · МГТС</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/mark-yqKvj8Gc.svg" />
-  <script type="module" crossorigin src="./assets/index-LUZUguHs.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-ftWdmKMp.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#091c30"><meta name="description" content="Маршрутный осмотр шкафов РЩ и ТКШ в Москве. Распознавание фото, задания мастеру и приёмка работ.">
+  <title>Контур · Маршрутный осмотр МГТС</title>
+  <link rel="icon" href="/mgts-route-inspector/assets/mgts-YMJACeGL.svg" type="image/svg+xml">
+  <script type="module" crossorigin src="/mgts-route-inspector/assets/index-D2SBR8OW.js"></script>
+  <link rel="stylesheet" crossorigin href="/mgts-route-inspector/assets/index-BdfeVXtK.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Маршрутный осмотр, в начало">
-      <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3e%3crect%20width='48'%20height='48'%20rx='13'%20fill='%230067a7'/%3e%3cpath%20d='M13%2022V14h8m6%200h8v8m0%205v8h-8m-6%200h-8v-8'%20fill='none'%20stroke='%23fff'%20stroke-width='2.5'/%3e%3cpath%20d='m17%2025%204-4%205%205%205-6'%20fill='none'%20stroke='%23fff'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" width="38" height="38" alt="" />
-      <span>Маршрутный осмотр<small>Инфраструктура МГТС</small></span>
-    </a>
-    <nav aria-label="Навигация">
-      <a href="#workbench">Сценарий</a><a href="#model">Модель</a><a href="#materials">Материалы</a>
-    </nav>
-    <a class="source pills" href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Исходный код <span aria-hidden="true">↗</span></a>
-  </header>
-  <main id="top">
-    <section class="intro wrap">
-      <div class="eyebrow"><span class="signal"></span> КОД ГОРОДА · ФИНАЛ МГТС</div>
-      <h1>От снимка<br>до <em>приёмки.</em></h1>
-      <div class="intro-aside">
-        <p>Компьютерное зрение находит видимые повреждения шкафов. Мастер выбирает действия, запрашивает нужный ракурс и проверяет результат ремонта в той же карточке.</p>
-        <div class="intro-links">
-          <a class="button primary" href="#workbench">Пройти сценарий <span aria-hidden="true">↓</span></a>
-          <a class="button" href="./predict/">Распознать своё фото <span aria-hidden="true">↗</span></a>
-        </div>
+  <a class="skip" href="#main">Перейти к рабочей области</a>
+  <div class="night" id="top">
+    <header class="sitebar wrap">
+      <a class="identity" href="#top" aria-label="МГТС Контур, в начало"><img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20id='Layer_2'%20data-name='Layer%202'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201417.25%201417.32'%3e%3cdefs%3e%3cstyle%3e%20.cls-1%20{%20fill:%20%23fff;%20}%20.cls-2%20{%20fill:%20%2357a5d7;%20}%20%3c/style%3e%3c/defs%3e%3cg%20id='Layer_1-2'%20data-name='Layer%201'%3e%3cg%3e%3crect%20class='cls-2'%20y='0'%20width='1417.25'%20height='1417.32'/%3e%3cpath%20class='cls-1'%20d='M446.11,1306.73h-54.65v-226.55l-85.75,226.55h-59.41l-85.32-225.38v225.38h-50.36v-271.37h85.75l83,222.23,83.75-222.23h83v271.37ZM704.9,1080.17h-159.3v226.55h-55.08v-271.37h214.38v44.81ZM1010.22,1080.17h-110.91v226.55h-55.08v-226.55h-110.91v-44.81h276.9v44.81ZM1167.41,1311.42c-95.95,0-150.64-36.58-150.64-140.02s54.69-140.8,150.64-140.8v.04c86.54,0,135.28,25.95,143.16,92.8h-55.44c-7.09-38.94-35.79-49.96-87.72-49.96-57.8,0-95.16,19.25-95.16,83.39v27.52c0,62.92,36.58,84.18,95.16,84.18,49.96,0,79.06-9.45,88.11-46.82h55.44c-9.84,64.1-57.8,89.66-143.55,89.66Z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" width="42" height="42" alt="МГТС"><span>Контур</span></a>
+      <nav aria-label="Основная навигация"><a href="#workbench">Карточка мастера</a><a href="./registry/">Реестр</a><a href="#model">Методика</a></nav>
+      <a class="nav-launch" href="./predict/">Распознать фото <span aria-hidden="true">↗</span></a>
+    </header>
+    <section class="hero" aria-labelledby="hero-title">
+      <picture><source media="(max-width: 680px)" srcset="/mgts-route-inspector/assets/moscow-route-mobile-BTmggZ4G.webp"><img class="hero-scene" src="/mgts-route-inspector/assets/moscow-route-BCRyoEPh.webp" width="1536" height="1024" alt="" fetchpriority="high"></picture>
+      <div class="hero-copy wrap">
+        <p class="kicker"><i></i> МОСКВА <span>/</span> СЕТЕВАЯ ИНФРАСТРУКТУРА</p>
+        <h1 id="hero-title">Маршрутный осмотр<br>шкафов связи</h1>
+        <p class="hero-lead">Снимок РЩ или ТКШ превращается в карточку мастера.<br class="wide-break"> Проверьте дефект, назначьте работы и примите результат.</p>
+        <div class="hero-actions"><a class="cta" href="./predict/">Распознать своё фото <span aria-hidden="true">↗</span></a><a class="cta secondary" href="#workbench">Пройти пример <span aria-hidden="true">↓</span></a></div>
       </div>
+      <div class="hero-foot wrap"><span><i></i> Схема московского выезда</span><a href="#workbench" data-open-case><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='256'%20height='256'%20viewBox='0%200%20256%20256'%20role='img'%20aria-labelledby='title%20desc'%3e%3ctitle%20id='title'%3eКонтур%20—%20осмотр%3c/title%3e%3cdesc%20id='desc'%3eПомощник%20мастера%20с%20оптическим%20визиром,%20оранжевой%20ручкой%20и%20кнопкой%20осмотра%20показывает,%20куда%20направить%20камеру.%3c/desc%3e%3cg%20stroke='%23134074'%20stroke-linejoin='round'%20stroke-linecap='round'%3e%3cg%20stroke-width='9'%20fill='none'%3e%3cpath%20d='M100%20182v24l-12%2012m50-36%207%2025%2016%209'/%3e%3cpath%20d='M78%20142c-16%201-24%2013-23%2027m115-39%2016%206%2018-23'/%3e%3c/g%3e%3cg%20fill='%23008AE0'%20stroke-width='5'%3e%3cpath%20d='m87%20211%2013%204-2%209H71c-1-6%206-11%2016-13Z'/%3e%3cpath%20d='m150%20210%2013%201c9%202%2013%206%2013%2012h-27l-4-6Z'/%3e%3cpath%20d='M47%20165q7-7%2013%200l4%2013-8%206-8-5Z'/%3e%3c/g%3e%3cpath%20d='m195%20115%203-14c1-5%205-6%208-3l1%207%209-15c3-5%209-1%207%203l-7%2017c3%203%201%206-2%209l-7%206Z'%20fill='%23FF7654'%20stroke-width='4'/%3e%3cpath%20d='m78%20130%2074-8%2014%2030-9%2028q-2%209-12%2012l-48%206q-13%201-18-13l-9-31Z'%20fill='%23008AE0'%20stroke-width='5'/%3e%3cpath%20d='m78%20142%2069-9%205%2014-72%2010Z'%20fill='%23FFF'%20stroke='none'/%3e%3cpath%20d='m146%20134%2011%2040%206-22-9-27Z'%20fill='%23134074'%20stroke='none'/%3e%3cg%20transform='rotate(-7%20119%20170)'%3e%3crect%20x='99'%20y='155'%20width='40'%20height='29'%20rx='8'%20fill='%23134074'%20stroke='none'/%3e%3cg%20fill='none'%20stroke='%23FFF'%20stroke-width='3.5'%3e%3ccircle%20cx='116'%20cy='167'%20r='5.5'/%3e%3cpath%20d='m121%20172%205%205'/%3e%3c/g%3e%3c/g%3e%3cg%20transform='rotate(-7%20118%2096)'%3e%3cpath%20d='M80%2064V49c0-14%2011-25%2025-25h16c15%200%2027%2012%2027%2027v8h-14v-9c0-7-5-12-12-12h-18c-6%200-11%205-11%2011v12Z'%20fill='%23FF7654'%20stroke-width='5'/%3e%3cpath%20d='M65%2062h94c13%200%2023%209%2023%2023v29a19%2019%200%200%201-9%2017l-14%208-91-5c-11%200-19-8-19-19V82q0-13%2016-20Z'%20fill='%23008AE0'%20stroke-width='5'/%3e%3cpath%20d='M68%2060h85c12%200%2021%209%2021%2020v39c0%2012-9%2021-21%2021H68c-12%200-21-9-21-21V81c0-12%209-21%2021-21Z'%20fill='%23FFF'%20stroke-width='5'/%3e%3cpath%20d='M64%2081h84c7%200%2012%205%2012%2012v18c0%208-5%2013-13%2013H64c-6%200-10-5-10-11V93c0-7%204-12%2010-12Z'%20fill='%23134074'%20stroke='none'/%3e%3ccircle%20cx='86'%20cy='102'%20r='15'%20fill='%23008AE0'%20stroke='none'/%3e%3ccircle%20cx='88'%20cy='100'%20r='9'%20fill='%23FFF'%20stroke='none'/%3e%3ccircle%20cx='90'%20cy='100'%20r='4'%20fill='%23134074'%20stroke='none'/%3e%3cpath%20d='M124%20102q9%208%2019-1'%20fill='none'%20stroke='%23FFF'%20stroke-width='5'/%3e%3cpath%20d='M59%2071h24'%20fill='none'%20stroke='%23008AE0'%20stroke-width='4'/%3e%3ccircle%20cx='157'%20cy='71'%20r='3.2'%20fill='%23FF7654'%20stroke='none'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="" width="40" height="40"><span><small>Контур · учебный осмотр</small>Открыть ТКШ-014 ↗</span></a></div>
+    </section>
+  </div>
+  <main id="main" tabindex="-1">
+    <div class="route-strip"><div class="wrap route-inner"><div><strong>20–100 км</strong><span>обычный выезд по Москве</span></div><div><strong>РЩ / ТКШ</strong><span>два типа уличных шкафов</span></div><a href="./registry/"><strong>62 снимка <span aria-hidden="true">↗</span></strong><span>обезличенный реестр</span></a></div></div>
+    <section class="work-heading wrap" aria-labelledby="case-heading">
+      <div><p class="kicker blue"><i></i> РАБОЧЕЕ МЕСТО МАСТЕРА</p><h2 id="case-heading">Разберите один шкаф</h2></div>
+      <p>В учебной карточке уже есть кадр с маршрута. Отметьте замечания и проверьте, какие работы можно закрыть.</p>
     </section>
     <section class="workbench wrap" id="workbench" aria-labelledby="bench-title">
       <aside class="casebar">
         <div class="casehead">
-          <p class="eyebrow">ДЕМОНСТРАЦИОННЫЙ ОБЪЕКТ</p>
+          <p class="eyebrow">УЧЕБНЫЙ ОБЪЕКТ</p>
           <h2 id="bench-title">ТКШ-014</h2>
           <p class="brief">Телекоммуникационный шкаф</p>
         </div>
         <nav class="stages" aria-label="Этапы осмотра">
           <button type="button" data-stage="inspect" aria-current="step"><b>01</b><span>Осмотр</span><span aria-hidden="true">↗</span></button>
           <button type="button" data-stage="rephoto"><b>02</b><span>Пересъёмка</span><span aria-hidden="true">↗</span></button>
-          <button type="button" data-stage="accept"><b>03</b><span>Приёмка</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="work"><b>03</b><span>Работы</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="accept"><b>04</b><span>Приёмка</span><span aria-hidden="true">↗</span></button>
         </nav>
         <div class="sidebar-bottom">
           <div class="labelline"><span class="pulse"></span> Один шкаф · два признака</div>
@@ -53,7 +54,7 @@
       <div class="casebody" id="stage-panel" aria-labelledby="stage-title">
         <div class="evidence">
           <div class="viewport" id="viewport">
-            <img id="scene-img" src="./assets/cabinet-C-FtMcsV.svg" alt="Учебное изображение телекоммуникационного шкафа" />
+            <img id="scene-img" src="/mgts-route-inspector/assets/cabinet-C-FtMcsV.svg" alt="Учебное изображение телекоммуникационного шкафа" />
             <button type="button" data-pin="mp" class="marker pin-mp" aria-label="Показать механическое повреждение"><span></span><b>МП</b></button>
             <button type="button" data-pin="paint" class="marker pin-paint" aria-label="Показать повреждение лакокрасочного покрытия"><span></span><b>ЛКП</b></button>
             <div id="image-tag" class="image-tag">ИСХОДНЫЙ СНИМОК</div>
@@ -66,45 +67,36 @@
             </div>
           </div>
         </div>
-        <div class="actions" id="actions"></div>
+        <div class="desk-actions"><div class="guide"><img id="guide-image" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='256'%20height='256'%20viewBox='0%200%20256%20256'%20role='img'%20aria-labelledby='title%20desc'%3e%3ctitle%20id='title'%3eКонтур%20—%20осмотр%3c/title%3e%3cdesc%20id='desc'%3eПомощник%20мастера%20с%20оптическим%20визиром,%20оранжевой%20ручкой%20и%20кнопкой%20осмотра%20показывает,%20куда%20направить%20камеру.%3c/desc%3e%3cg%20stroke='%23134074'%20stroke-linejoin='round'%20stroke-linecap='round'%3e%3cg%20stroke-width='9'%20fill='none'%3e%3cpath%20d='M100%20182v24l-12%2012m50-36%207%2025%2016%209'/%3e%3cpath%20d='M78%20142c-16%201-24%2013-23%2027m115-39%2016%206%2018-23'/%3e%3c/g%3e%3cg%20fill='%23008AE0'%20stroke-width='5'%3e%3cpath%20d='m87%20211%2013%204-2%209H71c-1-6%206-11%2016-13Z'/%3e%3cpath%20d='m150%20210%2013%201c9%202%2013%206%2013%2012h-27l-4-6Z'/%3e%3cpath%20d='M47%20165q7-7%2013%200l4%2013-8%206-8-5Z'/%3e%3c/g%3e%3cpath%20d='m195%20115%203-14c1-5%205-6%208-3l1%207%209-15c3-5%209-1%207%203l-7%2017c3%203%201%206-2%209l-7%206Z'%20fill='%23FF7654'%20stroke-width='4'/%3e%3cpath%20d='m78%20130%2074-8%2014%2030-9%2028q-2%209-12%2012l-48%206q-13%201-18-13l-9-31Z'%20fill='%23008AE0'%20stroke-width='5'/%3e%3cpath%20d='m78%20142%2069-9%205%2014-72%2010Z'%20fill='%23FFF'%20stroke='none'/%3e%3cpath%20d='m146%20134%2011%2040%206-22-9-27Z'%20fill='%23134074'%20stroke='none'/%3e%3cg%20transform='rotate(-7%20119%20170)'%3e%3crect%20x='99'%20y='155'%20width='40'%20height='29'%20rx='8'%20fill='%23134074'%20stroke='none'/%3e%3cg%20fill='none'%20stroke='%23FFF'%20stroke-width='3.5'%3e%3ccircle%20cx='116'%20cy='167'%20r='5.5'/%3e%3cpath%20d='m121%20172%205%205'/%3e%3c/g%3e%3c/g%3e%3cg%20transform='rotate(-7%20118%2096)'%3e%3cpath%20d='M80%2064V49c0-14%2011-25%2025-25h16c15%200%2027%2012%2027%2027v8h-14v-9c0-7-5-12-12-12h-18c-6%200-11%205-11%2011v12Z'%20fill='%23FF7654'%20stroke-width='5'/%3e%3cpath%20d='M65%2062h94c13%200%2023%209%2023%2023v29a19%2019%200%200%201-9%2017l-14%208-91-5c-11%200-19-8-19-19V82q0-13%2016-20Z'%20fill='%23008AE0'%20stroke-width='5'/%3e%3cpath%20d='M68%2060h85c12%200%2021%209%2021%2020v39c0%2012-9%2021-21%2021H68c-12%200-21-9-21-21V81c0-12%209-21%2021-21Z'%20fill='%23FFF'%20stroke-width='5'/%3e%3cpath%20d='M64%2081h84c7%200%2012%205%2012%2012v18c0%208-5%2013-13%2013H64c-6%200-10-5-10-11V93c0-7%204-12%2010-12Z'%20fill='%23134074'%20stroke='none'/%3e%3ccircle%20cx='86'%20cy='102'%20r='15'%20fill='%23008AE0'%20stroke='none'/%3e%3ccircle%20cx='88'%20cy='100'%20r='9'%20fill='%23FFF'%20stroke='none'/%3e%3ccircle%20cx='90'%20cy='100'%20r='4'%20fill='%23134074'%20stroke='none'/%3e%3cpath%20d='M124%20102q9%208%2019-1'%20fill='none'%20stroke='%23FFF'%20stroke-width='5'/%3e%3cpath%20d='M59%2071h24'%20fill='none'%20stroke='%23008AE0'%20stroke-width='4'/%3e%3ccircle%20cx='157'%20cy='71'%20r='3.2'%20fill='%23FF7654'%20stroke='none'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="" width="62" height="62"><div><strong>Контур</strong><p id="guide-tip">Проверьте дверь и покрытие.</p></div></div><div class="actions" id="actions"></div></div>
       </div>
       <button type="button" id="reset-mobile" class="text-button reset-mobile">Сбросить сценарий</button>
       <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
     </section>
+
+    <div class="export-bar wrap"><div><strong>Реестр учебной поездки</strong><p>CSV сохранит решения по двум признакам этой карточки.</p></div><button class="button" id="export-trip" type="button">Скачать CSV <span aria-hidden="true">↓</span></button></div>
+    <details class="opinion wrap" id="opinion"><summary>Открыть мнение Gemini <span aria-hidden="true">＋</span></summary><div><h3>Обезличенный пример из рабочей карточки</h3><p>Запись отдельного серверного запроса Gemini 4 Argon по другому шкафу. Оценки относятся к его исходному снимку. Решение по учебному ТКШ-014 остаётся за мастером.</p><p id="opinion-result" role="status"></p><a href="./registry/argon-example.json">Исходный ответ в JSON ↗</a></div></details>
     <section class="method wrap" id="model" aria-labelledby="model-title">
-      <div class="method-heading">
-        <p class="eyebrow">КОМПЬЮТЕРНОЕ ЗРЕНИЕ</p>
-        <h2 id="model-title">Два признака.<br>Два решения.</h2>
-        <p>МП и ЛКП могут встречаться вместе. Для каждого признака система показывает свою оценку, а мастер подтверждает отдельное действие.</p>
+      <div class="method-heading"><p class="kicker blue"><i></i> ПРОВЕРКА МОДЕЛИ</p><h2 id="model-title">Что видит модель</h2>
+        <p>Для каждого шкафа отдельно оцениваются механические повреждения и дефекты лакокрасочного покрытия. При сомнении нужен ещё один ракурс.</p>
+        <a class="method-link" href="./registry/">Изучить 62 записи <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="method-detail">
-        <div class="numbers" id="numbers" aria-label="Состав размеченного набора">
-          <div><strong>61</strong><span>размеченный снимок</span></div>
-          <div><strong>3</strong><span>с обоими признаками</span></div>
-          <div><strong>2</strong><span>типа шкафов</span></div>
-        </div>
-        <section class="model-check" aria-labelledby="validation-title">
-          <div class="validation-head">
-            <h3 id="validation-title">Проверка на выданных данных</h3>
-            <p id="validation-context"></p>
-          </div>
-          <dl class="validation-results" id="validation-results"></dl>
-        </section>
-        <ul class="steps">
-          <li><b>01</b><div><strong>Отдельные оценки МП и ЛКП</strong><p>Классификация фото РЩ и ТКШ с независимыми выходами для механического повреждения и повреждения покрытия.</p></div></li>
-          <li><b>02</b><div><strong>Целевой запрос ракурса</strong><p>Запрос содержит сторону шкафа и признак, который нужно уточнить. Новый кадр остаётся в исходной карточке.</p></div></li>
-          <li><b>03</b><div><strong>Подтверждение по каждому признаку</strong><p>Фото после ремонта прикладывается к карточке. Остаточный дефект сохраняет своё открытое действие.</p></div></li>
-        </ul>
+      <div class="method-detail"><h3>Три режима распознавания</h3><p id="validation-context"></p><table class="benchmarks"><caption>Macro-F1 двух дефектов</caption><thead><tr><th scope="col">Режим</th><th scope="col">Macro-F1</th></tr></thead><tbody id="modes"></tbody></table><p id="hybrid-check"></p>
+        <h4>Локальная серверная модель v0.4</h4><dl class="validation-results" id="validation-results"></dl>
+        <div class="method-note" id="model-note"></div>
+        <details class="technical"><summary>Как проверяли</summary><p>Похожие кадры объединяли в группы и целиком оставляли в одном из пяти внешних фолдов. Для типа шкафа использовали его выделенную область, для дефектов — признаки изображения. Пользовательские фото в браузере обрабатывает отдельная компактная модель DINOv2. При таймауте облачного запроса гибрид использует локальную оценку. <a href="./registry/public-protocol.json">Открыть протокол Gemini ↗</a></p></details>
       </div>
     </section>
-    <footer class="footer wrap" id="materials">
-      <div><p class="eyebrow">МАТЕРИАЛЫ ПРОТОТИПА</p><h2>От проекта к проверке.</h2></div>
-      <div class="footer-links">
-        <a href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Репозиторий <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/coneldiablo/mgts-route-inspector/releases" target="_blank" rel="noopener">Релизы и модели <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/coneldiablo/mgts-route-inspector/blob/main/docs/FINAL.md" target="_blank" rel="noopener">Локальный запуск ML <span aria-hidden="true">↗</span></a>
-      </div>
-    </footer>
+    <section class="pilot wrap" id="pilot" aria-labelledby="pilot-title">
+      <div class="pilot-head"><p class="kicker blue"><i></i> ПЛАН ПИЛОТА</p><h2 id="pilot-title">Проверка на маршруте</h2><p>На обычном выезде 20–100 км бригада фиксирует шкафы на нескольких площадках. После поездки диспетчер получает перечень для осмотра и ремонта.</p></div>
+      <figure class="field-illustration"><img src="/mgts-route-inspector/assets/field-scene-DnZZqOjn.svg" alt="Учебная схема шкафа на площадке и кабельных каналов под ним" loading="lazy" width="720" height="545"></figure>
+      <ol class="pilot-list">
+        <li><span>01</span><div><h3>Собрать исходные данные</h3><p>Для каждой точки зафиксировать тип шкафа, пригодность кадра и подтверждение места мастером. Повторные кадры связать с той же карточкой.</p></div></li>
+        <li><span>02</span><div><h3>Сравнить с ручным осмотром</h3><p>На тех же точках записать пропуски и ложные тревоги, время разбора и повторные выезды. Бюджет и экономию оценить по итогам пилота.</p></div></li>
+        <li><span>03</span><div><h3>Испытать камеру на машине</h3><p>После проверки на телефоне сравнить качество кадров с автомобильной камеры. Мастер подтверждает замечание и закрытие работ.</p></div></li>
+      </ol>
+    </section>
+    <section class="field-practice wrap" aria-labelledby="practice-title"><h2 id="practice-title">Практики для пилота</h2><article><h3>FirstEnergy</h3><p>Камеры на служебных машинах выявляют признаки повреждений во время поездки. Для Москвы берём первичный отбор шкафов по ходу обычного маршрута.</p><a href="https://www.firstenergycorp.com/newsroom/featured_stories/cameras-with-ai-aim-to-enhance-electric-service-reliability.html">Описание проекта ↗</a></article><article><h3>Nokia</h3><p>Дистанционная приёмка площадки опирается на чек-лист и фотографии. В карточке мастер сверяет каждый пункт с контрольным кадром.</p><a href="https://www.nokia.com/asset/f/214482/#page=7">Remote site acceptance, с. 7 ↗</a></article></section>
+    <footer class="bottom"><div class="wrap"><div class="footer-id"><img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20id='Layer_2'%20data-name='Layer%202'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201417.25%201417.32'%3e%3cdefs%3e%3cstyle%3e%20.cls-1%20{%20fill:%20%23fff;%20}%20.cls-2%20{%20fill:%20%2357a5d7;%20}%20%3c/style%3e%3c/defs%3e%3cg%20id='Layer_1-2'%20data-name='Layer%201'%3e%3cg%3e%3crect%20class='cls-2'%20y='0'%20width='1417.25'%20height='1417.32'/%3e%3cpath%20class='cls-1'%20d='M446.11,1306.73h-54.65v-226.55l-85.75,226.55h-59.41l-85.32-225.38v225.38h-50.36v-271.37h85.75l83,222.23,83.75-222.23h83v271.37ZM704.9,1080.17h-159.3v226.55h-55.08v-271.37h214.38v44.81ZM1010.22,1080.17h-110.91v226.55h-55.08v-226.55h-110.91v-44.81h276.9v44.81ZM1167.41,1311.42c-95.95,0-150.64-36.58-150.64-140.02s54.69-140.8,150.64-140.8v.04c86.54,0,135.28,25.95,143.16,92.8h-55.44c-7.09-38.94-35.79-49.96-87.72-49.96-57.8,0-95.16,19.25-95.16,83.39v27.52c0,62.92,36.58,84.18,95.16,84.18,49.96,0,79.06-9.45,88.11-46.82h55.44c-9.84,64.1-57.8,89.66-143.55,89.66Z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="МГТС" width="38" height="38"><strong>Контур</strong></div><nav aria-label="Материалы"><a href="./predict/">Распознать фото ↗</a><a href="./registry/">Реестр поездки ↗</a><a href="https://github.com/coneldiablo/mgts-route-inspector">Исходный код ↗</a></nav></div></footer>
   </main>
 </body>
 </html>

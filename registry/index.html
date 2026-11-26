@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f7fd">
+  <meta name="description" content="Обезличенный реестр прогнозов прототипа мониторинга инфраструктуры МГТС.">
+  <title>Реестр осмотров · Контур МГТС</title>
+  <link rel="stylesheet" href="./registry.css">
+  <script type="module" src="./registry.js"></script>
+</head>
+<body>
+  <a class="skip" href="#records">Перейти к реестру</a>
+  <header class="top">
+    <div class="shell top-inner">
+      <a href="../" class="brand" aria-label="Контур МГТС · главная">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M12 6H7a1 1 0 0 0-1 1v5m14-6h5a1 1 0 0 1 1 1v5M6 20v5a1 1 0 0 0 1 1h5m14-6v5a1 1 0 0 1-1 1h-5"/><path d="M11 17h3l2-4 2 6 1-2h2"/></svg></span>
+        <span>Контур <strong>МГТС</strong></span>
+      </a>
+      <nav aria-label="Разделы">
+        <a class="nav-home" href="../">О проекте</a>
+        <a class="nav-action" href="../predict/">Распознать фото <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">Мониторинг инфраструктуры</p>
+        <h1 id="title">Реестр <em>осмотров</em></h1>
+        <p class="lead">Прогнозы по финальному набору кадров РЩ и ТКШ. Мастер проверяет выводы и подтверждает дальнейшие действия.</p>
+      </div>
+      <div class="intro-meta" id="intro-meta" hidden>
+        <svg aria-hidden="true" viewBox="0 0 40 40" fill="none"><rect x="7" y="9" width="26" height="23" rx="3"/><path d="M7 17h26M15 17v15m4-10h9m-9 5h6M12 13h2m3 0h2"/></svg>
+        <div><b id="scope"></b><span id="labels"></span></div>
+      </div>
+    </section>
+    <section aria-label="Рекомендации модели по всему набору" class="summary" id="summary" hidden>
+      <button class="summary-card all" data-action="" aria-pressed="true" type="button"><span>Весь набор</span><strong id="count-all"></strong><small>Кадры после обработки</small></button>
+      <button class="summary-card repair" data-action="repair" aria-pressed="false" type="button"><span>Кандидат на ремонт</span><strong id="count-repair"></strong><small>Ожидает решения мастера</small></button>
+      <button class="summary-card inspect" data-action="inspect" aria-pressed="false" type="button"><span>Проверить</span><strong id="count-inspect"></strong><small>Нужна ручная проверка</small></button>
+      <button class="summary-card no-action" data-action="no_action" aria-pressed="false" type="button"><span>Без действий</span><strong id="count-no_action"></strong><small>По оценке модели</small></button>
+    </section>
+    <section class="workspace" aria-labelledby="records">
+      <div class="workspace-head">
+        <div><h2 id="records" tabindex="-1">Все записи</h2><p id="result-count" role="status" aria-live="polite">Загружаем результаты…</p></div>
+        <button type="button" class="button csv" id="export" disabled><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 3v10m-4-4 4 4 4-4M4 14v3h12v-3"/></svg> Выгрузить CSV</button>
+      </div>
+      <form class="filters" aria-label="Фильтры реестра" id="filters">
+        <label class="search"><span>Поиск</span><input id="query" type="search" placeholder="ID, например К-014" autocomplete="off"></label>
+        <label><span>Тип объекта</span><select id="object"><option value="">Все типы</option><option>РЩ</option><option>ТКШ</option></select></label>
+        <label><span>Состояние</span><select id="condition"><option value="">Все состояния</option><option value="damage">Повреждение</option><option value="normal">Норма</option><option value="insufficient">Мало данных</option></select></label>
+        <label><span>Рекомендация</span><select id="action"><option value="">Все варианты</option><option value="repair">Кандидат на ремонт</option><option value="inspect">Проверить</option><option value="no_action">Без действий</option></select></label>
+        <label><span>Сортировка</span><select id="sort"><option value="priority">По приоритету</option><option value="id">По номеру</option><option value="mp">По оценке МП</option><option value="paint">По оценке ЛКП</option></select></label>
+        <button type="button" class="button reset" id="clear-filters">Сбросить</button>
+        <label class="disagreement-filter" id="disagreement-wrap" hidden><input type="checkbox" id="disagreement"><span>Только расхождения с Argon</span></label>
+      </form>
+      <p class="empty" id="empty" hidden></p>
+      <div id="table" hidden>
+        <div class="table-head" aria-hidden="true"><span>Кадр</span><span>Состояние</span><span>Рекомендация</span><span>Координаты</span><span></span></div>
+        <ul class="rows" id="rows" aria-label="Записи осмотров"></ul>
+      </div>
+      <nav class="pages" id="pages" aria-label="Страницы реестра" hidden>
+        <span id="page-position"></span><div><button type="button" class="button" id="prev">Назад</button><button type="button" class="button" id="next">Далее</button></div>
+      </nav>
+    </section>
+    <details class="validation" id="validation" hidden>
+      <summary>Как оценивали модель</summary>
+      <div id="validation-facts" class="validation-body"></div>
+    </details>
+    <footer>Идентификаторы относятся к кадрам этой выгрузки. Координаты объектов не подтверждены.</footer>
+  </main>
+  <dialog id="card" aria-labelledby="card-title">
+    <article>
+      <header class="detail-head">
+        <div><p class="eyebrow">Карточка кадра</p><h2 id="card-title"></h2></div>
+        <form method="dialog"><button type="submit" class="button close" value="close" aria-label="Закрыть карточку">×</button></form>
+      </header>
+      <div id="card-body"></div>
+    </article>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "example_id": "cabinet-anonymous-04",
+  "source": "A standalone live request to Google Vertex AI from a newly created field inspection. The field desk sent the EXIF-free cabinet photo; the result is separate from the 62-frame benchmark.",
+  "prompt_file": "public-protocol.json",
+  "scope": "Independent Argon opinion and an advisory contrast with the deployed v0.4 local model. Findings and operational action are those of the recorded local inspection.",
+  "model_release": "v0.4-hr-roi",
+  "local_artifact_sha256": "2efc9aeca33a20a0e784a36b6fbe7d62707c3a95de73709a7cfc7f51619ccce2",
+  "local_scores": {
+    "mechanical": 0.92146,
+    "coating": 0.89504
+  },
+  "local_object_type": "distribution_board",
+  "local_object_type_source": "grounded_roi",
+  "local_action": "repair",
+  "model": "gemini-4-argon",
+  "model_version": "gemini-4-argon",
+  "prompt_version": "cabinet-argon-zero-shot-v1",
+  "prompt_sha256": "f7056f34845c46d5275276d4be8a2d78572e7c4d04cb0ac125bc117e44520add",
+  "status": "ok",
+  "http_status": 200,
+  "seconds": 7.137,
+  "scores": {
+    "telecom": 0.1,
+    "mechanical": 1.0,
+    "coating": 0.9
+  },
+  "readable": true,
+  "cues": [
+    "deformed_metal",
+    "broken_or_missing_hardware",
+    "misaligned_panel",
+    "rust",
+    "material_exposed",
+    "peeling_or_chipped_paint"
+  ],
+  "usage": {
+    "promptTokenCount": 1599,
+    "candidatesTokenCount": 89,
+    "totalTokenCount": 1688
+  },
+  "visible_cues": [
+    "Деформация металла",
+    "Повреждённое или отсутствующее крепление",
+    "Перекошенная панель",
+    "Ржавчина",
+    "Оголённый материал",
+    "Отслоение или сколы покрытия"
+  ],
+  "comparison": {
+    "mode": "advisory_blend",
+    "model_release": "v0.4-hr-roi",
+    "local_weight": 0.75,
+    "cloud_weight": 0.25,
+    "threshold": 0.5,
+    "heads": {
+      "mechanical": {
+        "score": 0.941095,
+        "agreement": true,
+        "local_positive": true,
+        "cloud_positive": true
+      },
+      "coating": {
+        "score": 0.89628,
+        "agreement": true,
+        "local_positive": true,
+        "cloud_positive": true
+      }
+    }
+  }
+}
