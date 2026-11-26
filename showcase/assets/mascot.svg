@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Контур — осмотр</title>
+  <desc id="desc">Помощник мастера с оптическим визиром, оранжевой ручкой и кнопкой осмотра показывает, куда направить камеру.</desc>
+  <g stroke="#134074" stroke-linejoin="round" stroke-linecap="round">
+    <g stroke-width="9" fill="none">
+      <path d="M100 182v24l-12 12m50-36 7 25 16 9"/>
+      <path d="M78 142c-16 1-24 13-23 27m115-39 16 6 18-23"/>
+    </g>
+    <g fill="#008AE0" stroke-width="5">
+      <path d="m87 211 13 4-2 9H71c-1-6 6-11 16-13Z"/>
+      <path d="m150 210 13 1c9 2 13 6 13 12h-27l-4-6Z"/>
+      <path d="M47 165q7-7 13 0l4 13-8 6-8-5Z"/>
+    </g>
+    <path d="m195 115 3-14c1-5 5-6 8-3l1 7 9-15c3-5 9-1 7 3l-7 17c3 3 1 6-2 9l-7 6Z" fill="#FF7654" stroke-width="4"/>
+    <path d="m78 130 74-8 14 30-9 28q-2 9-12 12l-48 6q-13 1-18-13l-9-31Z" fill="#008AE0" stroke-width="5"/>
+    <path d="m78 142 69-9 5 14-72 10Z" fill="#FFF" stroke="none"/>
+    <path d="m146 134 11 40 6-22-9-27Z" fill="#134074" stroke="none"/>
+    <g transform="rotate(-7 119 170)">
+      <rect x="99" y="155" width="40" height="29" rx="8" fill="#134074" stroke="none"/>
+      <g fill="none" stroke="#FFF" stroke-width="3.5"><circle cx="116" cy="167" r="5.5"/><path d="m121 172 5 5"/></g>
+    </g>
+    <g transform="rotate(-7 118 96)">
+      <path d="M80 64V49c0-14 11-25 25-25h16c15 0 27 12 27 27v8h-14v-9c0-7-5-12-12-12h-18c-6 0-11 5-11 11v12Z" fill="#FF7654" stroke-width="5"/>
+      <path d="M65 62h94c13 0 23 9 23 23v29a19 19 0 0 1-9 17l-14 8-91-5c-11 0-19-8-19-19V82q0-13 16-20Z" fill="#008AE0" stroke-width="5"/>
+      <path d="M68 60h85c12 0 21 9 21 20v39c0 12-9 21-21 21H68c-12 0-21-9-21-21V81c0-12 9-21 21-21Z" fill="#FFF" stroke-width="5"/>
+      <path d="M64 81h84c7 0 12 5 12 12v18c0 8-5 13-13 13H64c-6 0-10-5-10-11V93c0-7 4-12 10-12Z" fill="#134074" stroke="none"/>
+      <circle cx="86" cy="102" r="15" fill="#008AE0" stroke="none"/>
+      <circle cx="88" cy="100" r="9" fill="#FFF" stroke="none"/>
+      <circle cx="90" cy="100" r="4" fill="#134074" stroke="none"/>
+      <path d="M124 102q9 8 19-1" fill="none" stroke="#FFF" stroke-width="5"/>
+      <path d="M59 71h24" fill="none" stroke="#008AE0" stroke-width="4"/>
+      <circle cx="157" cy="71" r="3.2" fill="#FF7654" stroke="none"/>
+    </g>
+  </g>
+</svg>

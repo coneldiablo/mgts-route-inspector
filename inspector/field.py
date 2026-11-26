@@ -11,12 +11,18 @@ import threading
 import uuid
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
 from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import BaseModel, Field
+
+from .cabinet_vertex import (
+    CLOUD_WEIGHT, CUE_LABELS, FINGERPRINT, MODEL, OPINION_THRESHOLD, PROMPT_VERSION,
+    CabinetArgon, CabinetArgonUnavailable,
+)
 
 TASKS = {
     "mechanical": ("Механическое повреждение", "Проверить дверь, крепления и закрывание", "Снять дверь спереди и крупно её петли и кромку"),
@@ -27,6 +33,18 @@ AUTOMATIC_RETAKE_INSTRUCTIONS = {
     "coating": "Снять участок покрытия крупным планом при рассеянном свете.",
 }
 MAX_BYTES = 20 * 1024 * 1024
+ARGON_STATUS_MESSAGES = {
+    "ok": "Получен независимый ответ Gemini.",
+    "unreadable": "Gemini не смог уверенно рассмотреть шкаф или детали снимка.",
+    "adc_unavailable": "Gemini недоступен. На сервере не настроен доступ через Google ADC или авторизация истекла.",
+    "access_denied": "Vertex AI отклонил запрос (403). У проекта или учётной записи нет доступа к Gemini 4 Argon.",
+    "quota_exhausted": "Vertex AI не принял запрос из-за ограничения квоты или частоты (429).",
+    "model_unavailable": "Модель Gemini 4 Argon недоступна для текущего проекта Vertex AI (404).",
+    "timeout": "Vertex AI не ответил вовремя.",
+    "network_error": "Сервер не смог связаться с Vertex AI.",
+    "vertex_error": "Vertex AI вернул ошибку.",
+    "invalid_response": "Ответ Vertex AI не прошёл проверку формата.",
+}
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS cards(id TEXT PRIMARY KEY, created TEXT DEFAULT CURRENT_TIMESTAMP,
     prediction TEXT NOT NULL, lat REAL, lon REAL);
@@ -38,6 +56,8 @@ CREATE TABLE IF NOT EXISTS requests(id TEXT PRIMARY KEY, card TEXT NOT NULL REFE
     scope TEXT NOT NULL, instruction TEXT NOT NULL, evidence TEXT REFERENCES photos(id),
     origin TEXT NOT NULL DEFAULT 'manual' CHECK(origin IN ('manual', 'automatic')),
     source_photo_id TEXT REFERENCES photos(id));
+CREATE TABLE IF NOT EXISTS second_opinions(card TEXT PRIMARY KEY REFERENCES cards(id),
+    photo TEXT NOT NULL REFERENCES photos(id), result TEXT NOT NULL, created TEXT DEFAULT CURRENT_TIMESTAMP);
 """
 
 
@@ -49,6 +69,10 @@ class Action(BaseModel):
 class Retake(BaseModel):
     scope: str
     instruction: str = Field(default="", max_length=400)
+
+
+class SecondOpinionRequest(BaseModel):
+    send_initial_photo: Literal[True]
 
 
 @contextmanager
@@ -112,8 +136,33 @@ def automatic_retake_scope(result: dict) -> str | None:
     return selected
 
 
+def compare_argon(prediction: dict, opinion: dict) -> dict:
+    model_release = prediction.get("model_release")
+    if opinion["status"] != "ok":
+        return {"mode": "local_only", "model_release": model_release}
+
+    local_scores = prediction.get("scores", {})
+    cloud_scores = opinion["scores"]
+    heads = {}
+    for code in TASKS:
+        if code not in local_scores or code not in cloud_scores:
+            continue
+        local_score, cloud_score = local_scores[code], cloud_scores[code]
+        local_positive = local_score >= OPINION_THRESHOLD
+        cloud_positive = cloud_score >= OPINION_THRESHOLD
+        heads[code] = {
+            "score": (1 - CLOUD_WEIGHT) * local_score + CLOUD_WEIGHT * cloud_score,
+            "agreement": local_positive == cloud_positive,
+            "local_positive": local_positive,
+            "cloud_positive": cloud_positive,
+        }
+    return {"mode": "advisory_blend", "model_release": model_release, "local_weight": 1 - CLOUD_WEIGHT,
+            "cloud_weight": CLOUD_WEIGHT, "threshold": OPINION_THRESHOLD, "heads": heads}
+
+
 def details(db, card):
     row = require_card(db, card)
+    prediction = json.loads(row["prediction"])
     findings = []
     for item in db.execute("SELECT code,state,evidence FROM findings WHERE card=? ORDER BY rowid", (card,)):
         title, work, retake = TASKS[item["code"]]
@@ -123,12 +172,19 @@ def details(db, card):
         "SELECT id,scope,instruction,evidence,origin,source_photo_id FROM requests WHERE card=? ORDER BY rowid",
         (card,),
     )]
+    opinion = db.execute(
+        "SELECT photo,result,created FROM second_opinions WHERE card=?", (card,)
+    ).fetchone()
+    second_opinion = None
+    if opinion is not None:
+        second_opinion = json.loads(opinion["result"]) | {"photo_id": opinion["photo"], "created": opinion["created"]}
+        second_opinion["comparison"] = compare_argon(prediction, second_opinion)
     closed = any(f["state"] == "accepted" for f in findings) and all(f["state"] in {"accepted", "dismissed"} for f in findings) and all(r["evidence"] for r in requests)
-    return dict(id=card, created=row["created"], lat=row["lat"], lon=row["lon"], prediction=json.loads(row["prediction"]),
-                findings=findings, photos=photos, requests=requests, closed=bool(closed))
+    return dict(id=card, created=row["created"], lat=row["lat"], lon=row["lon"], prediction=prediction,
+                findings=findings, photos=photos, requests=requests, closed=bool(closed), second_opinion=second_opinion)
 
 
-def create_app(db_path=None, predictor=None):
+def create_app(db_path=None, predictor=None, argon_client=None):
     state_dir = Path(os.environ.get("MGTS_FIELD_DIR", "runs/field"))
     if db_path is None:
         state_dir.mkdir(parents=True, exist_ok=True)
@@ -143,6 +199,7 @@ def create_app(db_path=None, predictor=None):
         if "source_photo_id" not in columns:
             db.execute("ALTER TABLE requests ADD COLUMN source_photo_id TEXT REFERENCES photos(id)")
     model_lock = threading.Lock()
+    argon_lock = threading.Lock()
 
     def predict(image):
         nonlocal predictor
@@ -197,6 +254,43 @@ def create_app(db_path=None, predictor=None):
     def get_card(card: str):
         with connection(db_path) as db:
             return details(db, card)
+
+    @app.post("/api/inspections/{card}/second-opinion")
+    def second_opinion(card: str, command: SecondOpinionRequest):
+        nonlocal argon_client
+        with connection(db_path) as db:
+            require_card(db, card)
+            source = db.execute(
+                "SELECT id,data FROM photos WHERE card=? AND purpose='initial' ORDER BY rowid LIMIT 1", (card,)
+            ).fetchone()
+        if source is None:
+            raise HTTPException(409, "К осмотру не приложен исходный снимок.")
+        if not argon_lock.acquire(blocking=False):
+            raise HTTPException(409, "Второе мнение уже запрашивается. Дождитесь ответа Vertex AI.")
+        try:
+            with connection(db_path) as db:
+                existing = details(db, card)["second_opinion"]
+                if existing and existing["status"] in {"ok", "unreadable"} and existing["prompt_sha256"] == FINGERPRINT:
+                    return details(db, card)
+            try:
+                if argon_client is None:
+                    argon_client = CabinetArgon()
+                with Image.open(io.BytesIO(source["data"])) as image:
+                    opinion = argon_client.inspect(image)
+            except CabinetArgonUnavailable:
+                opinion = {"model": MODEL, "prompt_version": PROMPT_VERSION, "prompt_sha256": FINGERPRINT,
+                           "status": "adc_unavailable", "http_status": None}
+            opinion["message"] = ARGON_STATUS_MESSAGES[opinion["status"]]
+            opinion["visible_cues"] = [CUE_LABELS[cue] for cue in opinion.get("cues", [])]
+            with connection(db_path) as db:
+                db.execute(
+                    "INSERT INTO second_opinions(card,photo,result) VALUES(?,?,?) "
+                    "ON CONFLICT(card) DO UPDATE SET photo=excluded.photo, result=excluded.result, created=CURRENT_TIMESTAMP",
+                    (card, source["id"], json.dumps(opinion, ensure_ascii=False)),
+                )
+                return details(db, card)
+        finally:
+            argon_lock.release()
 
     @app.post("/api/inspections/{card}/findings/{code}")
     def update(card: str, code: str, command: Action):

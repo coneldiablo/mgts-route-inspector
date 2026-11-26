@@ -1,0 +1,131 @@
+{
+  "status": "research_not_deployed",
+  "threshold": 0.6208919882774353,
+  "measurements": {
+    "frozen_nearest": {
+      "id_oof": {
+        "42": {
+          "flagged": 1,
+          "total": 61,
+          "min": 0.48242148756980896
+        },
+        "17": {
+          "flagged": 1,
+          "total": 61,
+          "min": 0.48242148756980896
+        },
+        "23": {
+          "flagged": 1,
+          "total": 61,
+          "min": 0.48242148756980896
+        },
+        "71": {
+          "flagged": 4,
+          "total": 61,
+          "min": 0.48242148756980896
+        },
+        "113": {
+          "flagged": 1,
+          "total": 61,
+          "min": 0.48242148756980896
+        }
+      },
+      "ood": {
+        "parcel_lockers": {
+          "flagged": 21,
+          "total": 21,
+          "min": 0.3914068639278412,
+          "max": 0.5729551911354065,
+          "auroc": 0.9937548790007806
+        },
+        "rail_signal_cabinets": {
+          "flagged": 11,
+          "total": 11,
+          "min": 0.3646673560142517,
+          "max": 0.586324155330658,
+          "auroc": 0.9895678092399404
+        },
+        "rail_framing_control": {
+          "flagged": 5,
+          "total": 6,
+          "min": 0.34657445549964905,
+          "max": 0.6323338150978088,
+          "auroc": 0.9781420765027322
+        },
+        "manhole_positives": {
+          "flagged": 144,
+          "total": 144,
+          "min": 0.13740769028663635,
+          "max": 0.41436994075775146,
+          "auroc": 1.0
+        }
+      }
+    },
+    "aggregated_centroids": {
+      "id_oof": {
+        "42": {
+          "flagged": 6,
+          "total": 61,
+          "min": 0.44047045707702637
+        },
+        "17": {
+          "flagged": 4,
+          "total": 61,
+          "min": 0.4317743480205536
+        },
+        "23": {
+          "flagged": 2,
+          "total": 61,
+          "min": 0.42873650789260864
+        },
+        "71": {
+          "flagged": 4,
+          "total": 61,
+          "min": 0.4223402142524719
+        },
+        "113": {
+          "flagged": 4,
+          "total": 61,
+          "min": 0.43892163038253784
+        }
+      },
+      "ood": {
+        "parcel_lockers": {
+          "flagged": 21,
+          "total": 21,
+          "min": 0.3261317312717438,
+          "max": 0.5950649380683899,
+          "auroc": 0.9898516783762685
+        },
+        "rail_signal_cabinets": {
+          "flagged": 11,
+          "total": 11,
+          "min": 0.3413211703300476,
+          "max": 0.5944211483001709,
+          "auroc": 0.9821162444113264
+        },
+        "rail_framing_control": {
+          "flagged": 6,
+          "total": 6,
+          "min": 0.3134382367134094,
+          "max": 0.5973894596099854,
+          "auroc": 0.9699453551912568
+        },
+        "manhole_positives": {
+          "flagged": 144,
+          "total": 144,
+          "min": 0.0700327605009079,
+          "max": 0.3137626349925995,
+          "auroc": 1.0
+        }
+      }
+    }
+  },
+  "cluster_sizes": [
+    10,
+    7,
+    6,
+    15,
+    14
+  ]
+}

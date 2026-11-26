@@ -11,7 +11,8 @@ from inspector.field import create_app
 class Both:
     def predict_image(self, image):
         return dict(object_type="telecom_cabinet", scores=dict(mechanical=.85, coating=.75),
-                    action="repair", findings=[{"code":"mechanical"},{"code":"coating"}])
+                    action="repair", model_release="v0.4-hr-roi",
+                    findings=[{"code":"mechanical"},{"code":"coating"}])
 
 
 class Scores:
@@ -159,3 +160,136 @@ def test_legacy_retake_keeps_manual_origin_and_instruction(tmp_path):
             "evidence": None,
             "source_photo_id": None,
         }
+
+
+class Argon:
+    def __init__(self, status="ok", http_status=200):
+        self.status = status
+        self.http_status = http_status
+        self.calls = 0
+
+    def inspect(self, image):
+        from inspector.cabinet_vertex import FINGERPRINT, MODEL, PROMPT_VERSION
+
+        self.calls += 1
+        assert image.size == (48, 64)
+        assert not image.getexif()
+        result = {
+            "status": self.status, "http_status": self.http_status,
+            "model": MODEL, "prompt_version": PROMPT_VERSION, "prompt_sha256": FINGERPRINT,
+        }
+        if self.status == "ok":
+            result.update({"scores": {"telecom": .35, "mechanical": .68, "coating": .21},
+                           "cues": ["misaligned_panel"], "readable": True})
+        return result
+
+
+def test_argon_second_opinion_is_explicit_persistent_and_separate(tmp_path):
+    database = tmp_path / "card.sqlite3"
+    argon = Argon()
+    client = TestClient(create_app(database, Both(), argon_client=argon))
+    card = client.post("/api/inspections", files=upload("blue")).json()
+    url = "/api/inspections/" + card["id"]
+    assert argon.calls == 0
+    assert card["second_opinion"] is None
+    payload = {"send_initial_photo": True}
+    assert client.post(url + "/second-opinion").status_code == 422
+    assert client.post(url + "/second-opinion", json={"send_initial_photo": False}).status_code == 422
+    assert argon.calls == 0
+    response = client.post(url + "/second-opinion", json=payload)
+    assert response.status_code == 200
+    updated = response.json()
+    assert updated["prediction"] == card["prediction"]
+    assert updated["findings"] == card["findings"]
+    opinion = updated["second_opinion"]
+    assert opinion["scores"]["mechanical"] == .68
+    assert opinion["photo_id"] == card["photos"][0]["id"]
+    assert opinion["visible_cues"] == ["Перекошенная панель"]
+    assert opinion["model"] == "gemini-4-argon"
+    comparison = opinion["comparison"]
+    assert comparison["mode"] == "advisory_blend"
+    assert comparison["model_release"] == updated["prediction"]["model_release"] == "v0.4-hr-roi"
+    assert comparison["threshold"] == .5
+    assert comparison["local_weight"] == .75 and comparison["cloud_weight"] == .25
+    assert comparison["heads"]["mechanical"]["score"] == pytest.approx(.8075)
+    assert comparison["heads"]["mechanical"]["agreement"]
+    assert comparison["heads"]["coating"]["score"] == pytest.approx(.615)
+    assert not comparison["heads"]["coating"]["agreement"]
+    assert comparison["heads"]["coating"]["local_positive"]
+    assert not comparison["heads"]["coating"]["cloud_positive"]
+    assert argon.calls == 1
+    reopened = TestClient(create_app(database, Both(), argon_client=argon))
+    assert reopened.get(url).json()["second_opinion"] == opinion
+    assert reopened.post(url + "/second-opinion", json=payload).json()["second_opinion"] == opinion
+    assert argon.calls == 1
+
+
+@pytest.mark.parametrize(("status", "http_status", "text"), [
+    ("access_denied", 403, "403"),
+    ("quota_exhausted", 429, "429"),
+    ("adc_unavailable", None, "ADC"),
+    ("unreadable", 200, "уверенно"),
+])
+def test_argon_unavailability_preserves_local_card(tmp_path, status, http_status, text):
+    argon = Argon(status, http_status)
+    client = TestClient(create_app(tmp_path / "card.sqlite3", Both(), argon_client=argon))
+    card = client.post("/api/inspections", files=upload("blue")).json()
+    url = "/api/inspections/" + card["id"] + "/second-opinion"
+    updated = client.post(url, json={"send_initial_photo": True}).json()
+    assert updated["prediction"] == card["prediction"]
+    assert updated["requests"] == card["requests"]
+    opinion = updated["second_opinion"]
+    assert opinion["status"] == status
+    assert opinion["http_status"] == http_status
+    assert text in opinion["message"]
+    assert "scores" not in opinion
+    assert opinion["comparison"] == {"mode": "local_only", "model_release": "v0.4-hr-roi"}
+
+
+def test_argon_payload_does_not_carry_exif_or_name():
+    import base64
+    from inspector.cabinet_vertex import MAX_SIDE, _request_body
+
+    image = Image.new("RGB", (1000, 2000))
+    image.getexif()[270] = "private image description"
+    image.info["exif"] = image.getexif().tobytes()
+    payload = _request_body(image)
+    parts = payload["contents"][0]["parts"]
+    assert parts[1]["inlineData"]["mimeType"] == "image/jpeg"
+    jpeg = base64.b64decode(parts[1]["inlineData"]["data"])
+    with Image.open(io.BytesIO(jpeg)) as prepared:
+        assert max(prepared.size) == MAX_SIDE
+        assert not prepared.getexif()
+    assert b"private image description" not in jpeg
+
+
+def test_argon_benchmark_blends_defects_but_preserves_local_type():
+    from scripts.benchmark_cabinet_vertex import SEEDS, comparisons
+
+    labeled = [
+        {
+            "image_id": "test-1",
+            "truth": {"telecom": 0, "mechanical": 1, "coating": 0},
+            "object_type": "distribution_board",
+            "object_type_score": .51,
+            "scores": {"mechanical": .48, "coating": .3},
+        },
+        {
+            "image_id": "test-2",
+            "truth": {"telecom": 1, "mechanical": 0, "coating": 1},
+            "object_type": "telecom_cabinet",
+            "object_type_score": .51,
+            "scores": {"mechanical": .3, "coating": .8},
+        },
+    ]
+    responses = {
+        "test-1": {"status": "ok", "scores": {"telecom": .99, "mechanical": .95, "coating": .2}},
+        "test-2": {"status": "timeout"},
+    }
+    result = comparisons(dict.fromkeys(SEEDS, labeled), responses)["runs"]["42"]
+    local, blended = result["local_full"], result["blend_full_with_fallback"]
+    assert result["vertex_usable"] == 1
+    assert blended["telecom"] == local["telecom"]
+    assert blended["confidence"]["telecom"] == local["confidence"]["telecom"]
+    assert blended["mechanical"]["tp"] == 1
+    assert blended["coating"] == local["coating"]

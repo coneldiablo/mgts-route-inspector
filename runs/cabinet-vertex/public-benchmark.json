@@ -1,0 +1,1560 @@
+{
+  "model": "gemini-4-argon",
+  "prompt_version": "cabinet-argon-zero-shot-v1",
+  "prompt_sha256": "f7056f34845c46d5275276d4be8a2d78572e7c4d04cb0ac125bc117e44520add",
+  "planned_frames": 62,
+  "labeled_frames": 61,
+  "attempt_statuses": {
+    "ok": 61,
+    "timeout": 1
+  },
+  "unattempted": 0,
+  "abort_reason": null,
+  "usage": {
+    "promptTokenCount": 98391,
+    "candidatesTokenCount": 3842,
+    "totalTokenCount": 102233
+  },
+  "wall_seconds_latest_run": 282.812,
+  "latency_seconds_vertex_success": {
+    "median": 6.766,
+    "p95": 20.009
+  },
+  "field_serving": {
+    "combined_scores": [
+      "mechanical",
+      "coating"
+    ],
+    "object_type": "local ROI classifier",
+    "combined_scores_are_advisory": true,
+    "unchanged": [
+      "local operational action",
+      "findings",
+      "retake requests"
+    ]
+  },
+  "runs": {
+    "42": {
+      "labeled": 61,
+      "vertex_usable": 60,
+      "local_full": {
+        "telecom": {
+          "tp": 26,
+          "fp": 9,
+          "fn": 4,
+          "tn": 22,
+          "precision": 0.7428571428571429,
+          "recall": 0.8666666666666667,
+          "f1": 0.8,
+          "accuracy": 0.7868852459016393
+        },
+        "mechanical": {
+          "tp": 16,
+          "fp": 8,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.6666666666666666,
+          "recall": 0.7619047619047619,
+          "f1": 0.7111111111111111,
+          "accuracy": 0.7868852459016393
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 8,
+          "fn": 5,
+          "tn": 30,
+          "precision": 0.6923076923076923,
+          "recall": 0.782608695652174,
+          "f1": 0.7346938775510204,
+          "accuracy": 0.7868852459016393
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 9,
+          "fn": 5,
+          "tn": 11,
+          "precision": 0.8,
+          "recall": 0.8780487804878049,
+          "f1": 0.8372093023255814,
+          "accuracy": 0.7704918032786885
+        },
+        "object_macro_f1": 0.7859649122807018,
+        "defect_macro_f1": 0.7229024943310658,
+        "defect_exact_match": 0.639344262295082,
+        "dual": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 2,
+          "tn": 54,
+          "precision": 0.2,
+          "recall": 0.3333333333333333,
+          "f1": 0.25,
+          "accuracy": 0.9016393442622951
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.6975604166666667,
+            "average_incorrect": 0.6541461538461538,
+            "brier": 0.1768296019245902,
+            "uncertain_40_60": 16
+          },
+          "mechanical": {
+            "average_correct": 0.6950520833333335,
+            "average_incorrect": 0.6517746153846153,
+            "brier": 0.17358157545081968,
+            "uncertain_40_60": 15
+          },
+          "coating": {
+            "average_correct": 0.7205802083333332,
+            "average_incorrect": 0.65115,
+            "brier": 0.16564744838688525,
+            "uncertain_40_60": 14
+          }
+        }
+      },
+      "local_on_usable_subset": {
+        "telecom": {
+          "tp": 25,
+          "fp": 9,
+          "fn": 4,
+          "tn": 22,
+          "precision": 0.7352941176470589,
+          "recall": 0.8620689655172413,
+          "f1": 0.7936507936507936,
+          "accuracy": 0.7833333333333333
+        },
+        "mechanical": {
+          "tp": 16,
+          "fp": 8,
+          "fn": 5,
+          "tn": 31,
+          "precision": 0.6666666666666666,
+          "recall": 0.7619047619047619,
+          "f1": 0.7111111111111111,
+          "accuracy": 0.7833333333333333
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 7,
+          "fn": 5,
+          "tn": 30,
+          "precision": 0.72,
+          "recall": 0.782608695652174,
+          "f1": 0.75,
+          "accuracy": 0.8
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 8,
+          "fn": 5,
+          "tn": 11,
+          "precision": 0.8181818181818182,
+          "recall": 0.8780487804878049,
+          "f1": 0.8470588235294118,
+          "accuracy": 0.7833333333333333
+        },
+        "object_macro_f1": 0.7827903091060986,
+        "defect_macro_f1": 0.7305555555555556,
+        "defect_exact_match": 0.65,
+        "dual": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 2,
+          "tn": 53,
+          "precision": 0.2,
+          "recall": 0.3333333333333333,
+          "f1": 0.25,
+          "accuracy": 0.9
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7004172340425532,
+            "average_incorrect": 0.6541461538461538,
+            "brier": 0.17659816822166668,
+            "uncertain_40_60": 15
+          },
+          "mechanical": {
+            "average_correct": 0.6934968085106382,
+            "average_incorrect": 0.6517746153846153,
+            "brier": 0.17557869466666665,
+            "uncertain_40_60": 15
+          },
+          "coating": {
+            "average_correct": 0.7205802083333332,
+            "average_incorrect": 0.6550525,
+            "brier": 0.16232152815333334,
+            "uncertain_40_60": 14
+          }
+        }
+      },
+      "vertex_on_usable_subset": {
+        "telecom": {
+          "tp": 29,
+          "fp": 14,
+          "fn": 0,
+          "tn": 17,
+          "precision": 0.6744186046511628,
+          "recall": 1.0,
+          "f1": 0.8055555555555556,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 3,
+          "fn": 1,
+          "tn": 36,
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9333333333333333
+        },
+        "coating": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 1,
+          "tn": 32,
+          "precision": 0.8148148148148148,
+          "recall": 0.9565217391304348,
+          "f1": 0.88,
+          "accuracy": 0.9
+        },
+        "any_damage": {
+          "tp": 39,
+          "fp": 0,
+          "fn": 2,
+          "tn": 19,
+          "precision": 1.0,
+          "recall": 0.9512195121951219,
+          "f1": 0.975,
+          "accuracy": 0.9666666666666667
+        },
+        "object_macro_f1": 0.7569444444444444,
+        "defect_macro_f1": 0.8945454545454545,
+        "defect_exact_match": 0.8333333333333334,
+        "dual": {
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "tn": 49,
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.8891304347826087,
+            "average_incorrect": 0.8642857142857144,
+            "brier": 0.18851333333333337,
+            "uncertain_40_60": 1
+          },
+          "mechanical": {
+            "average_correct": 0.9171428571428571,
+            "average_incorrect": 0.7374999999999999,
+            "brier": 0.04924833333333333,
+            "uncertain_40_60": 1
+          },
+          "coating": {
+            "average_correct": 0.9175925925925928,
+            "average_incorrect": 0.8566666666666666,
+            "brier": 0.084305,
+            "uncertain_40_60": 0
+          }
+        }
+      },
+      "blend_full_with_fallback": {
+        "telecom": {
+          "tp": 26,
+          "fp": 9,
+          "fn": 4,
+          "tn": 22,
+          "precision": 0.7428571428571429,
+          "recall": 0.8666666666666667,
+          "f1": 0.8,
+          "accuracy": 0.7868852459016393
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 5,
+          "fn": 1,
+          "tn": 35,
+          "precision": 0.8,
+          "recall": 0.9523809523809523,
+          "f1": 0.8695652173913043,
+          "accuracy": 0.9016393442622951
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 6,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.75,
+          "recall": 0.782608695652174,
+          "f1": 0.7659574468085106,
+          "accuracy": 0.819672131147541
+        },
+        "any_damage": {
+          "tp": 38,
+          "fp": 5,
+          "fn": 3,
+          "tn": 15,
+          "precision": 0.8837209302325582,
+          "recall": 0.926829268292683,
+          "f1": 0.9047619047619048,
+          "accuracy": 0.8688524590163934
+        },
+        "object_macro_f1": 0.7859649122807018,
+        "defect_macro_f1": 0.8177613320999075,
+        "defect_exact_match": 0.7377049180327869,
+        "dual": {
+          "tp": 1,
+          "fp": 5,
+          "fn": 2,
+          "tn": 53,
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1": 0.2222222222222222,
+          "accuracy": 0.8852459016393442
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.6975604166666667,
+            "average_incorrect": 0.6541461538461538,
+            "brier": 0.1768296019245902,
+            "uncertain_40_60": 16
+          },
+          "mechanical": {
+            "average_correct": 0.7159297727272727,
+            "average_incorrect": 0.6107545833333333,
+            "brier": 0.11841203594262295,
+            "uncertain_40_60": 11
+          },
+          "coating": {
+            "average_correct": 0.7555154999999999,
+            "average_incorrect": 0.6120163636363637,
+            "brier": 0.12893582520614755,
+            "uncertain_40_60": 12
+          }
+        }
+      }
+    },
+    "17": {
+      "labeled": 61,
+      "vertex_usable": 60,
+      "local_full": {
+        "telecom": {
+          "tp": 25,
+          "fp": 9,
+          "fn": 5,
+          "tn": 22,
+          "precision": 0.7352941176470589,
+          "recall": 0.8333333333333334,
+          "f1": 0.78125,
+          "accuracy": 0.7704918032786885
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 31,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7868852459016393
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 6,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.75,
+          "recall": 0.782608695652174,
+          "f1": 0.7659574468085106,
+          "accuracy": 0.819672131147541
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 8,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8181818181818182,
+          "recall": 0.8780487804878049,
+          "f1": 0.8470588235294118,
+          "accuracy": 0.7868852459016393
+        },
+        "object_macro_f1": 0.7699353448275862,
+        "defect_macro_f1": 0.7446808510638299,
+        "defect_exact_match": 0.639344262295082,
+        "dual": {
+          "tp": 1,
+          "fp": 5,
+          "fn": 2,
+          "tn": 53,
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1": 0.2222222222222222,
+          "accuracy": 0.8852459016393442
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7101272340425533,
+            "average_incorrect": 0.6478349999999999,
+            "brier": 0.17416228828032787,
+            "uncertain_40_60": 18
+          },
+          "mechanical": {
+            "average_correct": 0.6890735416666667,
+            "average_incorrect": 0.6556476923076924,
+            "brier": 0.17858119241147538,
+            "uncertain_40_60": 17
+          },
+          "coating": {
+            "average_correct": 0.7149864000000001,
+            "average_incorrect": 0.6571636363636363,
+            "brier": 0.15701331052786888,
+            "uncertain_40_60": 11
+          }
+        }
+      },
+      "local_on_usable_subset": {
+        "telecom": {
+          "tp": 24,
+          "fp": 9,
+          "fn": 5,
+          "tn": 22,
+          "precision": 0.7272727272727273,
+          "recall": 0.8275862068965517,
+          "f1": 0.7741935483870968,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 30,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7833333333333333
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 5,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.782608695652174,
+          "recall": 0.782608695652174,
+          "f1": 0.782608695652174,
+          "accuracy": 0.8333333333333334
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 7,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8372093023255814,
+          "recall": 0.8780487804878049,
+          "f1": 0.8571428571428571,
+          "accuracy": 0.8
+        },
+        "object_macro_f1": 0.7664071190211346,
+        "defect_macro_f1": 0.7530064754856615,
+        "defect_exact_match": 0.65,
+        "dual": {
+          "tp": 1,
+          "fp": 5,
+          "fn": 2,
+          "tn": 52,
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1": 0.2222222222222222,
+          "accuracy": 0.8833333333333333
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7139878260869565,
+            "average_incorrect": 0.6478349999999999,
+            "brier": 0.17342301222500003,
+            "uncertain_40_60": 17
+          },
+          "mechanical": {
+            "average_correct": 0.6876357446808511,
+            "average_incorrect": 0.6556476923076924,
+            "brier": 0.18057055857666668,
+            "uncertain_40_60": 17
+          },
+          "coating": {
+            "average_correct": 0.7149864000000001,
+            "average_incorrect": 0.6604500000000001,
+            "brier": 0.15313435753666668,
+            "uncertain_40_60": 11
+          }
+        }
+      },
+      "vertex_on_usable_subset": {
+        "telecom": {
+          "tp": 29,
+          "fp": 14,
+          "fn": 0,
+          "tn": 17,
+          "precision": 0.6744186046511628,
+          "recall": 1.0,
+          "f1": 0.8055555555555556,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 3,
+          "fn": 1,
+          "tn": 36,
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9333333333333333
+        },
+        "coating": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 1,
+          "tn": 32,
+          "precision": 0.8148148148148148,
+          "recall": 0.9565217391304348,
+          "f1": 0.88,
+          "accuracy": 0.9
+        },
+        "any_damage": {
+          "tp": 39,
+          "fp": 0,
+          "fn": 2,
+          "tn": 19,
+          "precision": 1.0,
+          "recall": 0.9512195121951219,
+          "f1": 0.975,
+          "accuracy": 0.9666666666666667
+        },
+        "object_macro_f1": 0.7569444444444444,
+        "defect_macro_f1": 0.8945454545454545,
+        "defect_exact_match": 0.8333333333333334,
+        "dual": {
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "tn": 49,
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.8891304347826087,
+            "average_incorrect": 0.8642857142857144,
+            "brier": 0.18851333333333337,
+            "uncertain_40_60": 1
+          },
+          "mechanical": {
+            "average_correct": 0.9171428571428571,
+            "average_incorrect": 0.7374999999999999,
+            "brier": 0.04924833333333333,
+            "uncertain_40_60": 1
+          },
+          "coating": {
+            "average_correct": 0.9175925925925928,
+            "average_incorrect": 0.8566666666666666,
+            "brier": 0.084305,
+            "uncertain_40_60": 0
+          }
+        }
+      },
+      "blend_full_with_fallback": {
+        "telecom": {
+          "tp": 25,
+          "fp": 9,
+          "fn": 5,
+          "tn": 22,
+          "precision": 0.7352941176470589,
+          "recall": 0.8333333333333334,
+          "f1": 0.78125,
+          "accuracy": 0.7704918032786885
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 6,
+          "fn": 1,
+          "tn": 34,
+          "precision": 0.7692307692307693,
+          "recall": 0.9523809523809523,
+          "f1": 0.851063829787234,
+          "accuracy": 0.8852459016393442
+        },
+        "coating": {
+          "tp": 20,
+          "fp": 5,
+          "fn": 3,
+          "tn": 33,
+          "precision": 0.8,
+          "recall": 0.8695652173913043,
+          "f1": 0.8333333333333334,
+          "accuracy": 0.8688524590163934
+        },
+        "any_damage": {
+          "tp": 37,
+          "fp": 5,
+          "fn": 4,
+          "tn": 15,
+          "precision": 0.8809523809523809,
+          "recall": 0.9024390243902439,
+          "f1": 0.891566265060241,
+          "accuracy": 0.8524590163934426
+        },
+        "object_macro_f1": 0.7699353448275862,
+        "defect_macro_f1": 0.8421985815602837,
+        "defect_exact_match": 0.7540983606557377,
+        "dual": {
+          "tp": 3,
+          "fp": 6,
+          "fn": 0,
+          "tn": 52,
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "accuracy": 0.9016393442622951
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7101272340425533,
+            "average_incorrect": 0.6478349999999999,
+            "brier": 0.17416228828032787,
+            "uncertain_40_60": 18
+          },
+          "mechanical": {
+            "average_correct": 0.7157755092592593,
+            "average_incorrect": 0.5994474999999999,
+            "brier": 0.12029727437643442,
+            "uncertain_40_60": 11
+          },
+          "coating": {
+            "average_correct": 0.7501013207547169,
+            "average_incorrect": 0.677319375,
+            "brier": 0.12624210871905736,
+            "uncertain_40_60": 8
+          }
+        }
+      }
+    },
+    "23": {
+      "labeled": 61,
+      "vertex_usable": 60,
+      "local_full": {
+        "telecom": {
+          "tp": 22,
+          "fp": 8,
+          "fn": 8,
+          "tn": 23,
+          "precision": 0.7333333333333333,
+          "recall": 0.7333333333333333,
+          "f1": 0.7333333333333333,
+          "accuracy": 0.7377049180327869
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 11,
+          "fn": 4,
+          "tn": 29,
+          "precision": 0.6071428571428571,
+          "recall": 0.8095238095238095,
+          "f1": 0.6938775510204082,
+          "accuracy": 0.7540983606557377
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 6,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.75,
+          "recall": 0.782608695652174,
+          "f1": 0.7659574468085106,
+          "accuracy": 0.819672131147541
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 10,
+          "fn": 5,
+          "tn": 10,
+          "precision": 0.782608695652174,
+          "recall": 0.8780487804878049,
+          "f1": 0.8275862068965517,
+          "accuracy": 0.7540983606557377
+        },
+        "object_macro_f1": 0.7376344086021505,
+        "defect_macro_f1": 0.7299174989144595,
+        "defect_exact_match": 0.6229508196721312,
+        "dual": {
+          "tp": 1,
+          "fp": 5,
+          "fn": 2,
+          "tn": 53,
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1": 0.2222222222222222,
+          "accuracy": 0.8852459016393442
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7189713333333333,
+            "average_incorrect": 0.61358,
+            "brier": 0.16680726669672133,
+            "uncertain_40_60": 14
+          },
+          "mechanical": {
+            "average_correct": 0.6997226086956523,
+            "average_incorrect": 0.6241926666666667,
+            "brier": 0.17312110074918036,
+            "uncertain_40_60": 16
+          },
+          "coating": {
+            "average_correct": 0.7147212000000001,
+            "average_incorrect": 0.64956,
+            "brier": 0.15573183998360657,
+            "uncertain_40_60": 14
+          }
+        }
+      },
+      "local_on_usable_subset": {
+        "telecom": {
+          "tp": 21,
+          "fp": 8,
+          "fn": 8,
+          "tn": 23,
+          "precision": 0.7241379310344828,
+          "recall": 0.7241379310344828,
+          "f1": 0.7241379310344828,
+          "accuracy": 0.7333333333333333
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 11,
+          "fn": 4,
+          "tn": 28,
+          "precision": 0.6071428571428571,
+          "recall": 0.8095238095238095,
+          "f1": 0.6938775510204082,
+          "accuracy": 0.75
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 5,
+          "fn": 5,
+          "tn": 32,
+          "precision": 0.782608695652174,
+          "recall": 0.782608695652174,
+          "f1": 0.782608695652174,
+          "accuracy": 0.8333333333333334
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 9,
+          "fn": 5,
+          "tn": 10,
+          "precision": 0.8,
+          "recall": 0.8780487804878049,
+          "f1": 0.8372093023255814,
+          "accuracy": 0.7666666666666667
+        },
+        "object_macro_f1": 0.7330367074527253,
+        "defect_macro_f1": 0.738243123336291,
+        "defect_exact_match": 0.6333333333333333,
+        "dual": {
+          "tp": 1,
+          "fp": 5,
+          "fn": 2,
+          "tn": 52,
+          "precision": 0.16666666666666666,
+          "recall": 0.3333333333333333,
+          "f1": 0.2222222222222222,
+          "accuracy": 0.8833333333333333
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7203170454545454,
+            "average_incorrect": 0.61358,
+            "brier": 0.16765800018166668,
+            "uncertain_40_60": 14
+          },
+          "mechanical": {
+            "average_correct": 0.6976613333333332,
+            "average_incorrect": 0.6241926666666667,
+            "brier": 0.1752887099216667,
+            "uncertain_40_60": 16
+          },
+          "coating": {
+            "average_correct": 0.7147212000000001,
+            "average_incorrect": 0.6452410000000001,
+            "brier": 0.15032899460833335,
+            "uncertain_40_60": 14
+          }
+        }
+      },
+      "vertex_on_usable_subset": {
+        "telecom": {
+          "tp": 29,
+          "fp": 14,
+          "fn": 0,
+          "tn": 17,
+          "precision": 0.6744186046511628,
+          "recall": 1.0,
+          "f1": 0.8055555555555556,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 3,
+          "fn": 1,
+          "tn": 36,
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9333333333333333
+        },
+        "coating": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 1,
+          "tn": 32,
+          "precision": 0.8148148148148148,
+          "recall": 0.9565217391304348,
+          "f1": 0.88,
+          "accuracy": 0.9
+        },
+        "any_damage": {
+          "tp": 39,
+          "fp": 0,
+          "fn": 2,
+          "tn": 19,
+          "precision": 1.0,
+          "recall": 0.9512195121951219,
+          "f1": 0.975,
+          "accuracy": 0.9666666666666667
+        },
+        "object_macro_f1": 0.7569444444444444,
+        "defect_macro_f1": 0.8945454545454545,
+        "defect_exact_match": 0.8333333333333334,
+        "dual": {
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "tn": 49,
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.8891304347826087,
+            "average_incorrect": 0.8642857142857144,
+            "brier": 0.18851333333333337,
+            "uncertain_40_60": 1
+          },
+          "mechanical": {
+            "average_correct": 0.9171428571428571,
+            "average_incorrect": 0.7374999999999999,
+            "brier": 0.04924833333333333,
+            "uncertain_40_60": 1
+          },
+          "coating": {
+            "average_correct": 0.9175925925925928,
+            "average_incorrect": 0.8566666666666666,
+            "brier": 0.084305,
+            "uncertain_40_60": 0
+          }
+        }
+      },
+      "blend_full_with_fallback": {
+        "telecom": {
+          "tp": 22,
+          "fp": 8,
+          "fn": 8,
+          "tn": 23,
+          "precision": 0.7333333333333333,
+          "recall": 0.7333333333333333,
+          "f1": 0.7333333333333333,
+          "accuracy": 0.7377049180327869
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 5,
+          "fn": 1,
+          "tn": 35,
+          "precision": 0.8,
+          "recall": 0.9523809523809523,
+          "f1": 0.8695652173913043,
+          "accuracy": 0.9016393442622951
+        },
+        "coating": {
+          "tp": 19,
+          "fp": 5,
+          "fn": 4,
+          "tn": 33,
+          "precision": 0.7916666666666666,
+          "recall": 0.8260869565217391,
+          "f1": 0.8085106382978723,
+          "accuracy": 0.8524590163934426
+        },
+        "any_damage": {
+          "tp": 37,
+          "fp": 4,
+          "fn": 4,
+          "tn": 16,
+          "precision": 0.9024390243902439,
+          "recall": 0.9024390243902439,
+          "f1": 0.9024390243902439,
+          "accuracy": 0.8688524590163934
+        },
+        "object_macro_f1": 0.7376344086021505,
+        "defect_macro_f1": 0.8390379278445883,
+        "defect_exact_match": 0.7540983606557377,
+        "dual": {
+          "tp": 2,
+          "fp": 6,
+          "fn": 1,
+          "tn": 52,
+          "precision": 0.25,
+          "recall": 0.6666666666666666,
+          "f1": 0.36363636363636365,
+          "accuracy": 0.8852459016393442
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7189713333333333,
+            "average_incorrect": 0.61358,
+            "brier": 0.16680726669672133,
+            "uncertain_40_60": 14
+          },
+          "mechanical": {
+            "average_correct": 0.7134663636363637,
+            "average_incorrect": 0.5952945833333333,
+            "brier": 0.11768458848780738,
+            "uncertain_40_60": 11
+          },
+          "coating": {
+            "average_correct": 0.753793846153846,
+            "average_incorrect": 0.6471991666666665,
+            "brier": 0.12430073164805329,
+            "uncertain_40_60": 10
+          }
+        }
+      }
+    },
+    "71": {
+      "labeled": 61,
+      "vertex_usable": 60,
+      "local_full": {
+        "telecom": {
+          "tp": 25,
+          "fp": 6,
+          "fn": 5,
+          "tn": 25,
+          "precision": 0.8064516129032258,
+          "recall": 0.8333333333333334,
+          "f1": 0.819672131147541,
+          "accuracy": 0.819672131147541
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 31,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7868852459016393
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 7,
+          "fn": 5,
+          "tn": 31,
+          "precision": 0.72,
+          "recall": 0.782608695652174,
+          "f1": 0.75,
+          "accuracy": 0.8032786885245902
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 8,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8181818181818182,
+          "recall": 0.8780487804878049,
+          "f1": 0.8470588235294118,
+          "accuracy": 0.7868852459016393
+        },
+        "object_macro_f1": 0.819672131147541,
+        "defect_macro_f1": 0.7367021276595744,
+        "defect_exact_match": 0.6229508196721312,
+        "dual": {
+          "tp": 1,
+          "fp": 6,
+          "fn": 2,
+          "tn": 52,
+          "precision": 0.14285714285714285,
+          "recall": 0.3333333333333333,
+          "f1": 0.2,
+          "accuracy": 0.8688524590163934
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.6999650000000002,
+            "average_incorrect": 0.66115,
+            "brier": 0.16606748351147543,
+            "uncertain_40_60": 15
+          },
+          "mechanical": {
+            "average_correct": 0.6873275,
+            "average_incorrect": 0.6617138461538461,
+            "brier": 0.17972348227540985,
+            "uncertain_40_60": 12
+          },
+          "coating": {
+            "average_correct": 0.7142751020408161,
+            "average_incorrect": 0.6903966666666665,
+            "brier": 0.1724243345344262,
+            "uncertain_40_60": 12
+          }
+        }
+      },
+      "local_on_usable_subset": {
+        "telecom": {
+          "tp": 24,
+          "fp": 6,
+          "fn": 5,
+          "tn": 25,
+          "precision": 0.8,
+          "recall": 0.8275862068965517,
+          "f1": 0.8135593220338984,
+          "accuracy": 0.8166666666666667
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 30,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7833333333333333
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 6,
+          "fn": 5,
+          "tn": 31,
+          "precision": 0.75,
+          "recall": 0.782608695652174,
+          "f1": 0.7659574468085106,
+          "accuracy": 0.8166666666666667
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 7,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8372093023255814,
+          "recall": 0.8780487804878049,
+          "f1": 0.8571428571428571,
+          "accuracy": 0.8
+        },
+        "object_macro_f1": 0.8166157265907197,
+        "defect_macro_f1": 0.7446808510638299,
+        "defect_exact_match": 0.6333333333333333,
+        "dual": {
+          "tp": 1,
+          "fp": 6,
+          "fn": 2,
+          "tn": 51,
+          "precision": 0.14285714285714285,
+          "recall": 0.3333333333333333,
+          "f1": 0.2,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7009597959183675,
+            "average_incorrect": 0.66115,
+            "brier": 0.16680781676333334,
+            "uncertain_40_60": 15
+          },
+          "mechanical": {
+            "average_correct": 0.6850689361702129,
+            "average_incorrect": 0.6617138461538461,
+            "brier": 0.1820080318066667,
+            "uncertain_40_60": 12
+          },
+          "coating": {
+            "average_correct": 0.7142751020408161,
+            "average_incorrect": 0.6852454545454545,
+            "brier": 0.1659964293833333,
+            "uncertain_40_60": 12
+          }
+        }
+      },
+      "vertex_on_usable_subset": {
+        "telecom": {
+          "tp": 29,
+          "fp": 14,
+          "fn": 0,
+          "tn": 17,
+          "precision": 0.6744186046511628,
+          "recall": 1.0,
+          "f1": 0.8055555555555556,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 3,
+          "fn": 1,
+          "tn": 36,
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9333333333333333
+        },
+        "coating": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 1,
+          "tn": 32,
+          "precision": 0.8148148148148148,
+          "recall": 0.9565217391304348,
+          "f1": 0.88,
+          "accuracy": 0.9
+        },
+        "any_damage": {
+          "tp": 39,
+          "fp": 0,
+          "fn": 2,
+          "tn": 19,
+          "precision": 1.0,
+          "recall": 0.9512195121951219,
+          "f1": 0.975,
+          "accuracy": 0.9666666666666667
+        },
+        "object_macro_f1": 0.7569444444444444,
+        "defect_macro_f1": 0.8945454545454545,
+        "defect_exact_match": 0.8333333333333334,
+        "dual": {
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "tn": 49,
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.8891304347826087,
+            "average_incorrect": 0.8642857142857144,
+            "brier": 0.18851333333333337,
+            "uncertain_40_60": 1
+          },
+          "mechanical": {
+            "average_correct": 0.9171428571428571,
+            "average_incorrect": 0.7374999999999999,
+            "brier": 0.04924833333333333,
+            "uncertain_40_60": 1
+          },
+          "coating": {
+            "average_correct": 0.9175925925925928,
+            "average_incorrect": 0.8566666666666666,
+            "brier": 0.084305,
+            "uncertain_40_60": 0
+          }
+        }
+      },
+      "blend_full_with_fallback": {
+        "telecom": {
+          "tp": 25,
+          "fp": 6,
+          "fn": 5,
+          "tn": 25,
+          "precision": 0.8064516129032258,
+          "recall": 0.8333333333333334,
+          "f1": 0.819672131147541,
+          "accuracy": 0.819672131147541
+        },
+        "mechanical": {
+          "tp": 19,
+          "fp": 6,
+          "fn": 2,
+          "tn": 34,
+          "precision": 0.76,
+          "recall": 0.9047619047619048,
+          "f1": 0.8260869565217391,
+          "accuracy": 0.8688524590163934
+        },
+        "coating": {
+          "tp": 20,
+          "fp": 7,
+          "fn": 3,
+          "tn": 31,
+          "precision": 0.7407407407407407,
+          "recall": 0.8695652173913043,
+          "f1": 0.8,
+          "accuracy": 0.8360655737704918
+        },
+        "any_damage": {
+          "tp": 37,
+          "fp": 5,
+          "fn": 4,
+          "tn": 15,
+          "precision": 0.8809523809523809,
+          "recall": 0.9024390243902439,
+          "f1": 0.891566265060241,
+          "accuracy": 0.8524590163934426
+        },
+        "object_macro_f1": 0.819672131147541,
+        "defect_macro_f1": 0.8130434782608695,
+        "defect_exact_match": 0.7213114754098361,
+        "dual": {
+          "tp": 3,
+          "fp": 7,
+          "fn": 0,
+          "tn": 51,
+          "precision": 0.3,
+          "recall": 1.0,
+          "f1": 0.46153846153846156,
+          "accuracy": 0.8852459016393442
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.6999650000000002,
+            "average_incorrect": 0.66115,
+            "brier": 0.16606748351147543,
+            "uncertain_40_60": 15
+          },
+          "mechanical": {
+            "average_correct": 0.7202731603773586,
+            "average_incorrect": 0.6039409375,
+            "brier": 0.12223387739959017,
+            "uncertain_40_60": 8
+          },
+          "coating": {
+            "average_correct": 0.7538971078431373,
+            "average_incorrect": 0.67469775,
+            "brier": 0.13677007250471312,
+            "uncertain_40_60": 7
+          }
+        }
+      }
+    },
+    "113": {
+      "labeled": 61,
+      "vertex_usable": 60,
+      "local_full": {
+        "telecom": {
+          "tp": 23,
+          "fp": 5,
+          "fn": 7,
+          "tn": 26,
+          "precision": 0.8214285714285714,
+          "recall": 0.7666666666666667,
+          "f1": 0.7931034482758621,
+          "accuracy": 0.8032786885245902
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 31,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7868852459016393
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 7,
+          "fn": 5,
+          "tn": 31,
+          "precision": 0.72,
+          "recall": 0.782608695652174,
+          "f1": 0.75,
+          "accuracy": 0.8032786885245902
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 8,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8181818181818182,
+          "recall": 0.8780487804878049,
+          "f1": 0.8470588235294118,
+          "accuracy": 0.7868852459016393
+        },
+        "object_macro_f1": 0.802801724137931,
+        "defect_macro_f1": 0.7367021276595744,
+        "defect_exact_match": 0.639344262295082,
+        "dual": {
+          "tp": 2,
+          "fp": 5,
+          "fn": 1,
+          "tn": 53,
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4,
+          "accuracy": 0.9016393442622951
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7026830612244899,
+            "average_incorrect": 0.6278391666666666,
+            "brier": 0.1626989021573771,
+            "uncertain_40_60": 19
+          },
+          "mechanical": {
+            "average_correct": 0.6774141666666668,
+            "average_incorrect": 0.6750023076923077,
+            "brier": 0.1921195154704918,
+            "uncertain_40_60": 20
+          },
+          "coating": {
+            "average_correct": 0.7124595918367348,
+            "average_incorrect": 0.662265,
+            "brier": 0.16683616282950817,
+            "uncertain_40_60": 12
+          }
+        }
+      },
+      "local_on_usable_subset": {
+        "telecom": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 7,
+          "tn": 26,
+          "precision": 0.8148148148148148,
+          "recall": 0.7586206896551724,
+          "f1": 0.7857142857142857,
+          "accuracy": 0.8
+        },
+        "mechanical": {
+          "tp": 17,
+          "fp": 9,
+          "fn": 4,
+          "tn": 30,
+          "precision": 0.6538461538461539,
+          "recall": 0.8095238095238095,
+          "f1": 0.723404255319149,
+          "accuracy": 0.7833333333333333
+        },
+        "coating": {
+          "tp": 18,
+          "fp": 6,
+          "fn": 5,
+          "tn": 31,
+          "precision": 0.75,
+          "recall": 0.782608695652174,
+          "f1": 0.7659574468085106,
+          "accuracy": 0.8166666666666667
+        },
+        "any_damage": {
+          "tp": 36,
+          "fp": 7,
+          "fn": 5,
+          "tn": 12,
+          "precision": 0.8372093023255814,
+          "recall": 0.8780487804878049,
+          "f1": 0.8571428571428571,
+          "accuracy": 0.8
+        },
+        "object_macro_f1": 0.7991071428571428,
+        "defect_macro_f1": 0.7446808510638299,
+        "defect_exact_match": 0.65,
+        "dual": {
+          "tp": 2,
+          "fp": 5,
+          "fn": 1,
+          "tn": 52,
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4,
+          "accuracy": 0.9
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7062170833333333,
+            "average_incorrect": 0.6278391666666666,
+            "brier": 0.1617765121516667,
+            "uncertain_40_60": 18
+          },
+          "mechanical": {
+            "average_correct": 0.6747517021276597,
+            "average_incorrect": 0.6750023076923077,
+            "brier": 0.19467173235333332,
+            "uncertain_40_60": 20
+          },
+          "coating": {
+            "average_correct": 0.7124595918367348,
+            "average_incorrect": 0.6589963636363637,
+            "brier": 0.16149157940333334,
+            "uncertain_40_60": 12
+          }
+        }
+      },
+      "vertex_on_usable_subset": {
+        "telecom": {
+          "tp": 29,
+          "fp": 14,
+          "fn": 0,
+          "tn": 17,
+          "precision": 0.6744186046511628,
+          "recall": 1.0,
+          "f1": 0.8055555555555556,
+          "accuracy": 0.7666666666666667
+        },
+        "mechanical": {
+          "tp": 20,
+          "fp": 3,
+          "fn": 1,
+          "tn": 36,
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9333333333333333
+        },
+        "coating": {
+          "tp": 22,
+          "fp": 5,
+          "fn": 1,
+          "tn": 32,
+          "precision": 0.8148148148148148,
+          "recall": 0.9565217391304348,
+          "f1": 0.88,
+          "accuracy": 0.9
+        },
+        "any_damage": {
+          "tp": 39,
+          "fp": 0,
+          "fn": 2,
+          "tn": 19,
+          "precision": 1.0,
+          "recall": 0.9512195121951219,
+          "f1": 0.975,
+          "accuracy": 0.9666666666666667
+        },
+        "object_macro_f1": 0.7569444444444444,
+        "defect_macro_f1": 0.8945454545454545,
+        "defect_exact_match": 0.8333333333333334,
+        "dual": {
+          "tp": 3,
+          "fp": 8,
+          "fn": 0,
+          "tn": 49,
+          "precision": 0.2727272727272727,
+          "recall": 1.0,
+          "f1": 0.42857142857142855,
+          "accuracy": 0.8666666666666667
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.8891304347826087,
+            "average_incorrect": 0.8642857142857144,
+            "brier": 0.18851333333333337,
+            "uncertain_40_60": 1
+          },
+          "mechanical": {
+            "average_correct": 0.9171428571428571,
+            "average_incorrect": 0.7374999999999999,
+            "brier": 0.04924833333333333,
+            "uncertain_40_60": 1
+          },
+          "coating": {
+            "average_correct": 0.9175925925925928,
+            "average_incorrect": 0.8566666666666666,
+            "brier": 0.084305,
+            "uncertain_40_60": 0
+          }
+        }
+      },
+      "blend_full_with_fallback": {
+        "telecom": {
+          "tp": 23,
+          "fp": 5,
+          "fn": 7,
+          "tn": 26,
+          "precision": 0.8214285714285714,
+          "recall": 0.7666666666666667,
+          "f1": 0.7931034482758621,
+          "accuracy": 0.8032786885245902
+        },
+        "mechanical": {
+          "tp": 19,
+          "fp": 6,
+          "fn": 2,
+          "tn": 34,
+          "precision": 0.76,
+          "recall": 0.9047619047619048,
+          "f1": 0.8260869565217391,
+          "accuracy": 0.8688524590163934
+        },
+        "coating": {
+          "tp": 20,
+          "fp": 7,
+          "fn": 3,
+          "tn": 31,
+          "precision": 0.7407407407407407,
+          "recall": 0.8695652173913043,
+          "f1": 0.8,
+          "accuracy": 0.8360655737704918
+        },
+        "any_damage": {
+          "tp": 38,
+          "fp": 5,
+          "fn": 3,
+          "tn": 15,
+          "precision": 0.8837209302325582,
+          "recall": 0.926829268292683,
+          "f1": 0.9047619047619048,
+          "accuracy": 0.8688524590163934
+        },
+        "object_macro_f1": 0.802801724137931,
+        "defect_macro_f1": 0.8130434782608695,
+        "defect_exact_match": 0.7377049180327869,
+        "dual": {
+          "tp": 3,
+          "fp": 6,
+          "fn": 0,
+          "tn": 52,
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "accuracy": 0.9016393442622951
+        },
+        "confidence": {
+          "telecom": {
+            "average_correct": 0.7026830612244899,
+            "average_incorrect": 0.6278391666666666,
+            "brier": 0.1626989021573771,
+            "uncertain_40_60": 19
+          },
+          "mechanical": {
+            "average_correct": 0.7115736320754715,
+            "average_incorrect": 0.6068284374999999,
+            "brier": 0.12910261507254098,
+            "uncertain_40_60": 10
+          },
+          "coating": {
+            "average_correct": 0.7538612254901961,
+            "average_incorrect": 0.65464725,
+            "brier": 0.13283535079118855,
+            "uncertain_40_60": 9
+          }
+        }
+      }
+    }
+  },
+  "mean_blend_macro_f1_gain": 0.09083593967960293,
+  "positive_gain_seeds": 5
+}

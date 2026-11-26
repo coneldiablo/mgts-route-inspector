@@ -1,48 +1,48 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f5f9fc" />
-  <meta name="description" content="Интерактивный прототип маршрутного осмотра шкафов МГТС для хакатона «Код Города»." />
-  <title>Маршрутный осмотр · МГТС</title>
-  <link rel="icon" type="image/svg+xml" href="./assets/mark.svg" />
-  <link rel="stylesheet" href="./src.css" />
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#091c30"><meta name="description" content="Маршрутный осмотр шкафов РЩ и ТКШ в Москве. Распознавание фото, задания мастеру и приёмка работ.">
+  <title>Контур · Маршрутный осмотр МГТС</title>
+  <link rel="icon" href="./assets/mgts.svg" type="image/svg+xml"><link rel="stylesheet" href="./src.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Маршрутный осмотр, в начало">
-      <img src="./assets/mark.svg" width="38" height="38" alt="" />
-      <span>Маршрутный осмотр<small>Инфраструктура МГТС</small></span>
-    </a>
-    <nav aria-label="Навигация">
-      <a href="#workbench">Сценарий</a><a href="#model">Модель</a><a href="#materials">Материалы</a>
-    </nav>
-    <a class="source pills" href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Исходный код <span aria-hidden="true">↗</span></a>
-  </header>
-  <main id="top">
-    <section class="intro wrap">
-      <div class="eyebrow"><span class="signal"></span> КОД ГОРОДА · ФИНАЛ МГТС</div>
-      <h1>От снимка<br>до <em>приёмки.</em></h1>
-      <div class="intro-aside">
-        <p>Компьютерное зрение находит видимые повреждения шкафов. Мастер выбирает действия, запрашивает нужный ракурс и проверяет результат ремонта в той же карточке.</p>
-        <div class="intro-links">
-          <a class="button primary" href="#workbench">Пройти сценарий <span aria-hidden="true">↓</span></a>
-          <a class="button" href="./predict/">Распознать своё фото <span aria-hidden="true">↗</span></a>
-        </div>
+  <a class="skip" href="#main">Перейти к рабочей области</a>
+  <div class="night" id="top">
+    <header class="sitebar wrap">
+      <a class="identity" href="#top" aria-label="МГТС Контур, в начало"><img src="./assets/mgts.svg" width="42" height="42" alt="МГТС"><span>Контур</span></a>
+      <nav aria-label="Основная навигация"><a href="#workbench">Карточка мастера</a><a href="./registry/">Реестр</a><a href="#model">Методика</a></nav>
+      <a class="nav-launch" href="./predict/">Распознать фото <span aria-hidden="true">↗</span></a>
+    </header>
+    <section class="hero" aria-labelledby="hero-title">
+      <picture><source media="(max-width: 680px)" srcset="./assets/moscow-route-mobile.webp"><img class="hero-scene" src="./assets/moscow-route.webp" width="1536" height="1024" alt="" fetchpriority="high"></picture>
+      <div class="hero-copy wrap">
+        <p class="kicker"><i></i> МОСКВА <span>/</span> СЕТЕВАЯ ИНФРАСТРУКТУРА</p>
+        <h1 id="hero-title">Маршрутный осмотр<br>шкафов связи</h1>
+        <p class="hero-lead">Снимок РЩ или ТКШ превращается в карточку мастера.<br class="wide-break"> Проверьте дефект, назначьте работы и примите результат.</p>
+        <div class="hero-actions"><a class="cta" href="./predict/">Распознать своё фото <span aria-hidden="true">↗</span></a><a class="cta secondary" href="#workbench">Пройти пример <span aria-hidden="true">↓</span></a></div>
       </div>
+      <div class="hero-foot wrap"><span><i></i> Схема московского выезда</span><a href="#workbench" data-open-case><img src="./assets/mascot.svg" alt="" width="40" height="40"><span><small>Контур · учебный осмотр</small>Открыть ТКШ-014 ↗</span></a></div>
+    </section>
+  </div>
+  <main id="main" tabindex="-1">
+    <div class="route-strip"><div class="wrap route-inner"><div><strong>20–100 км</strong><span>обычный выезд по Москве</span></div><div><strong>РЩ / ТКШ</strong><span>два типа уличных шкафов</span></div><a href="./registry/"><strong>62 снимка <span aria-hidden="true">↗</span></strong><span>обезличенный реестр</span></a></div></div>
+    <section class="work-heading wrap" aria-labelledby="case-heading">
+      <div><p class="kicker blue"><i></i> РАБОЧЕЕ МЕСТО МАСТЕРА</p><h2 id="case-heading">Разберите один шкаф</h2></div>
+      <p>В учебной карточке уже есть кадр с маршрута. Отметьте замечания и проверьте, какие работы можно закрыть.</p>
     </section>
     <section class="workbench wrap" id="workbench" aria-labelledby="bench-title">
       <aside class="casebar">
         <div class="casehead">
-          <p class="eyebrow">ДЕМОНСТРАЦИОННЫЙ ОБЪЕКТ</p>
+          <p class="eyebrow">УЧЕБНЫЙ ОБЪЕКТ</p>
           <h2 id="bench-title">ТКШ-014</h2>
           <p class="brief">Телекоммуникационный шкаф</p>
         </div>
         <nav class="stages" aria-label="Этапы осмотра">
           <button type="button" data-stage="inspect" aria-current="step"><b>01</b><span>Осмотр</span><span aria-hidden="true">↗</span></button>
           <button type="button" data-stage="rephoto"><b>02</b><span>Пересъёмка</span><span aria-hidden="true">↗</span></button>
-          <button type="button" data-stage="accept"><b>03</b><span>Приёмка</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="work"><b>03</b><span>Работы</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="accept"><b>04</b><span>Приёмка</span><span aria-hidden="true">↗</span></button>
         </nav>
         <div class="sidebar-bottom">
           <div class="labelline"><span class="pulse"></span> Один шкаф · два признака</div>
@@ -65,45 +65,36 @@
             </div>
           </div>
         </div>
-        <div class="actions" id="actions"></div>
+        <div class="desk-actions"><div class="guide"><img id="guide-image" src="./assets/mascot.svg" alt="" width="62" height="62"><div><strong>Контур</strong><p id="guide-tip">Проверьте дверь и покрытие.</p></div></div><div class="actions" id="actions"></div></div>
       </div>
       <button type="button" id="reset-mobile" class="text-button reset-mobile">Сбросить сценарий</button>
       <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
     </section>
+
+    <div class="export-bar wrap"><div><strong>Реестр учебной поездки</strong><p>CSV сохранит решения по двум признакам этой карточки.</p></div><button class="button" id="export-trip" type="button">Скачать CSV <span aria-hidden="true">↓</span></button></div>
+    <details class="opinion wrap" id="opinion"><summary>Открыть мнение Gemini <span aria-hidden="true">＋</span></summary><div><h3>Обезличенный пример из рабочей карточки</h3><p>Запись отдельного серверного запроса Gemini 4 Argon по другому шкафу. Оценки относятся к его исходному снимку. Решение по учебному ТКШ-014 остаётся за мастером.</p><p id="opinion-result" role="status"></p><a href="./registry/argon-example.json">Исходный ответ в JSON ↗</a></div></details>
     <section class="method wrap" id="model" aria-labelledby="model-title">
-      <div class="method-heading">
-        <p class="eyebrow">КОМПЬЮТЕРНОЕ ЗРЕНИЕ</p>
-        <h2 id="model-title">Два признака.<br>Два решения.</h2>
-        <p>МП и ЛКП могут встречаться вместе. Для каждого признака система показывает свою оценку, а мастер подтверждает отдельное действие.</p>
+      <div class="method-heading"><p class="kicker blue"><i></i> ПРОВЕРКА МОДЕЛИ</p><h2 id="model-title">Что видит модель</h2>
+        <p>Для каждого шкафа отдельно оцениваются механические повреждения и дефекты лакокрасочного покрытия. При сомнении нужен ещё один ракурс.</p>
+        <a class="method-link" href="./registry/">Изучить 62 записи <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="method-detail">
-        <div class="numbers" id="numbers" aria-label="Состав размеченного набора">
-          <div><strong>61</strong><span>размеченный снимок</span></div>
-          <div><strong>3</strong><span>с обоими признаками</span></div>
-          <div><strong>2</strong><span>типа шкафов</span></div>
-        </div>
-        <section class="model-check" aria-labelledby="validation-title">
-          <div class="validation-head">
-            <h3 id="validation-title">Проверка на выданных данных</h3>
-            <p id="validation-context"></p>
-          </div>
-          <dl class="validation-results" id="validation-results"></dl>
-        </section>
-        <ul class="steps">
-          <li><b>01</b><div><strong>Отдельные оценки МП и ЛКП</strong><p>Классификация фото РЩ и ТКШ с независимыми выходами для механического повреждения и повреждения покрытия.</p></div></li>
-          <li><b>02</b><div><strong>Целевой запрос ракурса</strong><p>Запрос содержит сторону шкафа и признак, который нужно уточнить. Новый кадр остаётся в исходной карточке.</p></div></li>
-          <li><b>03</b><div><strong>Подтверждение по каждому признаку</strong><p>Фото после ремонта прикладывается к карточке. Остаточный дефект сохраняет своё открытое действие.</p></div></li>
-        </ul>
+      <div class="method-detail"><h3>Три режима распознавания</h3><p id="validation-context"></p><table class="benchmarks"><caption>Macro-F1 двух дефектов</caption><thead><tr><th scope="col">Режим</th><th scope="col">Macro-F1</th></tr></thead><tbody id="modes"></tbody></table><p id="hybrid-check"></p>
+        <h4>Локальная серверная модель v0.4</h4><dl class="validation-results" id="validation-results"></dl>
+        <div class="method-note" id="model-note"></div>
+        <details class="technical"><summary>Как проверяли</summary><p>Похожие кадры объединяли в группы и целиком оставляли в одном из пяти внешних фолдов. Для типа шкафа использовали его выделенную область, для дефектов — признаки изображения. Пользовательские фото в браузере обрабатывает отдельная компактная модель DINOv2. При таймауте облачного запроса гибрид использует локальную оценку. <a href="./registry/public-protocol.json">Открыть протокол Gemini ↗</a></p></details>
       </div>
     </section>
-    <footer class="footer wrap" id="materials">
-      <div><p class="eyebrow">МАТЕРИАЛЫ ПРОТОТИПА</p><h2>От проекта к проверке.</h2></div>
-      <div class="footer-links">
-        <a href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Репозиторий <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/coneldiablo/mgts-route-inspector/releases" target="_blank" rel="noopener">Релизы и модели <span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/coneldiablo/mgts-route-inspector/blob/main/docs/FINAL.md" target="_blank" rel="noopener">Локальный запуск ML <span aria-hidden="true">↗</span></a>
-      </div>
-    </footer>
+    <section class="pilot wrap" id="pilot" aria-labelledby="pilot-title">
+      <div class="pilot-head"><p class="kicker blue"><i></i> ПЛАН ПИЛОТА</p><h2 id="pilot-title">Проверка на маршруте</h2><p>На обычном выезде 20–100 км бригада фиксирует шкафы на нескольких площадках. После поездки диспетчер получает перечень для осмотра и ремонта.</p></div>
+      <figure class="field-illustration"><img src="./assets/field-scene.svg" alt="Учебная схема шкафа на площадке и кабельных каналов под ним" loading="lazy" width="720" height="545"></figure>
+      <ol class="pilot-list">
+        <li><span>01</span><div><h3>Собрать исходные данные</h3><p>Для каждой точки зафиксировать тип шкафа, пригодность кадра и подтверждение места мастером. Повторные кадры связать с той же карточкой.</p></div></li>
+        <li><span>02</span><div><h3>Сравнить с ручным осмотром</h3><p>На тех же точках записать пропуски и ложные тревоги, время разбора и повторные выезды. Бюджет и экономию оценить по итогам пилота.</p></div></li>
+        <li><span>03</span><div><h3>Испытать камеру на машине</h3><p>После проверки на телефоне сравнить качество кадров с автомобильной камеры. Мастер подтверждает замечание и закрытие работ.</p></div></li>
+      </ol>
+    </section>
+    <section class="field-practice wrap" aria-labelledby="practice-title"><h2 id="practice-title">Практики для пилота</h2><article><h3>FirstEnergy</h3><p>Камеры на служебных машинах выявляют признаки повреждений во время поездки. Для Москвы берём первичный отбор шкафов по ходу обычного маршрута.</p><a href="https://www.firstenergycorp.com/newsroom/featured_stories/cameras-with-ai-aim-to-enhance-electric-service-reliability.html">Описание проекта ↗</a></article><article><h3>Nokia</h3><p>Дистанционная приёмка площадки опирается на чек-лист и фотографии. В карточке мастер сверяет каждый пункт с контрольным кадром.</p><a href="https://www.nokia.com/asset/f/214482/#page=7">Remote site acceptance, с. 7 ↗</a></article></section>
+    <footer class="bottom"><div class="wrap"><div class="footer-id"><img src="./assets/mgts.svg" alt="МГТС" width="38" height="38"><strong>Контур</strong></div><nav aria-label="Материалы"><a href="./predict/">Распознать фото ↗</a><a href="./registry/">Реестр поездки ↗</a><a href="https://github.com/coneldiablo/mgts-route-inspector">Исходный код ↗</a></nav></div></footer>
   </main>
   <script type="module" src="./src.js"></script>
 </body>

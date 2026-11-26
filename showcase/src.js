@@ -1,6 +1,8 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import metrics from './metrics.json'
+import metrics from '../runs/final-cabinet/public_metrics.json'
+import vertex from '../runs/cabinet-vertex/public-benchmark.json'
+import browserMetrics from '../browser-ml/oof-summary.json'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,11 +23,18 @@ const views = {
   front: 'Дверь спереди',
   side: 'Боковая панель крупным планом',
 }
-const stages = ['inspect', 'rephoto', 'accept']
+const stages = ['inspect', 'rephoto', 'work', 'accept']
+const guide = {
+  inspect: ['mascot.svg', 'Сверьте дверь и покрытие с кадром. Каждый признак можно подтвердить отдельно.'],
+  rephoto: ['mascot-retake.svg', 'Укажите, чего не видно. Я сохраню запрос нового ракурса в этой карточке.'],
+  work: ['mascot.svg', 'Отметьте выполненные работы и приложите контрольный кадр.'],
+  accept: ['mascot-accept.svg', 'Сравните до и после. Оставьте замечание открытым, если дефект виден.'],
+}
 const storageKey = 'mgts-showcase-scenario-v1'
 const makeState = () => ({
   stage: 'inspect',
   inspection: { mp: null, paint: null },
+  completed: { mp: false, paint: false },
   request: null,
   followup: null,
   after: null,
@@ -39,7 +48,13 @@ let photoError = ''
 
 try {
   const saved = JSON.parse(localStorage.getItem(storageKey))
-  if (saved && stages.includes(saved.stage)) state = { ...state, ...saved }
+  if (saved && stages.includes(saved.stage)) {
+    state = { ...state, ...saved }
+    if (!saved.completed && saved.after) {
+      for (const key of Object.keys(signals)) state.completed[key] = state.inspection[key] === 'queued'
+    }
+    if (!saved.after) state.acceptance = { mp: null, paint: null }
+  }
 } catch {
   // The demonstration also works in browsers with storage disabled.
 }
@@ -54,7 +69,7 @@ function announce(message) {
 }
 
 function chapter(number, title, text) {
-  return `<div class="eyebrow">ЭТАП ${number} / 03</div><h3 id="stage-title" tabindex="-1">${title}</h3><p>${text}</p>`
+  return `<div class="eyebrow">ЭТАП ${number} / 04</div><h3 id="stage-title" tabindex="-1">${title}</h3><p>${text}</p>`
 }
 
 function signalCard(key, group) {
@@ -77,7 +92,7 @@ function inspect() {
     `<div class="action-grid">${Object.keys(signals).map((key) => signalCard(key, 'inspection')).join('')}</div>
     <div class="stage-foot">
       <span class="stage-status ${queued ? 'done' : ''}">Подтверждено действий — ${queued}</span>
-      <button type="button" class="button primary" data-next="rephoto">Дальше <span aria-hidden="true">→</span></button>
+      <button type="button" class="button primary" data-next="rephoto">К пересъёмке <span aria-hidden="true">→</span></button>
     </div>`
 }
 
@@ -107,7 +122,7 @@ function rephoto() {
           ${Object.entries(views).map(([key, label]) => `<option value="${key}">${label}</option>`).join('')}
         </select>
       </label>
-      <div class="stage-foot"><button class="button primary" type="submit">Создать запрос <span aria-hidden="true">→</span></button></div>
+      <div class="stage-foot"><button class="text-button" type="button" data-next="work">Ракурс достаточен</button><button class="button primary" type="submit">Создать запрос <span aria-hidden="true">→</span></button></div>
     </form>`
   }
   const { signal, view } = state.request
@@ -116,30 +131,42 @@ function rephoto() {
     ${uploadButtons('followup')}
     <div class="stage-foot">
       <button class="text-button" type="button" data-request-reset>Изменить запрос</button>
-      <button class="button ${hasPhoto ? 'primary' : ''}" type="button" data-next="accept">К приёмке <span aria-hidden="true">→</span></button>
+      <button class="button ${hasPhoto ? 'primary' : ''}" type="button" data-next="work">К работам <span aria-hidden="true">→</span></button>
     </div>`
 }
 
-function acceptance() {
-  const keys = Object.keys(signals).filter((key) => state.inspection[key] === 'queued')
-  const title = chapter('03', 'Приёмка ремонта', 'Сравните снимки и подтвердите результат по каждому назначенному действию.')
-  if (!keys.length) {
-    return title + '<div class="receipt">Подтвердите хотя бы одно действие на этапе осмотра.</div><button type="button" class="button primary" data-next="inspect">К осмотру</button>'
-  }
+function assignedKeys() {
+  return Object.keys(signals).filter(key => state.inspection[key] === 'queued')
+}
+
+function works() {
+  const keys = assignedKeys()
+  const title = chapter('03', 'Работы мастера', 'В заказ попадают только действия, подтверждённые при осмотре.')
+  if (!keys.length) return title + '<p class="receipt">Пока нет назначенных работ.</p><button type="button" class="button" data-next="inspect">Вернуться к осмотру</button>'
+  const checks = keys.map(key => `<label class="work-check"><input type="checkbox" data-work="${key}" ${state.completed[key] ? 'checked' : ''}><span><strong>${signals[key].code}</strong> · ${signals[key].action}</span></label>`).join('')
   const hasPhoto = Boolean(state.after || memoryPhotos.after)
-  const confirmed = keys.filter((key) => state.acceptance[key] === 'confirmed').length
-  const status = confirmed === keys.length
-    ? 'Все назначенные работы приняты'
-    : `Открытых признаков — ${keys.length - confirmed}`
-  return title + (hasPhoto
-    ? `<div class="action-grid">${keys.map((key) => signalCard(key, 'acceptance')).join('')}</div>
-      <div class="stage-foot"><span class="stage-status ${confirmed === keys.length ? 'done' : ''}">${status}</span></div>`
-    : `<div class="receipt">Карточка ожидает снимок после работ. После добавления фото станут доступны отдельные решения по двум признакам.</div>${uploadButtons('after')}`)
+  return title + checks + (keys.some(key => state.completed[key])
+    ? `<p class="receipt">${hasPhoto ? 'Контрольный кадр приложен.' : 'Приложите снимок после работ.'}</p>${uploadButtons('after')}
+      <div class="stage-foot"><button class="button primary" type="button" data-next="accept" ${hasPhoto ? '' : 'disabled'}>К приёмке →</button></div>`
+    : '<p class="receipt">Отметьте выполненную работу, чтобы приложить контрольный кадр.</p>')
+}
+
+function acceptance() {
+  const keys = assignedKeys()
+  const title = chapter('04', 'Приёмка ремонта', 'Сравните снимки и подтвердите результат по каждому выполненному действию.')
+  if (!keys.length) return title + '<p class="receipt">Подтвердите хотя бы одно действие на этапе осмотра.</p><button type="button" class="button primary" data-next="inspect">К осмотру</button>'
+  const ready = keys.filter(key => state.completed[key])
+  if (!ready.length || !(state.after || memoryPhotos.after)) {
+    return title + '<p class="receipt">Для приёмки нужны отметка мастера и снимок после работ.</p><button class="button primary" type="button" data-next="work">К работам</button>'
+  }
+  const open = keys.length - ready.filter(key => state.acceptance[key] === 'confirmed').length
+  return title + `<div class="action-grid">${ready.map(key => signalCard(key, 'acceptance')).join('')}</div>
+    <div class="stage-foot"><span class="stage-status ${open ? '' : 'done'}">${open ? 'Открытых признаков — ' + open : 'Все назначенные работы приняты'}</span></div>`
 }
 
 function displayPhoto() {
   const followup = state.stage === 'rephoto' && (state.followup || memoryPhotos.followup)
-  const repair = state.stage === 'accept' && (state.after || memoryPhotos.after)
+  const repair = ['work', 'accept'].includes(state.stage) && (state.after || memoryPhotos.after)
   const userPhoto = (repair && showingAfter && memoryPhotos.after) || (followup && memoryPhotos.followup)
   scene.src = userPhoto || (repair && showingAfter ? after : before)
   viewport.dataset.photo = userPhoto ? 'user' : followup ? 'close' : 'original'
@@ -166,7 +193,10 @@ function render() {
     if (button.dataset.stage === state.stage) button.setAttribute('aria-current', 'step')
     else button.removeAttribute('aria-current')
   }
-  panel.innerHTML = { inspect, rephoto, accept: acceptance }[state.stage]()
+  const [asset, tip] = guide[state.stage]
+  $('#guide-image').src = import.meta.env.BASE_URL + 'assets/' + asset
+  $('#guide-tip').textContent = tip
+  panel.innerHTML = { inspect, rephoto, work: works, accept: acceptance }[state.stage]()
   if (selected) panel.querySelector(`[data-signal="${selected}"]`)?.classList.add('is-selected')
   displayPhoto()
 }
@@ -242,7 +272,10 @@ panel.addEventListener('click', (event) => {
   if (next) stageTo(next, true)
   if (decision) {
     state[decision][key] = value
-    if (decision === 'inspection' && value === 'dismissed') state.acceptance[key] = null
+    if (decision === 'inspection' && value === 'dismissed') {
+      state.acceptance[key] = null
+      state.completed[key] = false
+    }
     selected = key
     save()
     render()
@@ -276,6 +309,15 @@ panel.addEventListener('submit', (event) => {
 
 panel.addEventListener('change', async (event) => {
   const input = event.target
+  if (input.dataset.work) {
+    const key = input.dataset.work
+    state.completed[key] = input.checked
+    state.acceptance[key] = null
+    save()
+    render()
+    panel.querySelector(`[data-work="${key}"]`).focus({ preventScroll: true })
+    return
+  }
   if (!input.dataset.upload || !input.files?.[0]) return
   const file = input.files[0]
   const reportError = (message) => {
@@ -304,26 +346,85 @@ panel.addEventListener('change', async (event) => {
 render()
 
 const formatPercent = new Intl.NumberFormat('ru-RU', { style: 'percent', maximumFractionDigits: 1 })
-$('#validation-context').textContent = `${metrics.labeled} фото с разметкой · ${metrics.groups} групп похожих снимков · ${metrics.folds} фолдов`
-for (const [label, value] of [
-  ['Macro-F1 по МП и ЛКП', metrics.defectMacroF1],
-  ['Macro-F1 базовой модели', metrics.baselineMacroF1],
-  ['Полнота по любому дефекту', metrics.damageRecall],
-  ['С дефектом среди приоритетных', `${metrics.priorityDamage} из ${metrics.priorityTotal}`],
+const precisePercent = new Intl.NumberFormat('ru-RU', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const hybrid = vertex.runs['42'].blend_full_with_fallback
+const browserRun = browserMetrics.seeds[browserMetrics.primary_seed].local_mean
+for (const [mode, value] of [
+  ['Сервер v0.4 + Gemini 4 Argon', hybrid.defect_macro_f1],
+  ['Сервер v0.4 без облака', metrics.metrics.defect_macro_f1],
+  ['Браузер · DINOv2 INT8', browserRun.defect_macro_f1],
 ]) {
-  const item = document.createElement('div')
+  const row = document.createElement('tr')
+  const name = document.createElement('th')
+  name.scope = 'row'
+  name.textContent = mode
+  const score = document.createElement('td')
+  score.textContent = precisePercent.format(value)
+  row.append(name, score)
+  $('#modes').append(row)
+}
+const cloudDamage = hybrid.any_damage
+$('#hybrid-check').textContent = `В гибриде 75% оценки даёт локальная модель, 25% — Gemini. Найдено ${cloudDamage.tp} из ${cloudDamage.tp + cloudDamage.fn} кадров с повреждением. Ложных тревог — ${cloudDamage.fp} на ${cloudDamage.fp + cloudDamage.tn} исправных кадрах. При таймауте использована локальная оценка.`
+const damage = metrics.metrics.any_damage
+$('#validation-context').textContent = `${metrics.labeled} снимок с разметкой · ${metrics.groups} группы · ${metrics.folds} внешних фолдов`
+for (const [label, value] of [
+  ['Macro-F1 двух дефектов', formatPercent.format(metrics.metrics.defect_macro_f1)],
+  ['Полнота по любому дефекту', formatPercent.format(damage.recall)],
+  ['Найдено кадров с дефектом', `${damage.tp} из ${damage.tp + damage.fn}`],
+  ['Верно определён тип шкафа', `${metrics.model.type_classifier.candidate_correct} из ${metrics.labeled}`],
+]) {
+  const cell = document.createElement('div')
   const term = document.createElement('dt')
   const result = document.createElement('dd')
   term.textContent = label
-  result.textContent = typeof value === 'number' ? formatPercent.format(value) : value
-  item.append(term, result)
-  $('#validation-results').append(item)
+  result.textContent = value
+  cell.append(term, result)
+  $('#validation-results').append(cell)
 }
+$('#model-note').textContent = `Пропущено кадров с дефектом — ${damage.fn}. Ложных тревог — ${damage.fp}. Окончательное решение принимает мастер.`
 
-gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-  gsap.from('.intro h1, .intro-aside', { opacity: 0, y: 16, duration: .67, stagger: .075, clearProps: 'all', ease: 'power3.out' })
-  gsap.from('.method-detail', {
-    opacity: .75, y: 18, duration: .65, ease: 'power3.out',
-    scrollTrigger: { trigger: '.method', start: 'top 86%', once: true },
-  })
+$('#export-trip').addEventListener('click', () => {
+  const inspection = { queued: 'Назначено', dismissed: 'Отклонено' }
+  const acceptance = { confirmed: 'Устранён', kept: 'Оставлен открытым' }
+  const rows = [['Поездка', 'Объект', 'Признак', 'Решение при осмотре', 'Работа', 'Выполнение', 'Запрос ракурса', 'Уточняющий кадр', 'Кадр после работ', 'Приёмка']]
+  for (const [key, signal] of Object.entries(signals)) {
+    const assigned = state.inspection[key] === 'queued'
+    const requested = state.request?.signal === key
+    rows.push(['Учебная · Москва', 'ТКШ-014', signal.title, inspection[state.inspection[key]] || 'Не рассмотрено',
+      assigned ? signal.action : '—', assigned ? (state.completed[key] ? 'Выполнено' : 'Открыто') : '—',
+      requested ? views[state.request.view] : '—', requested && (state.followup || memoryPhotos.followup) ? 'Есть' : '—',
+      state.after || memoryPhotos.after ? 'Есть' : '—', acceptance[state.acceptance[key]] || '—'])
+  }
+  const csv = rows.map(row => row.map(value => '"' + value.replaceAll('"', '""') + '"').join(';')).join('\r\n')
+  const url = URL.createObjectURL(new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'Контур-учебная-поездка.csv'
+  link.click()
+  setTimeout(() => URL.revokeObjectURL(url), 2000)
+  announce('Реестр учебной поездки подготовлен')
+})
+
+let opinionLoaded = false
+$('#opinion').addEventListener('toggle', async event => {
+  if (!event.currentTarget.open || opinionLoaded) return
+  const output = $('#opinion-result')
+  output.textContent = 'Читаем сохранённый ответ…'
+  try {
+    const response = await fetch(import.meta.env.BASE_URL + 'registry/argon-example.json')
+    if (!response.ok) throw new Error('unavailable')
+    const example = await response.json()
+    const seconds = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 }).format(example.seconds)
+    const type = example.scores.telecom >= 0.5 ? 'ТКШ' : 'РЩ'
+    output.textContent = `Тип шкафа — ${type} (оценка ТКШ — ${formatPercent.format(example.scores.telecom)}). Механическое повреждение — ${formatPercent.format(example.scores.mechanical)}. Дефект покрытия — ${formatPercent.format(example.scores.coating)}. Время запроса — ${seconds} с.`
+    opinionLoaded = true
+  } catch {
+    output.textContent = 'Не удалось прочитать запись. Закройте и откройте этот блок ещё раз.'
+  }
+})
+
+$('[data-open-case]').addEventListener('click', () => stageTo('inspect'))
+gsap.matchMedia().add('(min-width: 681px) and (prefers-reduced-motion: no-preference)', () => {
+  gsap.from('.hero-copy', { y: 10, duration: .45, ease: 'power2.out', clearProps: 'transform' })
+  gsap.to('.hero-scene', { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.night', start: 'top top', end: 'bottom top', scrub: true } })
 })

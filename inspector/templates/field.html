@@ -44,6 +44,43 @@ function photoFigure(card, photo, pred){
   fig.append(a,node('figcaption',im.alt+(grounded?' · Область шкафа':'')));
   return fig;
 }
+function renderArgon(pane,c){
+  const panel=section(pane,'Второе мнение Gemini Argon'), opinion=c.second_opinion;
+  if(opinion){
+    panel.append(node('p',opinion.message),node('p',(opinion.model_version||opinion.model)+' · '+opinion.prompt_version));
+    if(opinion.status==='ok'){
+      const labels={telecom:'Оценка типа ТКШ',mechanical:names.mechanical,coating:names.coating};
+      for(const [key,value] of Object.entries(opinion.scores))panel.append(node('p',labels[key]+' · '+Number(value).toFixed(2)));
+      if(opinion.visible_cues.length){
+        const list=node('ul');
+        for(const cue of opinion.visible_cues)list.append(node('li',cue));
+        panel.append(list);
+      }
+    }
+    if(opinion.comparison?.mode==='advisory_blend'){
+      const comparison=opinion.comparison;
+      panel.append(node('h4','Совместная оценка для мастера'));
+      const localVersion=comparison.model_release?' '+comparison.model_release:'';
+      panel.append(node('p','Локальная модель'+localVersion+' '+comparison.local_weight*100+'% · Gemini '+comparison.cloud_weight*100+'% · порог '+comparison.threshold.toFixed(2)));
+      for(const [key,item] of Object.entries(comparison.heads)){
+        const state=item.agreement?(item.local_positive?'Обе модели видят признак':'Обе оценки ниже порога'):'Модели расходятся — перепроверьте этот признак';
+        panel.append(node('p',names[key]+' · '+item.score.toFixed(2)+' · '+state));
+      }
+    }else if(opinion.comparison?.mode==='local_only'){
+      panel.append(node('p','Доступна локальная оценка.'));
+    }
+  }
+  if(!opinion||!['ok','unreadable'].includes(opinion.status)){
+    panel.append(node('p','По кнопке исходный снимок без EXIF отправится в Google Vertex AI. Локальная оценка и решения мастера сохраняются отдельно.'));
+    panel.append(btn(opinion?'Повторить запрос Gemini Argon':'Второе мнение Gemini Argon',async()=>{
+      const updated=await api('/api/inspections/'+c.id+'/second-opinion',{
+        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({send_initial_photo:true})
+      });
+      if(active?.id===c.id)change(updated);
+      else{cards=cards.map(card=>card.id===c.id?updated:card);queue()}
+    }));
+  }
+}
 function render(){const c=active, pane=$('#card'), pred=c.prediction;pane.replaceChildren(node('h2',names[pred.object_type]||'Тип уточняет мастер'),node('p','Осмотр '+c.id.slice(0,8)+' · '+(c.closed?'Работы приняты':actionNames[pred.action]||'Проверка мастером')));
 if(c.lat!==null)pane.append(node('p','Положение объекта · '+c.lat+', '+c.lon));
 if(typeSources[pred.object_type_source]){
@@ -53,6 +90,7 @@ if(typeSources[pred.object_type_source]){
 }
 const photos=node('div');photos.className='photos';for(const p of c.photos)photos.append(photoFigure(c,p,pred));pane.append(photos);
 const prediction=section(pane,'Что увидела модель');if(defectSources[pred.defect_score_source])prediction.append(node('p',defectSources[pred.defect_score_source]));for(const [key,value] of Object.entries(pred.scores||{}))prediction.append(node('p',(names[key]||key)+' · оценка '+Number(value).toFixed(2)));if(pred.reason)prediction.append(node('p',pred.reason));prediction.append(node('p','Мастер подтверждает видимые признаки и каждую работу отдельно.'));
+renderArgon(pane,c);
 for(const code of ['mechanical','coating']){const f=c.findings.find(x=>x.code===code),s=section(pane,names[code]);s.append(node('p',f?states[f.state]:'Замечание отсутствует'));if(f)s.append(node('p',f.work));const row=node('div');row.className='row';s.append(row);
 if(!f||['proposed','dismissed'].includes(f.state))row.append(btn(f?'Подтвердить работу':'Добавить замечание',()=>send('/findings/'+code,{action:'confirm'})));
 if(f&&['proposed','confirmed'].includes(f.state))row.append(btn('Снять замечание',()=>send('/findings/'+code,{action:'dismiss'})));

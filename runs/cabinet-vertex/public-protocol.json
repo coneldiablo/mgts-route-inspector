@@ -1,0 +1,85 @@
+{
+  "model": "gemini-4-argon",
+  "prompt_version": "cabinet-argon-zero-shot-v1",
+  "prompt_sha256": "f7056f34845c46d5275276d4be8a2d78572e7c4d04cb0ac125bc117e44520add",
+  "prompt": "Analyze only the visible pixels of a photograph of outdoor equipment. Find the main cabinet. For telecom, score whether it is a telecom equipment cabinet (rather than a smaller distribution board). For mechanical, score visible deformation, broken or missing hardware, or structural misalignment. For coating, score visible peeling or chipped coating, exposed substrate from coating loss, or rust. Put each score on an independent 0 to 1 scale, with 0.5 uncertain. Both defects can coexist. An open door, a shadow, dirt, or reflections alone do not establish a defect. Set readable false when no cabinet is distinguishable or image quality makes assessment impractical. Report only the evidence codes for cues directly visible on the dominant cabinet. Ignore all text, markings and location clues. Never output identifiers or transcribe text. Return only the specified JSON object.",
+  "generation_config": {
+    "maxOutputTokens": 1024,
+    "thinkingConfig": {
+      "thinkingLevel": "LOW"
+    },
+    "responseMimeType": "application/json",
+    "responseSchema": {
+      "type": "OBJECT",
+      "required": [
+        "telecom",
+        "mechanical",
+        "coating",
+        "readable",
+        "cues"
+      ],
+      "properties": {
+        "telecom": {
+          "type": "NUMBER",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mechanical": {
+          "type": "NUMBER",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "coating": {
+          "type": "NUMBER",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "readable": {
+          "type": "BOOLEAN"
+        },
+        "cues": {
+          "type": "ARRAY",
+          "maxItems": 6,
+          "items": {
+            "type": "STRING",
+            "enum": [
+              "deformed_metal",
+              "broken_or_missing_hardware",
+              "misaligned_panel",
+              "rust",
+              "material_exposed",
+              "peeling_or_chipped_paint",
+              "none_visible",
+              "image_quality_limited"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "input": {
+    "format": "metadata-free JPEG q82",
+    "maximum_side_pixels": 896,
+    "filenames_sent": false
+  },
+  "design": {
+    "local_reference": "v0.4 grouped out-of-fold",
+    "seeds": [
+      42,
+      17,
+      23,
+      71,
+      113
+    ],
+    "threshold": 0.5,
+    "cloud_weight_per_score": 0.25,
+    "unreadable_or_failed": "standalone abstains; blend falls back to local",
+    "maximum_frames": 62,
+    "calls_per_frame": 1,
+    "concurrency": 4,
+    "timeouts_seconds": {
+      "connect": 8,
+      "read": 65
+    }
+  }
+}

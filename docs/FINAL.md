@@ -2,6 +2,14 @@
 
 Система превращает фотографию распределительного щита (РЩ) или телекоммуникационного шкафа (ТКШ) в карточку работ. У шкафа может быть несколько замечаний. У каждого замечания есть собственные решение мастера, запрос ракурса и результат приёмки. [Распознать своё фото](https://coneldiablo.github.io/mgts-route-inspector/predict/) · [Интерактивный пример](https://coneldiablo.github.io/mgts-route-inspector/)
 
+## Второе мнение Gemini 4 Argon
+
+Рабочее место использует Google Vertex AI с ADC. Мастер явно выбирает отправку исходного кадра. Клиент убирает EXIF и передаёт только уменьшенное изображение и зафиксированный промпт. В карточке появляются независимые оценки, видимые признаки и сравнение по двум дефектам. Для смешанной оценки вес локальной модели равен 75%, вес Argon — 25%. Классификация типа остаётся локальной. При отсутствии ответа мастер продолжает с локальным прогнозом.
+
+На основном разбиении, на всех 61 размеченных кадрах с локальным резервом, среднее F1 механики и ЛКП выросло с 72,29% до **81,78%**. Обнаружены 38 из 41 повреждений при 5 ложных тревогах на 20 исправных. На пяти вариантах группировки прибавка была положительной в каждом, в среднем **9,08 п.п.** В независимых результатах двух меток у смеси по-прежнему 1 из 3 верных двойных и 5 ложных двойных. При пороге 0,5 отдельный Argon на доступных 60 размеченных кадрах нашёл 3 из 3 двойных, а ещё на 8 кадрах ошибочно указал сразу два дефекта. Проверка мастером существенна.
+
+Из 62 запросов получен 61 ответ, один завершился тайм-аутом. Медиана успешного ответа 6,77 с. Публичный реестр показывает сохранённые ответы. Для самостоятельного живого вызова в серверном окружении установите дополнение `vertex` и настройте Google Application Default Credentials для проекта с доступом к модели. [Измерения](../runs/cabinet-vertex/public-benchmark.json) · [Промпт и протокол](../runs/cabinet-vertex/public-protocol.json) · [Реестр](https://coneldiablo.github.io/mgts-route-inspector/registry/) · [Продукт, критерии и пилот](PRODUCT.md)
+
 ## Как показать на защите
 
 1. Загрузите снимок одного шкафа. В карточке откройте оценку механического повреждения и оценку лакокрасочного покрытия (ЛКП). Кнопка «Показать фрагмент» выделяет ту из четырёх областей, которая внесла наибольший вклад в выбранную оценку. Область помогает осмотреть кадр. Точных контуров повреждения в разметке нет.
@@ -47,7 +55,7 @@
 ```bash
 python3.13 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[cabinet,dev]'
+python -m pip install -e '.[cabinet,vertex,dev]'
 python -m scripts.cabinet_final prepare
 python -m scripts.cabinet_final predict /путь/к/фото.jpg
 python -m uvicorn inspector.field:create_app --factory --host 127.0.0.1 --port 8080
@@ -58,13 +66,14 @@ python -m uvicorn inspector.field:create_app --factory --host 127.0.0.1 --port 8
 ## Сборка публичного прототипа
 
 ```bash
-(cd showcase && npm ci && npm run build)
 sh browser-ml/prepare_runtime.sh
-mkdir -p showcase/dist/predict
-cp browser-ml/*.html browser-ml/*.css browser-ml/*.js browser-ml/heads-v2.json browser-ml/oof-summary.json browser-ml/input-quality-report.json showcase/dist/predict/
-cp -R browser-ml/runtime showcase/dist/predict/
-python -m http.server --directory showcase/dist 8081
+(cd showcase && npm ci && npm run build)
+mkdir -p /tmp/mgts-pages-preview/mgts-route-inspector
+cp -R showcase/dist/. /tmp/mgts-pages-preview/mgts-route-inspector/
+python -m http.server --bind 127.0.0.1 --directory /tmp/mgts-pages-preview 8081
 ```
+
+Откройте [локальную витрину](http://127.0.0.1:8081/mgts-route-inspector/). Сборка включает сайт, реестр и браузерное распознавание.
 
 [Браузерная модель](../browser-ml/infer.js) · [Обучение компактных голов](../scripts/train_browser_cabinet.py) · [Серверное рабочее место](../inspector/field.py)
 

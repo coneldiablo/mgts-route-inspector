@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="545" viewBox="0 0 720 545" role="img" aria-labelledby="title desc">
+  <title id="title">Ночной осмотр телекоммуникационного шкафа в Москве</title>
+  <desc id="desc">Изометрический макет. Уличный двухдверный шкаф стоит на бетонном основании над кабельными каналами. Рядом фонарь и ограждение, вдали виден силуэт московской высотки.</desc>
+  <defs>
+    <linearGradient id="night" x2=".95" y2=".9"><stop stop-color="#0B2B50"/><stop offset=".57" stop-color="#143D65"/><stop offset="1" stop-color="#0B2B50"/></linearGradient>
+    <radialGradient id="haze"><stop stop-color="#4486A5" stop-opacity=".42"/><stop offset="1" stop-color="#4486A5" stop-opacity="0"/></radialGradient>
+    <radialGradient id="lampHalo"><stop stop-color="#FFDE9B" stop-opacity=".85"/><stop offset=".18" stop-color="#FFC789" stop-opacity=".32"/><stop offset="1" stop-color="#F8AD62" stop-opacity="0"/></radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#FFCD8E" stop-opacity=".14"/><stop offset=".8" stop-color="#FFCD8E" stop-opacity="0"/></linearGradient>
+    <linearGradient id="asphalt" x2=".78" y2="1"><stop stop-color="#456686"/><stop offset=".55" stop-color="#294A6C"/><stop offset="1" stop-color="#1B3B5B"/></linearGradient>
+    <linearGradient id="paving" x2=".9" y2="1"><stop stop-color="#86A5B4"/><stop offset=".57" stop-color="#58788C"/><stop offset="1" stop-color="#4D6C84"/></linearGradient>
+    <linearGradient id="cabFront" x2=".85" y2="1"><stop stop-color="#F6D7A8"/><stop offset=".24" stop-color="#CFD1B9"/><stop offset=".58" stop-color="#AFC0BE"/><stop offset="1" stop-color="#819DAA"/></linearGradient>
+    <linearGradient id="cabSide" x2="1" y2=".8"><stop stop-color="#668A9E"/><stop offset="1" stop-color="#385A74"/></linearGradient>
+    <linearGradient id="roof" x2="1" y2=".7"><stop stop-color="#FFF1C9"/><stop offset=".55" stop-color="#D6DDD0"/><stop offset="1" stop-color="#9EBDCB"/></linearGradient>
+    <linearGradient id="door" x2="1" y2=".95"><stop stop-color="#F0D9B4"/><stop offset=".48" stop-color="#CECFBB"/><stop offset="1" stop-color="#A2B7B8"/></linearGradient>
+    <linearGradient id="door2" x2="1" y2="1"><stop stop-color="#E4D5B5"/><stop offset=".6" stop-color="#BBC9BF"/><stop offset="1" stop-color="#8EA9AE"/></linearGradient>
+    <pattern id="windows" width="13" height="14" patternUnits="userSpaceOnUse"><path d="M2 4h3v5H2Zm6 0h2v5H8Z" fill="#70A1B8" opacity=".47"/></pattern>
+    <pattern id="louvres" width="17" height="5" patternUnits="userSpaceOnUse"><path d="M0 1h17" stroke="#233F50" stroke-width="1.8"/><path d="M0 2.5h17" stroke="#B0C1BC" stroke-width="1.1"/></pattern>
+    <pattern id="flutes" width="7" height="8" patternUnits="userSpaceOnUse"><path d="M1 0v8" stroke="#30536D" stroke-width="1.3"/><path d="M3 0v8" stroke="#99B0B5" stroke-width=".7"/></pattern>
+    <pattern id="tiles" width="49" height="27" patternUnits="userSpaceOnUse" patternTransform="matrix(.97 .35 -.8 .48 0 0)"><path d="M0 0h49v27H0z" fill="none" stroke="#A8BBC2" stroke-width="1" opacity=".65"/></pattern>
+    <pattern id="grain" width="23" height="19" patternUnits="userSpaceOnUse"><path d="m2 3 2 .4m10 7 2 .7m3-6 1-.6m-11 11 .8-.6" stroke="#B1C7CD" opacity=".26" stroke-width=".8"/></pattern>
+    <g id="post"><ellipse rx="10" ry="4" cy="1" fill="#112F49" opacity=".6"/><path d="M-6 0v-27l6-3 6 3v27l-6 3Z" fill="#D4BD97"/><path d="M0-24 6-27v27L0 3Z" fill="#82949B"/><path d="m-6-27 6-3 6 3-6 3Z" fill="#FFE5BA"/><path d="M-6-15 0-12l6-3v5l-6 3-6-3Z" fill="#EB8054"/></g>
+    <g id="hinge"><rect width="4.5" height="12" rx="1.4" fill="#536C77"/><path d="M1 1v10" stroke="#DCE0CC" stroke-width=".8"/></g>
+    <g id="bolt"><circle r="1.5" fill="#627B82"/><path d="M-.6.3.6-.3" stroke="#C6D1C5" stroke-width=".5"/></g>
+  </defs>
+  <path fill="url(#night)" d="M0 0h720v545H0z"/>
+  <ellipse cx="490" cy="164" rx="335" ry="170" fill="url(#haze)"/>
+  <!-- A distant municipal skyline, kept below the cabinet's roofline. -->
+  <g fill="#204A6E">
+    <path d="M0 209h16v-13h28v15h12v-27h17v-11h21v26h15v-18h31v8h18v-25h35v33h20v-13h16v-17h25v14h27v9h15v-28h20v-9h29v39h31v-23h26v14h33v-27h49v9h18v-29h16v-13h31v21h16v-47h30v25h11v-10h31v19h15v-28h28v28h13v-14h42v83H0Z"/>
+    <path d="M510 200v-28h13v-26h11v-22h8v-13h7v-11h3l2-17 2 17h3v11h7v13h8v22h11v26h13v28Z" fill="#2B5778"/>
+    <path d="M598 181v-19h6v-19h5v-10h6v-9h2l2-14 2 14h2v9h5v10h6v19h6v19Z" fill="#2B5778"/>
+    <path d="M4 202h39v19H4zm66-23h19v33H70zm96-9h24v40h-24zm216 4h15v22h-15zm148-23h51v41h-51zm14-27h18v25h-18zm67 27h19v28h-19zm77-14h18v45h-18z" fill="url(#windows)"/>
+  </g>
+  <g fill="#FFD19A" opacity=".45"><path d="M77 190h3v4h-3zm95-5h3v3h-3zm367-18h3v4h-3zm11-31h2v4h-2zm11 26h3v4h-3zm53-6h2v3h-2zm85-6h2v3h-2z"/></g>
+  <g fill="none" stroke="#80A8BA" opacity=".13"><path d="m-25 323 392-226m-370 249 425-246m142 42 167 61m-276-24 266 98M17 487l136 49m415-27 167-98"/></g>
+  <!-- Road and the buried conduit section on its exposed edge. -->
+  <path d="M34 332 431 479 699 323 304 182Z" fill="#1D3D59" transform="translate(0 14)"/>
+  <path d="m34 332 397 146v19L34 351Z" fill="#213F56"/>
+  <path d="m431 478 268-155v19L431 497Z" fill="#142F4B"/>
+  <path d="M34 332 431 478 699 323 304 182Z" fill="url(#asphalt)"/>
+  <path d="M34 332 431 478 699 323 304 182Z" fill="url(#grain)"/>
+  <path d="m34 332 397 146 268-155" fill="none" stroke="#6E91A5" opacity=".6" stroke-width="1.3"/>
+  <path d="m81 340 10-6m19-11 20-12m19-11 20-12m21-12 19-11m20-11 20-12m19-11 20-11m20-12 13-7m151 231 17-10m20-12 24-14m20-12 24-14m20-12 24-14m20-12 24-14" stroke="#A0B4BC" opacity=".68" stroke-width="3" fill="none"/>
+  <path d="m121 327 304 111 161-93-304-110Z" fill="#2D4760" transform="translate(6 8)" opacity=".65"/>
+  <path d="m119 319 308 113 156-91-308-113Z" fill="url(#paving)"/>
+  <path d="m119 319 308 113 156-91-308-113Z" fill="url(#tiles)"/>
+  <path d="m119 319 308 113v9L119 328Z" fill="#8198A3"/>
+  <path d="m427 432 156-91v9l-156 91Z" fill="#516F85"/>
+  <g fill="none" stroke="#D2D5C2" stroke-width="1.3" opacity=".8"><path d="m119 319 308 113 156-91"/></g>
+  <g stroke="#526C7E" stroke-width="1.5"><path d="M154 332v8m40 6v9m39 5v9m42 6v9m39 5v9m41 6v9m40 5v9m54-7v8m35-29v9m36-30v9m34-30v9"/></g>
+  <g fill="none" stroke-linecap="round">
+    <path d="m110 362 199 73q14 5 23 0l20-12" stroke="#132D46" stroke-width="10"/>
+    <path d="m108 359 201 74q13 5 23 0l20-12" stroke="#E99062" stroke-width="4"/>
+    <path d="m106 365 202 74q16 6 28-1l20-12" stroke="#B97758" stroke-width="3"/>
+    <path d="m177 382-4 9m41 5-5 9m49 8-4 9m47 6-4 9" stroke="#18354B" stroke-width="4"/>
+  </g>
+  <!-- Two lamps and protective street furniture. -->
+  <use href="#post" transform="translate(553 344) scale(.78)"/>
+  <g stroke-linejoin="round">
+    <path d="m177 296 11 4 11-6-12-4Z" fill="#314E61"/>
+    <path d="M184 292V138c0-7-3-10-8-12l-24-8" stroke="#253F53" stroke-width="7" fill="none"/>
+    <path d="M183 291V137c0-5-2-8-7-10l-24-8" stroke="#9EB4B7" stroke-width="2.2" fill="none"/>
+    <path d="m133 118 16-9 22 8-16 10Z" fill="#547487"/>
+    <path d="m133 118 22 9v4l-22-8Z" fill="#879A9F"/>
+    <path d="m135 122 19 7 13-8-19-7Z" fill="#FFE6AB"/>
+    <ellipse cx="150" cy="124" rx="48" ry="42" fill="url(#lampHalo)"/>
+    <path d="m142 125 14 3 82 174-107-31Z" fill="url(#beam)"/>
+  </g>
+  <!-- Cast shadow and the chassis plinth. -->
+  <path d="m215 312 208 93 128-55-15-10-20-8-43-8-167-37Z" fill="#223D55" opacity=".48"/>
+  <path d="m198 314 230 83 108-63-230-83Z" fill="#C4C9BA"/>
+  <path d="m198 314 230 83v12l-230-83Z" fill="#8799A0"/>
+  <path d="m428 397 108-63v12l-108 63Z" fill="#516F82"/>
+  <path d="m204 313 224 81 102-59" fill="none" stroke="#E1DFCB" stroke-width="1.4"/>
+  <path d="m216 303 209 76 89-51-210-77Z" fill="#69808A"/>
+  <path d="m216 303 209 76v12l-209-76Z" fill="#516C79"/>
+  <path d="m425 379 89-51v12l-89 51Z" fill="#355267"/>
+  <!-- Cabinet construction in its front and side planes. -->
+  <g transform="matrix(1 .36 0 1 216 136)">
+    <rect y="0" width="210" height="168" fill="url(#cabFront)" stroke="#607B87" stroke-width="1.6"/>
+    <path d="M6 8h198v147H6Z" fill="#506972"/>
+    <rect x="8" y="10" width="96" height="143" rx="1.4" fill="url(#door)"/>
+    <rect x="107" y="10" width="95" height="143" rx="1.4" fill="url(#door2)"/>
+    <path d="M11 149V13h90m9 136V13h89" fill="none" stroke="#F4E3C3" stroke-width="1.3"/>
+    <path d="M101 14v135H12m187-135v135h-88" fill="none" stroke="#708991" stroke-width="1.2"/>
+    <path d="M12 156h186" stroke="#D5D3B9" stroke-width="1.4"/>
+    <g fill="url(#louvres)"><rect x="20" y="20" width="44" height="16" rx="1"/><rect x="145" y="20" width="44" height="16" rx="1"/><rect x="20" y="130" width="43" height="12" rx="1"/><rect x="147" y="130" width="42" height="12" rx="1"/></g>
+    <use href="#hinge" x="6" y="40"/><use href="#hinge" x="6" y="109"/><use href="#hinge" x="200" y="40"/><use href="#hinge" x="200" y="109"/>
+    <rect x="88" y="68" width="7" height="24" rx="2" fill="#617980"/><path d="M91 70v14h-6" fill="none" stroke="#243D4A" stroke-width="3" stroke-linecap="round"/>
+    <rect x="115" y="68" width="7" height="24" rx="2" fill="#617980"/><path d="M118 70v14h6" fill="none" stroke="#243D4A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="91" cy="88" r="1.1" fill="#D8D7C4"/><circle cx="118" cy="88" r="1.1" fill="#D8D7C4"/>
+    <rect x="132" y="50" width="24" height="7" rx=".8" fill="#566F78"/><path d="M136 53h13" stroke="#ACC1C0" stroke-width="1"/>
+    <path d="m52 59 12 22H40Z" fill="#F4B66E" stroke="#616961" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="m54 63-6 9h4l-1 5 6-9h-4Z" fill="#455A60"/>
+    <use href="#bolt" x="4" y="4"/><use href="#bolt" x="205" y="4"/><use href="#bolt" x="4" y="163"/><use href="#bolt" x="205" y="163"/>
+  </g>
+  <g transform="matrix(1 -.575 0 1 426 211.6)">
+    <rect width="87" height="168" fill="url(#cabSide)" stroke="#435F73" stroke-width="1.3"/>
+    <path d="M7 9h73v145H7z" stroke="#82A0AF" fill="none" stroke-width="1.2"/>
+    <rect x="12" y="68" width="61" height="78" fill="url(#flutes)"/>
+    <path d="M10 67h65v3H10z" fill="#8EA6AC"/>
+    <path d="M8 156h70" stroke="#607C8B" stroke-width="1.1"/>
+  </g>
+  <path d="m208 129 220 80 95-55-220-81Z" fill="url(#roof)" stroke="#9FB2BC" stroke-width="1.3"/>
+  <path d="m208 129 220 80v10l-220-80Z" fill="#BDCBC4" stroke="#8EA3A7" stroke-width="1"/>
+  <path d="m428 209 95-55v10l-95 55Z" fill="#748EA0" stroke="#597B94" stroke-width="1"/>
+  <path d="m214 129 214 77 88-50" fill="none" stroke="#F5EFDA" stroke-width="1.7"/>
+  <g fill="none" stroke="#94ACB8" stroke-width="1.2" opacity=".86"><path d="m245 124 169 61 69-39m-211-34 167 61"/></g>
+  <!-- Foreground drainage and reflectors. -->
+  <g transform="matrix(.96 .35 -.8 .47 328 398)"><rect width="45" height="20" rx="1.3" fill="#627D8E" stroke="#A8B6BA"/><g stroke="#2B475D" stroke-width="2.7"><path d="M5 4v12m6-12v12m6-12v12m6-12v12m6-12v12m6-12v12m6-12v12"/></g></g>
+  <use href="#post" transform="translate(211 348)"/>
+  <use href="#post" transform="translate(458 404)"/>
+  <path d="m514 385 23-13m9-5 12-7" fill="none" stroke="#F1BC81" stroke-width="2.5" opacity=".83"/>
+</svg>
