@@ -1,0 +1,22 @@
+{
+  "revision": "5269a45a3c4b03a8efae511eac9bcacdf4bf55e9",
+  "seeds": [
+    42,
+    17,
+    23,
+    71,
+    113
+  ],
+  "methods": [
+    "v0.4",
+    "v0.2 and MIL 50:50"
+  ],
+  "windows": "four 72% corner windows in released HR branch",
+  "pooling": "log mean exp",
+  "temperature": 3.0,
+  "C": 0.006944444444444444,
+  "normalization": "outer training patches only",
+  "labels": "bag-level independent binary",
+  "decision_threshold": 0.5,
+  "promote_if": "better macro-F1 on all five seeds and better primary true dual count"
+}

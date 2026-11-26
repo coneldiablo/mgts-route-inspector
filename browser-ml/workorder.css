@@ -76,3 +76,10 @@
   .wo-coordinate-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .wo-coordinate-form button { grid-column: 1 / -1; }
 }
+.wo-region-stage{position:relative}.wo-region-stage img{height:auto;aspect-ratio:auto;object-fit:fill}
+.wo-region-box{position:absolute;border:3px solid #ff764e;box-shadow:0 0 0 1px #17334e;box-sizing:border-box;pointer-events:none}
+.wo-crop canvas{display:block;width:100%;max-height:265px;object-fit:contain;background:var(--wo-soft);margin-block:6px}
+.wo-compare{margin:10px 0;color:var(--wo-text);font-size:.8rem}
+.wo-compare summary{font-weight:650;cursor:pointer;padding:6px 0}
+.wo-pair{display:grid;grid-template-columns:1fr 1fr;gap:6px}.wo-pair figure{margin:0;min-width:0}.wo-pair figcaption{font-weight:650}
+.wo-acceptance .wo-field{margin-bottom:8px}.wo-task .wo-button{margin-block:2px}

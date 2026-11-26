@@ -1,5 +1,8 @@
 <!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>МГТС · Рабочее место мастера</title>
 <style>
+.photo-evidence{position:relative;display:inline-block;line-height:0;max-width:100%}
+.photos .photo-evidence img{display:block;width:auto;height:auto;max-width:min(360px,55vw);max-height:260px}
+.cabinet-region{position:absolute;border:2px solid #33d6ff;box-shadow:0 0 0 1px #102e50;pointer-events:none}
 *{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:#142b42;font:16px/1.45 system-ui,sans-serif}header{background:#102e50;color:white;padding:20px max(5vw,20px);display:flex;align-items:center;justify-content:space-between;gap:16px}header a{color:#fff}main{max-width:1250px;margin:auto;padding:32px 20px}h1{font-size:clamp(30px,4vw,52px);line-height:1;margin:0 0 20px}h2,h3,p{margin:0 0 12px}.layout{display:grid;grid-template-columns:minmax(250px,.39fr) minmax(0,1fr);gap:20px;align-items:start}aside,article,.panel{background:white;border:1px solid #d6e1ea;border-radius:12px;padding:20px}aside{display:grid;gap:16px}label{display:grid;gap:4px;font-size:14px}input,button,select{font:inherit;max-width:100%;border-radius:6px;padding:9px;border:1px solid #a2b6c7}button{background:#fff;color:#183b5c;cursor:pointer}button:hover{border-color:#067bbd}.primary{background:#075f9e;color:white}.list,.stack{display:grid;gap:10px}.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.coords{display:grid;grid-template-columns:1fr 1fr;gap:6px}.coords input{width:100%}.list button{text-align:left}.panel{margin-top:12px;padding:16px}.photos{display:flex;overflow:auto;gap:10px}.photos img{width:130px;height:96px;object-fit:contain;background:#eff2f5}.photos figure{margin:0;font-size:12px}.state{font-size:14px;color:#526778}.error{color:#9a281b;min-height:1.4em}.muted{color:#4a6375}.selected{border:2px solid #008ae0}a{color:#005e99}button:disabled{cursor:wait;opacity:.6}input[type=file]{font-size:14px}#live{position:sticky;bottom:8px;background:#fff;box-shadow:0 2px 7px #0002;padding:6px 10px;border-radius:6px}#live:empty{display:none}@media(max-width:760px){.layout{grid-template-columns:1fr}main{padding:22px 12px}header{padding:14px}.panel,article,aside{padding:14px}}</style>
 <header><strong>МГТС / Маршрутный осмотр</strong><a href="/api/export.csv" download>Выгрузить CSV</a></header><main><h1>Рабочее место мастера</h1><div class="layout"><aside><form id="new" class="stack"><h2>Новый осмотр</h2><label>Исходный снимок<input required type="file" name="image" accept="image/jpeg,image/png,image/webp"></label><details><summary>Координаты шкафа</summary><p class="muted">Заполните, если положение самого объекта известно.</p><div class="coords"><label>Широта<input name="lat" type="number" min="-90" max="90" step="any"></label><label>Долгота<input name="lon" type="number" min="-180" max="180" step="any"></label></div></details><button class="primary">Распознать фото</button></form><div><h2>Осмотры</h2><div id="queue" class="list"></div></div></aside><article id="card" aria-live="polite"><h2>Выберите осмотр</h2><p>Загрузите снимок шкафа или откройте сохранённую карточку.</p></article></div><p id="live" role="status"></p></main>
 <script>
@@ -8,6 +11,8 @@ const names={distribution_board:'Распределительный щит (РЩ
 const states={proposed:'Предложено моделью',confirmed:'Работа подтверждена мастером',accepted:'Работа принята по фото',dismissed:'Снято мастером'};
 const actionNames={inspect:'Проверка мастером',repair:'Кандидат на ремонт',no_action:'Признаков повреждения не выявлено'};
 const purposes={initial:'Исходный кадр',retake:'Пересъёмка',after:'После работ'};let active, cards=[];
+const typeSources={grounded_roi:'Тип уточнён по области шкафа',full_frame:'Тип определён по полному кадру'};
+const defectSources={siglip_hr_blend:'МП и ЛКП · ансамбль с SigLIP 2 высокого разрешения',v02_ensemble:'МП и ЛКП · базовый ансамбль'};
 async function api(url,opt){const r=await fetch(url,opt);const j=await r.json();if(!r.ok)throw Error(typeof j.detail==='string'?j.detail:'Проверьте введённые данные.');return j}
 async function work(handler){try{$('#live').textContent='Выполняется…';await handler();$('#live').textContent='Сохранено.'}catch(e){$('#live').textContent=e.message}}
 function btn(title,fn){const b=node('button',title);b.type='button';b.onclick=()=>work(async()=>{b.disabled=true;try{await fn()}finally{b.disabled=false}});return b}
@@ -16,10 +21,38 @@ function send(path,data){return api('/api/inspections/'+active.id+path,{method:'
 function fileControl(parent,label,params){const l=node('label',label), input=node('input');input.type='file';input.accept='image/jpeg,image/png,image/webp';l.append(input);parent.append(l,btn('Приложить снимок',async()=>{if(!input.files[0])throw Error('Сначала выберите фото.');const f=new FormData();for(const [k,v] of Object.entries(params))f.set(k,v);f.set('image',input.files[0]);change(await api('/api/inspections/'+active.id+'/photos',{method:'POST',body:f}))}))}
 function queue(){const el=$('#queue');el.replaceChildren();const rank={repair:0,inspect:1,no_action:2};cards.sort((a,b)=>Number(a.closed)-Number(b.closed)||(rank[a.prediction.action]??1)-(rank[b.prediction.action]??1));if(!cards.length)el.append(node('p','Осмотров пока нет.'));for(const c of cards){const b=btn((names[c.prediction.object_type]||'Шкаф')+' · '+c.id.slice(0,6)+' · '+(c.closed?'Принято':actionNames[c.prediction.action]||'Проверка'),()=>change(c));if(c.id===active?.id)b.className='selected';el.append(b)}}
 function change(c){active=c;const i=cards.findIndex(x=>x.id===c.id);if(i>=0)cards[i]=c;else cards.unshift(c);queue();render()}
+function photoFigure(card, photo, pred){
+  const fig=node('figure'),a=node('a'),im=node('img');
+  a.href='/api/inspections/'+card.id+'/photos/'+photo.id;
+  a.target='_blank';
+  a.rel='noopener';
+  im.src=a.href;
+  im.alt=purposes[photo.purpose]+' · '+names[photo.scope];
+  const box=pred.object_region?.bbox;
+  const grounded=photo.purpose==='initial'&&pred.object_type_source==='grounded_roi'&&
+    Array.isArray(box)&&box.length===4&&box.every(n=>Number.isFinite(n)&&n>=0&&n<=1)&&box[2]>box[0]&&box[3]>box[1];
+  a.append(im);
+  if(grounded){
+    a.className='photo-evidence';
+    const marker=node('span');
+    marker.className='cabinet-region';
+    marker.setAttribute('aria-hidden','true');
+    Object.assign(marker.style,{left:box[0]*100+'%',top:box[1]*100+'%',
+      width:(box[2]-box[0])*100+'%',height:(box[3]-box[1])*100+'%'});
+    a.append(marker);
+  }
+  fig.append(a,node('figcaption',im.alt+(grounded?' · Область шкафа':'')));
+  return fig;
+}
 function render(){const c=active, pane=$('#card'), pred=c.prediction;pane.replaceChildren(node('h2',names[pred.object_type]||'Тип уточняет мастер'),node('p','Осмотр '+c.id.slice(0,8)+' · '+(c.closed?'Работы приняты':actionNames[pred.action]||'Проверка мастером')));
 if(c.lat!==null)pane.append(node('p','Положение объекта · '+c.lat+', '+c.lon));
-const photos=node('div');photos.className='photos';for(const p of c.photos){const fig=node('figure'),a=node('a'),im=node('img');a.href='/api/inspections/'+c.id+'/photos/'+p.id;a.target='_blank';im.src=a.href;im.alt=purposes[p.purpose]+' · '+names[p.scope];a.append(im);fig.append(a,node('figcaption',im.alt));photos.append(fig)}pane.append(photos);
-const prediction=section(pane,'Что увидела модель');for(const [key,value] of Object.entries(pred.scores||{}))prediction.append(node('p',(names[key]||key)+' · оценка '+Number(value).toFixed(2)));if(pred.reason)prediction.append(node('p',pred.reason));prediction.append(node('p','Мастер подтверждает видимые признаки и каждую работу отдельно.'));
+if(typeSources[pred.object_type_source]){
+  const source=node('p',typeSources[pred.object_type_source]+(pred.model_release?' · '+pred.model_release:''));
+  source.className='state';
+  pane.append(source);
+}
+const photos=node('div');photos.className='photos';for(const p of c.photos)photos.append(photoFigure(c,p,pred));pane.append(photos);
+const prediction=section(pane,'Что увидела модель');if(defectSources[pred.defect_score_source])prediction.append(node('p',defectSources[pred.defect_score_source]));for(const [key,value] of Object.entries(pred.scores||{}))prediction.append(node('p',(names[key]||key)+' · оценка '+Number(value).toFixed(2)));if(pred.reason)prediction.append(node('p',pred.reason));prediction.append(node('p','Мастер подтверждает видимые признаки и каждую работу отдельно.'));
 for(const code of ['mechanical','coating']){const f=c.findings.find(x=>x.code===code),s=section(pane,names[code]);s.append(node('p',f?states[f.state]:'Замечание отсутствует'));if(f)s.append(node('p',f.work));const row=node('div');row.className='row';s.append(row);
 if(!f||['proposed','dismissed'].includes(f.state))row.append(btn(f?'Подтвердить работу':'Добавить замечание',()=>send('/findings/'+code,{action:'confirm'})));
 if(f&&['proposed','confirmed'].includes(f.state))row.append(btn('Снять замечание',()=>send('/findings/'+code,{action:'dismiss'})));

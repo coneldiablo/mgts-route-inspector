@@ -19,7 +19,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from inspector.cabinet import CabinetFeatures, CabinetInspector, HEADS, MODEL_FORMAT, cabinet_result
+from inspector.cabinet import CabinetFeatures, CabinetInspector, DEFAULT_CABINET_MODEL, HEADS, MODEL_FORMAT, cabinet_result
 from inspector.config import quality_config
 from inspector.manifest import image_sha256
 from inspector.quality import assess_quality
@@ -143,9 +143,9 @@ def splits(strata: np.ndarray, group_ids: np.ndarray, n: int, seed: int):
     return list(splitter.split(np.zeros(len(strata)), strata, group_ids))
 
 
-def estimator(dimension: int):
+def estimator(dimension: int, multiplier: float = 8.0):
     return make_pipeline(StandardScaler(), LogisticRegression(
-        C=8.0 / dimension, class_weight="balanced", max_iter=2000, solver="liblinear",
+        C=multiplier / dimension, class_weight="balanced", max_iter=2000, solver="liblinear",
         random_state=42,
     ))
 
@@ -297,20 +297,38 @@ def run_training(args) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    prepare = commands.add_parser("prepare", help="Download and verify pinned public model weights")
+    prepare.add_argument("--detector-only", action="store_true")
+    prepare.add_argument("--without-hr", action="store_true", help="Prepare the lighter v0.3 configuration")
+    prepare.add_argument("--verify-only", action="store_true")
     train = commands.add_parser("train")
     train.add_argument("--source", action="append", required=True, type=Path)
-    train.add_argument("--out", default=Path("runs/final-cabinet"), type=Path)
-    train.add_argument("--artifact", default=Path("artifacts/final-cabinet"), type=Path)
+    train.add_argument("--out", default=Path("runs/final-cabinet-v0.2-train"), type=Path)
+    train.add_argument("--artifact", default=Path("artifacts/final-cabinet-v0.2-train"), type=Path)
     train.add_argument("--reviewed-groups", type=Path)
     train.add_argument("--device", default="cpu")
     predict = commands.add_parser("predict")
     predict.add_argument("image", type=Path)
-    predict.add_argument("--model", default=Path("artifacts/final-cabinet/model.joblib"), type=Path)
+    predict.add_argument("--model", default=DEFAULT_CABINET_MODEL, type=Path)
+    promote = commands.add_parser("promote-roi", help="Install an evaluated ROI release and its matched metrics")
+    promote.add_argument("--control", default=Path("runs/final-cabinet-v0.2"), type=Path)
+    promote.add_argument("--revision", default=Path("runs/final-cabinet-v0.3-roi"), type=Path)
+    promote.add_argument("--model", default=Path("artifacts/final-cabinet-v0.3-roi/model.joblib"), type=Path)
+    promote.add_argument("--out", default=Path("runs/final-cabinet"), type=Path)
+    promote.add_argument("--target", default=DEFAULT_CABINET_MODEL, type=Path)
     args = parser.parse_args()
     if args.command == "train":
         run_training(args)
-    else:
+    elif args.command == "predict":
         print(json.dumps(CabinetInspector.load(args.model).predict_path(args.image), ensure_ascii=False, indent=2))
+    elif args.command == "prepare":
+        from scripts.cabinet_release import prepare_weights
+
+        prepare_weights(detector_only=args.detector_only, without_hr=args.without_hr, verify_only=args.verify_only)
+    else:
+        from scripts.cabinet_release import promote_roi
+
+        promote_roi(args.control, args.revision, args.model, args.out, args.target)
 
 
 if __name__ == "__main__":

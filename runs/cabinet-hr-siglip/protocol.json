@@ -1,0 +1,24 @@
+{
+  "arch": "vit_so400m_patch16_siglip_384.v2_webli",
+  "revision": "5269a45a3c4b03a8efae511eac9bcacdf4bf55e9",
+  "side": 384,
+  "crop_fraction": 0.72,
+  "pooled": "average of four unit-normalized corner crop embeddings, 72% width and height",
+  "encoder_precision": "float16",
+  "device": "mps",
+  "seeds": [
+    42,
+    17,
+    23,
+    71,
+    113
+  ],
+  "folds": 5,
+  "classifier": "train-fold-only balanced StandardScaler/Logistic C=8/d",
+  "threshold": 0.5,
+  "paired_experiment": [
+    "standalone",
+    "equal probability mean with frozen v0.2"
+  ],
+  "input": "pixels only"
+}

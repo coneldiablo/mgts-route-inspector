@@ -12,45 +12,45 @@
     "coating": 23
   },
   "model": {
-    "name": "DINOv2 × SigLIP 2 · три независимые головы",
-    "validation": "5 внешних групповых OOF-фолдов, три лучшие модели каждой головы по 3 внутренним фолдам",
-    "macroF1": 0.6938775510204082,
+    "name": "SigLIP 2 HR × DINOv2 · тип по области шкафа",
+    "validation": "5 внешних групповых OOF-фолдов; фиксированное смешивание дефектов 50/50; ROI только для типа",
+    "macroF1": 0.7229024943310658,
     "signalMetrics": [
       {
         "code": "telecom",
         "label": "ТКШ",
-        "tp": 22,
-        "fp": 10,
-        "fn": 8,
-        "tn": 21,
-        "precision": 0.6875,
-        "recall": 0.7333333333333333,
-        "f1": 0.7096774193548387,
-        "accuracy": 0.7049180327868853
+        "tp": 26,
+        "fp": 9,
+        "fn": 4,
+        "tn": 22,
+        "precision": 0.7428571428571429,
+        "recall": 0.8666666666666667,
+        "f1": 0.8,
+        "accuracy": 0.7868852459016393
       },
       {
         "code": "mechanical",
         "label": "Механическое повреждение",
-        "tp": 17,
-        "fp": 11,
-        "fn": 4,
-        "tn": 29,
-        "precision": 0.6071428571428571,
-        "recall": 0.8095238095238095,
-        "f1": 0.6938775510204082,
-        "accuracy": 0.7540983606557377
+        "tp": 16,
+        "fp": 8,
+        "fn": 5,
+        "tn": 32,
+        "precision": 0.6666666666666666,
+        "recall": 0.7619047619047619,
+        "f1": 0.7111111111111111,
+        "accuracy": 0.7868852459016393
       },
       {
         "code": "coating",
         "label": "Дефект ЛКП",
-        "tp": 17,
-        "fp": 9,
-        "fn": 6,
-        "tn": 29,
-        "precision": 0.6538461538461539,
-        "recall": 0.7391304347826086,
-        "f1": 0.6938775510204082,
-        "accuracy": 0.7540983606557377
+        "tp": 18,
+        "fp": 8,
+        "fn": 5,
+        "tn": 30,
+        "precision": 0.6923076923076923,
+        "recall": 0.782608695652174,
+        "f1": 0.7346938775510204,
+        "accuracy": 0.7868852459016393
       }
     ],
     "features": {
@@ -69,52 +69,83 @@
         "siglip",
         "siglip_dino"
       ]
+    },
+    "release": "v0.4-hr-roi",
+    "type_classifier": {
+      "method": "grounded_roi_or_full_frame",
+      "control_correct": 43,
+      "candidate_correct": 48,
+      "grounded_labeled": 56,
+      "grounded_total": 57,
+      "fallback": "v0.2 full_frame"
+    },
+    "fallback_release": "v0.3-roi",
+    "defect_classifier": {
+      "method": "siglip_hr_blend",
+      "blend": [
+        0.5,
+        0.5
+      ],
+      "input_side": 384,
+      "validation_device": "mps",
+      "encoder_revision": "5269a45a3c4b03a8efae511eac9bcacdf4bf55e9",
+      "encoder_sha256": "542bac8ad54c1effc887315d3d6448fed01a26c900064bc47f342ed5e3e5fb62"
     }
   },
   "metrics": {
     "telecom": {
-      "tp": 22,
-      "fp": 10,
-      "fn": 8,
-      "tn": 21,
-      "precision": 0.6875,
-      "recall": 0.7333333333333333,
-      "f1": 0.7096774193548387,
-      "accuracy": 0.7049180327868853
+      "tp": 26,
+      "fp": 9,
+      "fn": 4,
+      "tn": 22,
+      "precision": 0.7428571428571429,
+      "recall": 0.8666666666666667,
+      "f1": 0.8,
+      "accuracy": 0.7868852459016393
     },
     "mechanical": {
-      "tp": 17,
-      "fp": 11,
-      "fn": 4,
-      "tn": 29,
-      "precision": 0.6071428571428571,
-      "recall": 0.8095238095238095,
-      "f1": 0.6938775510204082,
-      "accuracy": 0.7540983606557377
+      "tp": 16,
+      "fp": 8,
+      "fn": 5,
+      "tn": 32,
+      "precision": 0.6666666666666666,
+      "recall": 0.7619047619047619,
+      "f1": 0.7111111111111111,
+      "accuracy": 0.7868852459016393
     },
     "coating": {
-      "tp": 17,
-      "fp": 9,
-      "fn": 6,
-      "tn": 29,
-      "precision": 0.6538461538461539,
-      "recall": 0.7391304347826086,
-      "f1": 0.6938775510204082,
-      "accuracy": 0.7540983606557377
+      "tp": 18,
+      "fp": 8,
+      "fn": 5,
+      "tn": 30,
+      "precision": 0.6923076923076923,
+      "recall": 0.782608695652174,
+      "f1": 0.7346938775510204,
+      "accuracy": 0.7868852459016393
     },
     "any_damage": {
-      "tp": 35,
-      "fp": 11,
-      "fn": 6,
-      "tn": 9,
-      "precision": 0.7608695652173914,
-      "recall": 0.8536585365853658,
-      "f1": 0.8045977011494253,
-      "accuracy": 0.7213114754098361
+      "tp": 36,
+      "fp": 9,
+      "fn": 5,
+      "tn": 11,
+      "precision": 0.8,
+      "recall": 0.8780487804878049,
+      "f1": 0.8372093023255814,
+      "accuracy": 0.7704918032786885
     },
-    "object_macro_f1": 0.7048387096774194,
-    "defect_macro_f1": 0.6938775510204082,
-    "defect_exact_match": 0.5409836065573771
+    "object_macro_f1": 0.7859649122807018,
+    "defect_macro_f1": 0.7229024943310658,
+    "defect_exact_match": 0.639344262295082,
+    "dual": {
+      "tp": 1,
+      "fp": 4,
+      "fn": 2,
+      "tn": 54,
+      "precision": 0.2,
+      "recall": 0.3333333333333333,
+      "f1": 0.25,
+      "accuracy": 0.9016393442622951
+    }
   },
   "baseline": {
     "telecom": {
@@ -163,12 +194,12 @@
   },
   "policy_oof": {
     "repair": {
-      "damage": 10,
-      "normal": 1
+      "damage": 12,
+      "normal": 0
     },
     "inspect": {
-      "damage": 31,
-      "normal": 17
+      "damage": 29,
+      "normal": 18
     },
     "no_action": {
       "damage": 0,
@@ -176,9 +207,28 @@
     }
   },
   "prediction_counts": {
-    "repair": 35,
-    "inspect": 13,
-    "no_action": 14
+    "repair": 36,
+    "inspect": 11,
+    "no_action": 15
   },
-  "seconds": 25.22
+  "type_source_counts": {
+    "grounded_roi": 57,
+    "full_frame": 5
+  },
+  "control_training_seconds": 25.22,
+  "defect_source_counts": {
+    "siglip_hr_blend": 62
+  },
+  "sensitivity": {
+    "seeds": [
+      42,
+      17,
+      23,
+      71,
+      113
+    ],
+    "wins": 5,
+    "mean_control_macroF1": 0.670415776567037,
+    "mean_macroF1": 0.7341810199257008
+  }
 }

@@ -1,27 +1,27 @@
 [
   {
     "image_id": "DSS-001",
-    "fold": 0,
-    "group": 0,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 0,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.70987,
+    "object_type_score": 0.62539,
     "scores": {
-      "mechanical": 0.88989,
-      "coating": 0.34772
+      "mechanical": 0.79754,
+      "coating": 0.26655
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.88989
+        "score": 0.79754
       }
     ],
-    "action": "repair",
-    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
       "ok": true,
       "score": 0.9211,
@@ -32,27 +32,30 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-002",
-    "fold": 1,
-    "group": 1,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 1
     },
+    "group": 1,
+    "fold": 1,
     "object_type": "distribution_board",
     "object_type_score": 0.7032,
     "scores": {
-      "mechanical": 0.64194,
-      "coating": 0.30159
+      "mechanical": 0.71948,
+      "coating": 0.35891
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.64194
+        "score": 0.71948
       }
     ],
     "action": "inspect",
@@ -67,31 +70,34 @@
       "width": 450,
       "height": 1000,
       "reasons": []
-    }
+    },
+    "object_type_source": "full_frame",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-003",
-    "fold": 1,
-    "group": 1,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.7499,
+    "group": 1,
+    "fold": 1,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.50197,
     "scores": {
-      "mechanical": 0.76568,
-      "coating": 0.40568
+      "mechanical": 0.82808,
+      "coating": 0.36717
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.76568
+        "score": 0.82808
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.9857,
@@ -102,35 +108,38 @@
       "width": 450,
       "height": 1000,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-004",
-    "fold": 3,
-    "group": 3,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 1
     },
+    "group": 3,
+    "fold": 3,
     "object_type": "distribution_board",
-    "object_type_score": 0.9066,
+    "object_type_score": 0.84777,
     "scores": {
-      "mechanical": 0.74604,
-      "coating": 0.84095
+      "mechanical": 0.78423,
+      "coating": 0.7621
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.74604
+        "score": 0.78423
       },
       {
         "code": "coating",
-        "score": 0.84095
+        "score": 0.7621
       }
     ],
-    "action": "repair",
-    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
       "ok": true,
       "score": 0.944,
@@ -141,27 +150,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-005",
-    "fold": 3,
-    "group": 4,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 4,
+    "fold": 3,
     "object_type": "distribution_board",
-    "object_type_score": 0.82241,
+    "object_type_score": 0.77154,
     "scores": {
-      "mechanical": 0.52504,
-      "coating": 0.23185
+      "mechanical": 0.68875,
+      "coating": 0.22754
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.52504
+        "score": 0.68875
       }
     ],
     "action": "inspect",
@@ -176,29 +188,27 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-006",
-    "fold": 3,
-    "group": 5,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 5,
+    "fold": 3,
     "object_type": "distribution_board",
-    "object_type_score": 0.77946,
+    "object_type_score": 0.5113,
     "scores": {
-      "mechanical": 0.51591,
-      "coating": 0.23982
+      "mechanical": 0.48301,
+      "coating": 0.21641
     },
-    "findings": [
-      {
-        "code": "mechanical",
-        "score": 0.51591
-      }
-    ],
+    "findings": [],
     "action": "inspect",
     "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
@@ -211,27 +221,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-007",
-    "fold": 2,
-    "group": 6,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 6,
+    "fold": 2,
     "object_type": "distribution_board",
-    "object_type_score": 0.80338,
+    "object_type_score": 0.7176,
     "scores": {
-      "mechanical": 0.76245,
-      "coating": 0.23805
+      "mechanical": 0.68628,
+      "coating": 0.29857
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.76245
+        "score": 0.68628
       }
     ],
     "action": "inspect",
@@ -246,27 +259,30 @@
       "width": 694,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-008",
-    "fold": 2,
-    "group": 6,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 6,
+    "fold": 2,
     "object_type": "distribution_board",
-    "object_type_score": 0.86416,
+    "object_type_score": 0.81217,
     "scores": {
-      "mechanical": 0.7383,
-      "coating": 0.43119
+      "mechanical": 0.75772,
+      "coating": 0.46485
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.7383
+        "score": 0.75772
       }
     ],
     "action": "inspect",
@@ -281,31 +297,30 @@
       "width": 694,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-009",
-    "fold": 0,
-    "group": 8,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 8,
+    "fold": 0,
     "object_type": "distribution_board",
-    "object_type_score": 0.63161,
+    "object_type_score": 0.56344,
     "scores": {
-      "mechanical": 0.79825,
-      "coating": 0.54846
+      "mechanical": 0.75564,
+      "coating": 0.45572
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.79825
-      },
-      {
-        "code": "coating",
-        "score": 0.54846
+        "score": 0.75564
       }
     ],
     "action": "inspect",
@@ -320,31 +335,30 @@
       "width": 1154,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-010",
-    "fold": 4,
-    "group": 9,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 9,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.57286,
+    "object_type_score": 0.52322,
     "scores": {
-      "mechanical": 0.53776,
-      "coating": 0.67858
+      "mechanical": 0.42341,
+      "coating": 0.69324
     },
     "findings": [
       {
-        "code": "mechanical",
-        "score": 0.53776
-      },
-      {
         "code": "coating",
-        "score": 0.67858
+        "score": 0.69324
       }
     ],
     "action": "inspect",
@@ -359,27 +373,30 @@
       "width": 720,
       "height": 1280,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-011",
-    "fold": 4,
-    "group": 9,
     "truth": {
       "telecom": 0,
       "mechanical": 1,
       "coating": 0
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.54053,
+    "group": 9,
+    "fold": 4,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.62963,
     "scores": {
-      "mechanical": 0.29665,
-      "coating": 0.7197
+      "mechanical": 0.22044,
+      "coating": 0.64716
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.7197
+        "score": 0.64716
       }
     ],
     "action": "inspect",
@@ -394,22 +411,25 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-012",
-    "fold": 2,
-    "group": 11,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 11,
+    "fold": 2,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.79158,
+    "object_type_score": 0.88635,
     "scores": {
-      "mechanical": 0.33535,
-      "coating": 0.35294
+      "mechanical": 0.22558,
+      "coating": 0.36566
     },
     "findings": [],
     "action": "inspect",
@@ -424,27 +444,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-013",
-    "fold": 4,
-    "group": 12,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 12,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.69281,
+    "object_type_score": 0.56329,
     "scores": {
-      "mechanical": 0.3207,
-      "coating": 0.61124
+      "mechanical": 0.23185,
+      "coating": 0.60432
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.61124
+        "score": 0.60432
       }
     ],
     "action": "inspect",
@@ -459,22 +482,25 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-014",
-    "fold": 3,
-    "group": 13,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 13,
+    "fold": 3,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.5028,
+    "object_type_score": 0.77704,
     "scores": {
-      "mechanical": 0.36941,
-      "coating": 0.3857
+      "mechanical": 0.33693,
+      "coating": 0.32477
     },
     "findings": [],
     "action": "inspect",
@@ -489,27 +515,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-015",
-    "fold": 2,
-    "group": 14,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 14,
+    "fold": 2,
     "object_type": "distribution_board",
-    "object_type_score": 0.67586,
+    "object_type_score": 0.70376,
     "scores": {
-      "mechanical": 0.43269,
-      "coating": 0.59054
+      "mechanical": 0.49124,
+      "coating": 0.50187
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.59054
+        "score": 0.50187
       }
     ],
     "action": "inspect",
@@ -524,22 +553,25 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-016",
-    "fold": 1,
-    "group": 15,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 15,
+    "fold": 1,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.90654,
+    "object_type_score": 0.72761,
     "scores": {
-      "mechanical": 0.24707,
-      "coating": 0.34189
+      "mechanical": 0.39823,
+      "coating": 0.27424
     },
     "findings": [],
     "action": "inspect",
@@ -554,27 +586,30 @@
       "width": 450,
       "height": 800,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-017",
-    "fold": 4,
-    "group": 16,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 16,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.72767,
+    "object_type_score": 0.8618,
     "scores": {
-      "mechanical": 0.33567,
-      "coating": 0.57426
+      "mechanical": 0.29127,
+      "coating": 0.52504
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.57426
+        "score": 0.52504
       }
     ],
     "action": "inspect",
@@ -589,27 +624,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-018",
-    "fold": 0,
-    "group": 17,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 17,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.59668,
+    "object_type_score": 0.62113,
     "scores": {
-      "mechanical": 0.76014,
-      "coating": 0.45952
+      "mechanical": 0.79044,
+      "coating": 0.47728
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.76014
+        "score": 0.79044
       }
     ],
     "action": "inspect",
@@ -624,22 +662,25 @@
       "width": 864,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-019",
-    "fold": 3,
-    "group": 18,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 18,
+    "fold": 3,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.84303,
+    "object_type_score": 0.84929,
     "scores": {
-      "mechanical": 0.21717,
-      "coating": 0.26437
+      "mechanical": 0.16475,
+      "coating": 0.17916
     },
     "findings": [],
     "action": "no_action",
@@ -654,27 +695,30 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-020",
-    "fold": 1,
-    "group": 19,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.51439,
+    "group": 19,
+    "fold": 1,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.69908,
     "scores": {
-      "mechanical": 0.38528,
-      "coating": 0.75337
+      "mechanical": 0.46036,
+      "coating": 0.65749
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.75337
+        "score": 0.65749
       }
     ],
     "action": "inspect",
@@ -689,22 +733,25 @@
       "width": 780,
       "height": 1040,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-021",
-    "fold": 0,
-    "group": 20,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 20,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.91426,
+    "object_type_score": 0.85065,
     "scores": {
-      "mechanical": 0.27688,
-      "coating": 0.26478
+      "mechanical": 0.2246,
+      "coating": 0.20133
     },
     "findings": [],
     "action": "no_action",
@@ -719,31 +766,34 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-023",
-    "fold": 4,
-    "group": 22,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 22,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.7793,
+    "object_type_score": 0.73966,
     "scores": {
-      "mechanical": 0.78668,
-      "coating": 0.32018
+      "mechanical": 0.81127,
+      "coating": 0.30462
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.78668
+        "score": 0.81127
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.9222,
@@ -754,27 +804,30 @@
       "width": 864,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-024",
-    "fold": 4,
-    "group": 23,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 1
     },
+    "group": 23,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.83441,
+    "object_type_score": 0.73266,
     "scores": {
-      "mechanical": 0.55674,
-      "coating": 0.41374
+      "mechanical": 0.64066,
+      "coating": 0.35127
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.55674
+        "score": 0.64066
       }
     ],
     "action": "inspect",
@@ -789,27 +842,30 @@
       "width": 727,
       "height": 969,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-025",
-    "fold": 1,
-    "group": 1,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 1,
+    "fold": 1,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.73469,
+    "object_type_score": 0.87188,
     "scores": {
-      "mechanical": 0.57922,
-      "coating": 0.23799
+      "mechanical": 0.6413,
+      "coating": 0.24971
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.57922
+        "score": 0.6413
       }
     ],
     "action": "inspect",
@@ -824,27 +880,30 @@
       "width": 521,
       "height": 1156,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-026",
-    "fold": 2,
-    "group": 25,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 25,
+    "fold": 2,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.69279,
+    "object_type_score": 0.6669,
     "scores": {
-      "mechanical": 0.77284,
-      "coating": 0.10648
+      "mechanical": 0.6776,
+      "coating": 0.10898
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.77284
+        "score": 0.6776
       }
     ],
     "action": "inspect",
@@ -859,31 +918,34 @@
       "width": 693,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-027",
-    "fold": 3,
-    "group": 26,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 26,
+    "fold": 3,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.79047,
+    "object_type_score": 0.77927,
     "scores": {
-      "mechanical": 0.76398,
-      "coating": 0.12789
+      "mechanical": 0.85493,
+      "coating": 0.08944
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.76398
+        "score": 0.85493
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.9664,
@@ -894,27 +956,30 @@
       "width": 436,
       "height": 665,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-028",
-    "fold": 1,
-    "group": 27,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.66545,
+    "group": 27,
+    "fold": 1,
+    "object_type": "distribution_board",
+    "object_type_score": 0.65553,
     "scores": {
-      "mechanical": 0.7487,
-      "coating": 0.26646
+      "mechanical": 0.72579,
+      "coating": 0.24881
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.7487
+        "score": 0.72579
       }
     ],
     "action": "inspect",
@@ -929,31 +994,34 @@
       "width": 691,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-029",
-    "fold": 0,
-    "group": 28,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 28,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.83264,
+    "object_type_score": 0.8294,
     "scores": {
-      "mechanical": 0.7948,
-      "coating": 0.36118
+      "mechanical": 0.85787,
+      "coating": 0.40706
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.7948
+        "score": 0.85787
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.989,
@@ -964,27 +1032,30 @@
       "width": 691,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-030",
-    "fold": 0,
-    "group": 28,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 28,
+    "fold": 0,
     "object_type": "distribution_board",
-    "object_type_score": 0.74487,
+    "object_type_score": 0.63182,
     "scores": {
-      "mechanical": 0.36868,
-      "coating": 0.86214
+      "mechanical": 0.3889,
+      "coating": 0.88622
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.86214
+        "score": 0.88622
       }
     ],
     "action": "repair",
@@ -999,24 +1070,32 @@
       "width": 479,
       "height": 642,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-031",
-    "fold": 2,
-    "group": 25,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
+    "group": 25,
+    "fold": 2,
     "object_type": "telecom_cabinet",
     "object_type_score": 0.61149,
     "scores": {
-      "mechanical": 0.47409,
-      "coating": 0.37157
+      "mechanical": 0.64617,
+      "coating": 0.48837
     },
-    "findings": [],
+    "findings": [
+      {
+        "code": "mechanical",
+        "score": 0.64617
+      }
+    ],
     "action": "inspect",
     "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
@@ -1029,22 +1108,25 @@
       "width": 811,
       "height": 1079,
       "reasons": []
-    }
+    },
+    "object_type_source": "full_frame",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-032",
-    "fold": 0,
-    "group": 28,
     "truth": {
       "telecom": 1,
       "mechanical": 1,
       "coating": 0
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.51356,
+    "group": 28,
+    "fold": 0,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.50686,
     "scores": {
-      "mechanical": 0.37532,
-      "coating": 0.15394
+      "mechanical": 0.44668,
+      "coating": 0.22576
     },
     "findings": [],
     "action": "inspect",
@@ -1059,31 +1141,34 @@
       "width": 560,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-033",
-    "fold": 1,
-    "group": 32,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 32,
+    "fold": 1,
     "object_type": "distribution_board",
-    "object_type_score": 0.82259,
+    "object_type_score": 0.57383,
     "scores": {
-      "mechanical": 0.46232,
-      "coating": 0.86162
+      "mechanical": 0.4176,
+      "coating": 0.71606
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.86162
+        "score": 0.71606
       }
     ],
-    "action": "repair",
-    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
       "ok": true,
       "score": 0.9558,
@@ -1094,27 +1179,30 @@
       "width": 864,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-034",
-    "fold": 0,
-    "group": 33,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.71838,
+    "group": 33,
+    "fold": 0,
+    "object_type": "distribution_board",
+    "object_type_score": 0.53379,
     "scores": {
-      "mechanical": 0.1498,
-      "coating": 0.5151
+      "mechanical": 0.17628,
+      "coating": 0.51404
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.5151
+        "score": 0.51404
       }
     ],
     "action": "inspect",
@@ -1129,27 +1217,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-035",
-    "fold": 0,
-    "group": 34,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 34,
+    "fold": 0,
     "object_type": "distribution_board",
-    "object_type_score": 0.85285,
+    "object_type_score": 0.75122,
     "scores": {
-      "mechanical": 0.29509,
-      "coating": 0.93367
+      "mechanical": 0.252,
+      "coating": 0.91292
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.93367
+        "score": 0.91292
       }
     ],
     "action": "repair",
@@ -1164,27 +1255,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-036",
-    "fold": 3,
-    "group": 35,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.60594,
+    "group": 35,
+    "fold": 3,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.53645,
     "scores": {
-      "mechanical": 0.25973,
-      "coating": 0.65982
+      "mechanical": 0.28373,
+      "coating": 0.70987
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.65982
+        "score": 0.70987
       }
     ],
     "action": "inspect",
@@ -1199,27 +1293,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-037",
-    "fold": 4,
-    "group": 36,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 36,
+    "fold": 4,
     "object_type": "distribution_board",
-    "object_type_score": 0.73778,
+    "object_type_score": 0.73164,
     "scores": {
-      "mechanical": 0.35124,
-      "coating": 0.85348
+      "mechanical": 0.23596,
+      "coating": 0.89615
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.85348
+        "score": 0.89615
       }
     ],
     "action": "repair",
@@ -1234,31 +1331,30 @@
       "width": 691,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-038",
-    "fold": 2,
-    "group": 37,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.5446,
+    "group": 37,
+    "fold": 2,
+    "object_type": "distribution_board",
+    "object_type_score": 0.56687,
     "scores": {
-      "mechanical": 0.52942,
-      "coating": 0.53118
+      "mechanical": 0.45556,
+      "coating": 0.5776
     },
     "findings": [
       {
-        "code": "mechanical",
-        "score": 0.52942
-      },
-      {
         "code": "coating",
-        "score": 0.53118
+        "score": 0.5776
       }
     ],
     "action": "inspect",
@@ -1273,31 +1369,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-039",
-    "fold": 4,
-    "group": 38,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.60525,
+    "group": 38,
+    "fold": 4,
+    "object_type": "distribution_board",
+    "object_type_score": 0.5903,
     "scores": {
-      "mechanical": 0.54742,
-      "coating": 0.86431
+      "mechanical": 0.43684,
+      "coating": 0.87469
     },
     "findings": [
       {
-        "code": "mechanical",
-        "score": 0.54742
-      },
-      {
         "code": "coating",
-        "score": 0.86431
+        "score": 0.87469
       }
     ],
     "action": "repair",
@@ -1312,31 +1407,34 @@
       "width": 691,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-040",
-    "fold": 1,
-    "group": 39,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 39,
+    "fold": 1,
     "object_type": "distribution_board",
-    "object_type_score": 0.6477,
+    "object_type_score": 0.67235,
     "scores": {
-      "mechanical": 0.4893,
-      "coating": 0.75673
+      "mechanical": 0.40058,
+      "coating": 0.83403
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.75673
+        "score": 0.83403
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.9006,
@@ -1347,27 +1445,30 @@
       "width": 1153,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-041",
-    "fold": 3,
-    "group": 35,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 35,
+    "fold": 3,
     "object_type": "distribution_board",
     "object_type_score": 0.64213,
     "scores": {
-      "mechanical": 0.10955,
-      "coating": 0.66781
+      "mechanical": 0.15452,
+      "coating": 0.74197
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.66781
+        "score": 0.74197
       }
     ],
     "action": "inspect",
@@ -1382,31 +1483,34 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "full_frame",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-042",
-    "fold": 2,
-    "group": 41,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 41,
+    "fold": 2,
     "object_type": "distribution_board",
-    "object_type_score": 0.69033,
+    "object_type_score": 0.68674,
     "scores": {
-      "mechanical": 0.5575,
-      "coating": 0.86694
+      "mechanical": 0.61546,
+      "coating": 0.90386
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.5575
+        "score": 0.61546
       },
       {
         "code": "coating",
-        "score": 0.86694
+        "score": 0.90386
       }
     ],
     "action": "repair",
@@ -1421,35 +1525,38 @@
       "width": 864,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-043",
-    "fold": 0,
-    "group": 42,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 42,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.77995,
+    "object_type_score": 0.84715,
     "scores": {
-      "mechanical": 0.80149,
-      "coating": 0.72158
+      "mechanical": 0.58513,
+      "coating": 0.70019
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.80149
+        "score": 0.58513
       },
       {
         "code": "coating",
-        "score": 0.72158
+        "score": 0.70019
       }
     ],
-    "action": "repair",
-    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
       "ok": true,
       "score": 0.9998,
@@ -1460,22 +1567,25 @@
       "width": 1536,
       "height": 985,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-044",
-    "fold": 1,
-    "group": 43,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.59891,
+    "group": 43,
+    "fold": 1,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.51736,
     "scores": {
-      "mechanical": 0.42381,
-      "coating": 0.45403
+      "mechanical": 0.39457,
+      "coating": 0.44912
     },
     "findings": [],
     "action": "inspect",
@@ -1490,24 +1600,32 @@
       "width": 1536,
       "height": 864,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-045",
-    "fold": 1,
-    "group": 44,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 44,
+    "fold": 1,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.81327,
+    "object_type_score": 0.88435,
     "scores": {
-      "mechanical": 0.39989,
-      "coating": 0.43069
+      "mechanical": 0.32723,
+      "coating": 0.57575
     },
-    "findings": [],
+    "findings": [
+      {
+        "code": "coating",
+        "score": 0.57575
+      }
+    ],
     "action": "inspect",
     "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
@@ -1520,22 +1638,25 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-046",
-    "fold": 3,
-    "group": 45,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 45,
+    "fold": 3,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.5126,
+    "object_type_score": 0.80944,
     "scores": {
-      "mechanical": 0.13812,
-      "coating": 0.16176
+      "mechanical": 0.31283,
+      "coating": 0.1323
     },
     "findings": [],
     "action": "inspect",
@@ -1550,27 +1671,30 @@
       "width": 907,
       "height": 1206,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-047",
-    "fold": 4,
-    "group": 36,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.61903,
+    "group": 36,
+    "fold": 4,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.62812,
     "scores": {
-      "mechanical": 0.48913,
-      "coating": 0.64326
+      "mechanical": 0.38158,
+      "coating": 0.57575
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.64326
+        "score": 0.57575
       }
     ],
     "action": "inspect",
@@ -1585,27 +1709,30 @@
       "width": 863,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-048",
-    "fold": 2,
-    "group": 47,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.56743,
+    "group": 47,
+    "fold": 2,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.73393,
     "scores": {
-      "mechanical": 0.47848,
-      "coating": 0.57188
+      "mechanical": 0.44155,
+      "coating": 0.71657
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.57188
+        "score": 0.71657
       }
     ],
     "action": "inspect",
@@ -1620,22 +1747,25 @@
       "width": 691,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-049",
-    "fold": 2,
-    "group": 48,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 48,
+    "fold": 2,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.5109,
+    "object_type_score": 0.79583,
     "scores": {
-      "mechanical": 0.27443,
-      "coating": 0.27184
+      "mechanical": 0.25844,
+      "coating": 0.26283
     },
     "findings": [],
     "action": "inspect",
@@ -1650,27 +1780,30 @@
       "width": 1157,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-050",
-    "fold": 4,
-    "group": 49,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 49,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.74666,
+    "object_type_score": 0.71177,
     "scores": {
-      "mechanical": 0.27238,
-      "coating": 0.96504
+      "mechanical": 0.19241,
+      "coating": 0.97212
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.96504
+        "score": 0.97212
       }
     ],
     "action": "repair",
@@ -1685,35 +1818,38 @@
       "width": 1536,
       "height": 695,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-051",
-    "fold": 0,
-    "group": 50,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 50,
+    "fold": 0,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.6431,
+    "object_type_score": 0.51515,
     "scores": {
-      "mechanical": 0.71815,
-      "coating": 0.52448
+      "mechanical": 0.80303,
+      "coating": 0.68929
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.71815
+        "score": 0.80303
       },
       {
         "code": "coating",
-        "score": 0.52448
+        "score": 0.68929
       }
     ],
-    "action": "inspect",
-    "reason": "Мастер проверяет признаки и тип объекта.",
+    "action": "repair",
+    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
     "quality": {
       "ok": true,
       "score": 0.9778,
@@ -1724,27 +1860,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-052",
-    "fold": 3,
-    "group": 51,
     "truth": {
       "telecom": 1,
       "mechanical": 0,
       "coating": 1
     },
+    "group": 51,
+    "fold": 3,
     "object_type": "distribution_board",
-    "object_type_score": 0.82003,
+    "object_type_score": 0.81227,
     "scores": {
-      "mechanical": 0.09546,
-      "coating": 0.70167
+      "mechanical": 0.22601,
+      "coating": 0.76038
     },
     "findings": [
       {
         "code": "coating",
-        "score": 0.70167
+        "score": 0.76038
       }
     ],
     "action": "inspect",
@@ -1759,27 +1898,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-053",
-    "fold": 0,
-    "group": 52,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.58273,
+    "group": 52,
+    "fold": 0,
+    "object_type": "distribution_board",
+    "object_type_score": 0.52747,
     "scores": {
-      "mechanical": 0.69054,
-      "coating": 0.212
+      "mechanical": 0.63959,
+      "coating": 0.31878
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.69054
+        "score": 0.63959
       }
     ],
     "action": "inspect",
@@ -1794,22 +1936,25 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-054",
-    "fold": 3,
-    "group": 53,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 53,
+    "fold": 3,
     "object_type": "distribution_board",
     "object_type_score": 0.68596,
     "scores": {
-      "mechanical": 0.36766,
-      "coating": 0.35352
+      "mechanical": 0.42854,
+      "coating": 0.24451
     },
     "findings": [],
     "action": "inspect",
@@ -1824,29 +1969,27 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "full_frame",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-055",
-    "fold": 4,
-    "group": 54,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 54,
+    "fold": 4,
     "object_type": "telecom_cabinet",
     "object_type_score": 0.81304,
     "scores": {
-      "mechanical": 0.55253,
-      "coating": 0.39841
+      "mechanical": 0.48177,
+      "coating": 0.39966
     },
-    "findings": [
-      {
-        "code": "mechanical",
-        "score": 0.55253
-      }
-    ],
+    "findings": [],
     "action": "inspect",
     "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
@@ -1859,29 +2002,27 @@
       "width": 747,
       "height": 1328,
       "reasons": []
-    }
+    },
+    "object_type_source": "full_frame",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-056",
-    "fold": 3,
-    "group": 55,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
-    "object_type": "distribution_board",
-    "object_type_score": 0.6474,
+    "group": 55,
+    "fold": 3,
+    "object_type": "telecom_cabinet",
+    "object_type_score": 0.6111,
     "scores": {
-      "mechanical": 0.22794,
-      "coating": 0.53287
+      "mechanical": 0.32126,
+      "coating": 0.42443
     },
-    "findings": [
-      {
-        "code": "coating",
-        "score": 0.53287
-      }
-    ],
+    "findings": [],
     "action": "inspect",
     "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
@@ -1894,31 +2035,34 @@
       "width": 1536,
       "height": 1152,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-057",
-    "fold": 1,
-    "group": 56,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 56,
+    "fold": 1,
     "object_type": "distribution_board",
-    "object_type_score": 0.62005,
+    "object_type_score": 0.56496,
     "scores": {
-      "mechanical": 0.86709,
-      "coating": 0.22363
+      "mechanical": 0.75207,
+      "coating": 0.22476
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.86709
+        "score": 0.75207
       }
     ],
-    "action": "repair",
-    "reason": "Выраженный визуальный признак. Мастер подтверждает объём ремонта.",
+    "action": "inspect",
+    "reason": "Мастер проверяет признаки и тип объекта.",
     "quality": {
       "ok": true,
       "score": 0.9699,
@@ -1929,27 +2073,30 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-058",
-    "fold": 0,
-    "group": 57,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
-    "object_type": "telecom_cabinet",
-    "object_type_score": 0.54955,
+    "group": 57,
+    "fold": 0,
+    "object_type": "distribution_board",
+    "object_type_score": 0.61388,
     "scores": {
-      "mechanical": 0.596,
-      "coating": 0.42312
+      "mechanical": 0.72881,
+      "coating": 0.34018
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.596
+        "score": 0.72881
       }
     ],
     "action": "inspect",
@@ -1964,27 +2111,34 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-059",
-    "fold": 4,
-    "group": 58,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 58,
+    "fold": 4,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.84537,
+    "object_type_score": 0.94066,
     "scores": {
-      "mechanical": 0.6838,
-      "coating": 0.47235
+      "mechanical": 0.52098,
+      "coating": 0.50404
     },
     "findings": [
       {
         "code": "mechanical",
-        "score": 0.6838
+        "score": 0.52098
+      },
+      {
+        "code": "coating",
+        "score": 0.50404
       }
     ],
     "action": "inspect",
@@ -1999,22 +2153,25 @@
       "width": 747,
       "height": 1328,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-060",
-    "fold": 2,
-    "group": 59,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 59,
+    "fold": 2,
     "object_type": "distribution_board",
-    "object_type_score": 0.52038,
+    "object_type_score": 0.72945,
     "scores": {
-      "mechanical": 0.29184,
-      "coating": 0.35195
+      "mechanical": 0.34751,
+      "coating": 0.29414
     },
     "findings": [],
     "action": "inspect",
@@ -2029,22 +2186,25 @@
       "width": 1152,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-061",
-    "fold": 1,
-    "group": 60,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 60,
+    "fold": 1,
     "object_type": "distribution_board",
-    "object_type_score": 0.66686,
+    "object_type_score": 0.66783,
     "scores": {
-      "mechanical": 0.46801,
-      "coating": 0.16972
+      "mechanical": 0.48096,
+      "coating": 0.11306
     },
     "findings": [],
     "action": "inspect",
@@ -2059,22 +2219,25 @@
       "width": 864,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   },
   {
     "image_id": "DSS-062",
-    "fold": 2,
-    "group": 61,
     "truth": {
       "telecom": 0,
       "mechanical": 0,
       "coating": 0
     },
+    "group": 61,
+    "fold": 2,
     "object_type": "telecom_cabinet",
-    "object_type_score": 0.53757,
+    "object_type_score": 0.51906,
     "scores": {
-      "mechanical": 0.34052,
-      "coating": 0.20221
+      "mechanical": 0.27827,
+      "coating": 0.24397
     },
     "findings": [],
     "action": "inspect",
@@ -2089,6 +2252,9 @@
       "width": 863,
       "height": 1536,
       "reasons": []
-    }
+    },
+    "object_type_source": "grounded_roi",
+    "model_release": "v0.4-hr-roi",
+    "defect_score_source": "siglip_hr_blend"
   }
 ]

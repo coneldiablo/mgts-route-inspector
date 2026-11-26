@@ -1,0 +1,21 @@
+{
+  "note": "Paired sampling with replacement of 52 visual groups, 10000 resamples. Conditional on the saved OOF predictions; repeated folds are the same underlying photos.",
+  "browser_defect_f1": {
+    "before": 0.5852272727272727,
+    "after": 0.6790281329923273,
+    "paired_delta": 0.09380086026505463,
+    "conditional_group_bootstrap_95_delta": [
+      0.02664390451302466,
+      0.17148328528475365
+    ]
+  },
+  "local_type_accuracy": {
+    "before": 0.7049180327868853,
+    "after": 0.7868852459016393,
+    "paired_delta": 0.08196721311475408,
+    "conditional_group_bootstrap_95_delta": [
+      -0.03389830508474578,
+      0.20967741935483863
+    ]
+  }
+}

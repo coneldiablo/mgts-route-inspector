@@ -2,9 +2,9 @@
   "labeled": 61,
   "groups": 52,
   "folds": 5,
-  "defectMacroF1": 0.6938775510204082,
+  "defectMacroF1": 0.7229024943310658,
   "baselineMacroF1": 0.5725,
-  "damageRecall": 0.8536585365853658,
-  "priorityDamage": 10,
-  "priorityTotal": 11
+  "damageRecall": 0.8780487804878049,
+  "priorityDamage": 12,
+  "priorityTotal": 12
 }

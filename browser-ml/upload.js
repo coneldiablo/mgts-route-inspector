@@ -1,3 +1,4 @@
+import {assessInputQuality} from './input-quality.js';
 import {recognize} from './infer.js';
 import {openOrder, restoreOrder} from './workorder.js';
 const form=document.querySelector('#input'), status=document.querySelector('#status'), box=document.querySelector('#order');
@@ -13,6 +14,11 @@ form.addEventListener('submit',async event=>{
     say('Читаем фотографию…');
     bitmap=await createImageBitmap(file);
     if(bitmap.width*bitmap.height>40_000_000)throw Error('Выберите фотографию до 40 мегапикселей.');
+    const quality=assessInputQuality(bitmap);
+    if (!quality.ok) {
+      say('Нужна пересъёмка. '+quality.request);
+      return;
+    }
     const result=await recognize(bitmap,say);
     await openOrder(box,{...result,object_type:result.object_type==='telecom_cabinet'?'ТКШ':'РЩ',filename:file.name,image:file});
     say('Осмотр готов. Проверьте признаки в карточке.');box.scrollIntoView({block:'start'});

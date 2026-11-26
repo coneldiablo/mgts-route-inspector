@@ -1,0 +1,24 @@
+{
+  "source": "IDEA-Research/grounding-dino-tiny",
+  "revision": "a2bb814dd30d776dcf7e30523b00659f4f141c71",
+  "prompt": "electrical cabinet. utility box. metal cabinet.",
+  "minimum_score": 0.3,
+  "minimum_area": 0.02,
+  "context_margin": 0.08,
+  "input_side": [
+    560,
+    900
+  ],
+  "seeds": [
+    42,
+    17,
+    23,
+    71,
+    113
+  ],
+  "folds": 5,
+  "threshold": 0.5,
+  "candidate": "full plus padded ROI, frozen DINOv2-S and SigLIP2",
+  "control": "full frame, same encoders and regularized logistic regression, shrinkage 8/d",
+  "fallback": "whole image when no eligible grounding"
+}

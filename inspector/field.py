@@ -148,8 +148,8 @@ def create_app(db_path=None, predictor=None):
         nonlocal predictor
         with model_lock:
             if predictor is None:
-                from .cabinet import CabinetInspector
-                path = Path(os.environ.get("MGTS_CABINET_MODEL", "artifacts/final-cabinet/model.joblib"))
+                from .cabinet import CabinetInspector, DEFAULT_CABINET_MODEL
+                path = Path(os.environ.get("MGTS_CABINET_MODEL", DEFAULT_CABINET_MODEL))
                 if not path.is_file():
                     raise HTTPException(503, "Установите модель по инструкции docs/FINAL.md.")
                 predictor = CabinetInspector.load(path)

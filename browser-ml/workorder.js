@@ -1,3 +1,6 @@
+import {assessInputQuality} from './input-quality.js'
+import {allAfter, croppedCanvas, downloadReport, evidenceId, previousRetakes, receiptFor, regionName, strongestRegion} from './evidence.js'
+
 const DATABASE = 'mgts-browser-work-orders'
 const STORE = 'orders'
 const SIGNALS = {
@@ -103,6 +106,11 @@ function choose(options) {
 
 function selectedEvidence(host) {
   const { order, photo } = host
+  if (host.archiveId) {
+    const photos=[...allAfter(order),...previousRetakes(order).map(r=>r.evidence).filter(Boolean)]
+    const selected=photos.find(p=>evidenceId(p)===host.archiveId)
+    if (selected) return selected
+  }
   return photo === 'rephoto' && order.rephoto ? order.rephoto
     : photo === 'after' && order.after ? order.after
       : order.before
@@ -132,7 +140,32 @@ function photoPane(host) {
     image.src = URL.createObjectURL(evidence.image)
     image.alt = `Карточка ${host.order.id} · ${evidence.caption}`
     host.urls.push(image.src)
-    pane.append(image)
+    const bounds=host.region && evidence===host.order.before && strongestRegion(host.order,host.region)
+    if (bounds) {
+      const [x0,y0,x1,y1]=bounds
+      const stage=node('div','wo-region-stage'),frame=node('span','wo-region-box')
+      frame.style.cssText=`left:${x0*100}%;top:${y0*100}%;width:${(x1-x0)*100}%;height:${(y1-y0)*100}%`
+      stage.append(image,frame)
+      const crop=node('div','wo-crop')
+      image.addEventListener('load',()=>{
+        if(!stage.isConnected)return
+        const canvas=croppedCanvas(image,bounds)
+        canvas.setAttribute('aria-label','Увеличенный фрагмент')
+        crop.replaceChildren(canvas)
+      },{once:true})
+      pane.append(stage,node('p','wo-muted',SIGNALS[host.region].code+' · '+regionName(bounds)+'. Из четырёх фрагментов этот сильнее всего повлиял на оценку признака.'),crop)
+    } else pane.append(image)
+  }
+  if (evidence!==host.order.before && evidence.image && host.order.before?.image) {
+    const compare=node('details','wo-compare')
+    compare.append(node('summary','','Сравнить с исходным кадром'))
+    const pair=node('div','wo-pair')
+    for (const [e,label] of [[host.order.before,'До'],[evidence,evidence.caption]]) {
+      const figure=node('figure'),img=node('img')
+      img.src=URL.createObjectURL(e.image);host.urls.push(img.src);img.alt=label
+      figure.append(img,node('figcaption','',label));pair.append(figure)
+    }
+    compare.append(pair);pane.append(compare)
   }
   const footer = node('div', 'wo-photo-foot')
   footer.append(node('strong', '', evidence.caption), node('span', 'wo-filename', evidence.filename))
@@ -142,7 +175,7 @@ function photoPane(host) {
   for (const [key, caption] of [['before', 'До'], ['rephoto', 'Пересъёмка'], ['after', 'После']]) {
     if (!host.order[key]) continue
     tabs.append(pressedButton(caption, host.photo === key, () => {
-      host.photo = key
+      host.photo = key; host.archiveId=null;host.region=null
       render(host)
     }))
   }
@@ -161,6 +194,9 @@ function signalPane(host) {
     heading.append(node('span', `wo-signal-code wo-${key}`, signal.code), node('h4', '', signal.title))
     if (Number.isFinite(score)) heading.append(node('span', 'wo-score', percent.format(score)))
     card.append(heading, node('p', '', signal.task))
+    if (strongestRegion(host.order,key)) card.append(pressedButton('Показать фрагмент',host.region===key,()=>{
+      host.region=host.region===key?null:key;host.archiveId=null;host.photo='before';render(host)
+    }))
     const actions = node('div', 'wo-buttons')
     actions.setAttribute('aria-label', signal.title)
     const set = (decision) => mutate(host, (order) => {
@@ -173,21 +209,29 @@ function signalPane(host) {
     )
     for (const [index, control] of [...actions.children].entries()) control.dataset.focusKey = `${key}-decision-${index}`
     card.append(actions)
-    if (host.order.after && state.decision === 'confirmed') {
-      const acceptance = node('div', 'wo-acceptance')
-      acceptance.append(node('span', 'wo-muted', 'Результат по фото после ремонта'))
-      const options = node('div', 'wo-buttons')
-      const inspect = (result) => mutate(host, (order) => {
-        if (order.after?.orderId === order.id && order.after.identityConfirmed && order.signals[key].decision === 'confirmed') {
-          order.signals[key].result = result
-        }
-      })
-      options.append(
-        pressedButton('Устранён', state.result === 'resolved', () => inspect('resolved'), 'wo-success'),
-        pressedButton('Оставить открытым', state.result === 'retained', () => inspect('retained'), 'wo-warning'),
-      )
-      for (const [index, control] of [...options.children].entries()) control.dataset.focusKey = `${key}-acceptance-${index}`
+    const usable=allAfter(host.order).filter(e=>e.orderId===host.order.id && e.identityConfirmed && (!e.scope||e.scope==='object'||e.scope===key))
+    if (usable.length && state.decision === 'confirmed') {
+      const acceptance=node('div','wo-acceptance')
+      const receipt=receiptFor(host.order,key)
+      const chosen=receipt || usable.at(-1)
+      const select=choose(Object.fromEntries(usable.map((e,i)=>[evidenceId(e),`${i+1}. ${e.filename}`])))
+      select.value=evidenceId(chosen)
+      acceptance.append(field('Снимок для приёмки '+signal.code,select))
+      const options=node('div','wo-buttons')
+      const inspect=result=>{
+        const active=usable.find(e=>evidenceId(e)===select.value)
+        if (!active)return
+        return mutate(host,order=>{
+          Object.assign(order.signals[key],{result,evidenceId:evidenceId(active),reviewedAt:Date.now()})
+          host.photo='after';host.archiveId=evidenceId(active);host.region=null
+        })
+      }
+      options.append(pressedButton('Устранён',state.result==='resolved',()=>inspect('resolved'),'wo-success'),
+        pressedButton('Оставить открытым',state.result==='retained',()=>inspect('retained'),'wo-warning'))
       acceptance.append(options)
+      if(receipt)acceptance.append(button('Открыть снимок решения · '+receipt.filename,()=>{
+        host.photo='after';host.archiveId=evidenceId(receipt);host.region=null;render(host)
+      }))
       card.append(acceptance)
     }
     pane.append(card)
@@ -206,14 +250,30 @@ function requestPane(host) {
   pane.append(node('h3', '', 'Прицельная пересъёмка'))
   const request = host.order.request
   const fulfilled = Boolean(host.order.rephoto)
+  const history=host.order.retakeHistory || []
+  if (history.length) {
+    const prior=node('details','wo-compare')
+    prior.append(node('summary','','Предыдущие пересъёмки · '+history.length))
+    for(const {request:r,evidence:e} of history) prior.append(button(SIGNALS[r.signal].code+' · '+VIEWS[r.view]+' · '+e.filename,()=>{
+      host.region=null;host.archiveId=evidenceId(e);host.photo='rephoto';render(host)
+    }))
+    pane.append(prior)
+  }
   if (request && (!host.requestEditing || fulfilled)) {
     pane.append(node('p', 'wo-note', `${SIGNALS[request.signal].code} · ${VIEWS[request.view]}`))
     if (request.source === 'model') {
       const score = percent.format(request.score)
       pane.append(node('p', 'wo-muted', `Ракурс предложен по пограничной оценке модели (${score}).`))
     }
+    if (strongestRegion(host.order,request.signal)) pane.append(button('Открыть область на исходном фото',()=>{
+      host.photo='before';host.archiveId=null;host.region=request.signal;render(host)
+    }))
     if (fulfilled) {
-      pane.append(node('p', 'wo-muted', 'Запрос выполнен. Новый кадр сохранён в этой карточке.'))
+      pane.append(node('p', 'wo-muted', 'Запрос выполнен. Новый кадр сохранён в этой карточке.'),
+        button('Запросить ещё один ракурс',()=>mutate(host,order=>{
+          (order.retakeHistory ||= []).push({request:order.request,evidence:order.rephoto})
+          order.request=null;order.rephoto=null;host.archiveId=null;host.photo='before'
+        })))
     } else {
       pane.append(attachment(host, 'rephoto'))
       pane.append(button('Изменить запрос', () => {
@@ -269,12 +329,17 @@ async function sameFile(left, right) {
   return leftBytes.every((byte, index) => byte === rightBytes[index])
 }
 
-async function decodes(image) {
+async function attachmentIssue(image) {
   const url = URL.createObjectURL(image)
   const preview = new Image()
   try {
     preview.src = url
     await preview.decode()
+    if (preview.naturalWidth * preview.naturalHeight > 40_000_000) {
+      return 'Выберите фотографию до 40 мегапикселей.'
+    }
+    const quality = assessInputQuality(preview)
+    return quality.ok ? null : quality.request
   } finally {
     URL.revokeObjectURL(url)
   }
@@ -284,7 +349,7 @@ async function belongsToAnotherOrder(image, orderId) {
   const records = await loadHistory()
   for (const record of records) {
     if (record.id === orderId) continue
-    for (const evidence of [record.before, record.rephoto, record.after]) {
+    for (const evidence of [record.before,...allAfter(record),...previousRetakes(record).map(r=>r.evidence)]) {
       if (evidence?.image instanceof Blob && await sameFile(image, evidence.image)) return true
     }
   }
@@ -304,6 +369,13 @@ function attachment(host, kind) {
   confirm.required = true
   const label = node('label', 'wo-identity')
   label.append(confirm, node('span', '', `Визуально сверил объект с исходным фото ${orderId}`))
+  let scope
+  if (kind==='after') {
+    const choices={object:'Общий кадр работ'}
+    for(const [key,sig] of Object.entries(SIGNALS))if(host.order.signals[key].decision==='confirmed')choices[key]=sig.title
+    scope=choose(choices)
+    form.append(field('Какая работа показана',scope))
+  }
   const submitLabel = kind === 'after' ? 'Приложить фото после' : 'Приложить пересъёмку'
   const submit = node('button', 'wo-button wo-primary', submitLabel)
   submit.type = 'submit'
@@ -336,11 +408,17 @@ function attachment(host, kind) {
     submit.disabled = true
     message.textContent = ''
     try {
-      await decodes(image)
-      if (kind === 'after' && (await sameFile(image, host.order.before.image) ||
-        (host.order.rephoto && await sameFile(image, host.order.rephoto.image)))) {
-        message.textContent = 'Этот файл уже приложен как снимок до ремонта. Выберите новый снимок.'
+      const issue = await attachmentIssue(image)
+      if (issue) {
+        message.textContent = 'Нужна пересъёмка. ' + issue
         return
+      }
+      const previous=[host.order.before,...previousRetakes(host.order).map(r=>r.evidence),...allAfter(host.order)]
+      for (const evidence of previous) {
+        if (evidence?.image && await sameFile(image,evidence.image)) {
+          message.textContent='Этот файл уже есть в карточке. Выберите новый снимок.'
+          return
+        }
       }
       if (await belongsToAnotherOrder(image, orderId)) {
         message.textContent = 'Этот снимок уже привязан к другой карточке. Приложите кадр текущего объекта.'
@@ -349,15 +427,20 @@ function attachment(host, kind) {
       if (host.order.id !== orderId || !form.isConnected) return
       if (kind === 'rephoto' && (host.order.request !== activeRequest || host.order.rephoto)) return
       await mutate(host, (order) => {
+        if(kind==='after' && order.after) {
+          for (const st of Object.values(order.signals))if(st.result && !st.evidenceId)st.evidenceId=evidenceId(order.after)
+          order.afterHistory ||= []
+          order.afterHistory.push(order.after)
+        }
         order[kind] = {
+          id:crypto.randomUUID(),createdAt:Date.now(),scope:scope?.value || activeRequest?.signal || 'object',
           orderId,
           identityConfirmed: true,
           filename: image.name,
           image,
           caption: kind === 'after' ? 'Фото после ремонта' : 'Запрошенный ракурс',
         }
-        if (kind === 'after') for (const signal of Object.values(order.signals)) signal.result = null
-        host.photo = kind
+        host.photo = kind;host.archiveId=null;host.region=null
       })
     } catch {
       message.textContent = 'Браузер не смог открыть это изображение.'
@@ -445,6 +528,7 @@ function historyPane(host, records) {
     const current = record.id === host.order.id
     const link = button(`${record.id} · ${record.object_type} · ${date.format(record.createdAt)}`, () => {
       host.order = structuredClone(record)
+      host.archiveId=null;host.region=null
       host.photo = 'before'
       host.requestEditing = false
       render(host)
@@ -472,7 +556,13 @@ async function render(host) {
   const titleHeading = node('h2', '', `${host.order.object_type} · ${host.order.id}`)
   titleHeading.tabIndex = -1
   title.append(node('span', 'wo-eyebrow', 'КАРТОЧКА ОСМОТРА'), titleHeading)
-  header.append(title, historyPane(host, history))
+  const exportButton=button('Скачать акт осмотра',async()=>{
+    exportButton.disabled=true
+    try {await downloadReport(host.order,SIGNALS,VIEWS)}
+    catch {const error=node('p','wo-error','Не удалось собрать акт. Проверьте доступность приложенных фото.');error.setAttribute('role','alert');header.append(error)}
+    finally{exportButton.disabled=false}
+  })
+  header.append(title, historyPane(host, history),exportButton)
   const main = node('div', 'wo-main')
   main.append(photoPane(host), signalPane(host))
   const followUp = node('div', 'wo-followup')
@@ -518,7 +608,7 @@ function automaticRequest(scores) {
   return { signal, view, source: 'model', score: scores[signal] }
 }
 
-export async function openOrder(container, { object_type, scores, filename, image }) {
+export async function openOrder(container, { object_type, scores, filename, image, regions, model_version }) {
   const timestamp = Date.now()
   const id = `ОСМ-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
   const safeScore = (value) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : null
@@ -526,10 +616,11 @@ export async function openOrder(container, { object_type, scores, filename, imag
   const order = {
     id,
     object_type: String(object_type || 'Шкаф'),
-    scores: normalizedScores,
+    scores: normalizedScores, regions:regions||{}, model_version,
+    retakeHistory:[],afterHistory:[],
     createdAt: timestamp,
     updatedAt: timestamp,
-    before: { filename: String(filename || 'Снимок'), image, caption: 'Исходный снимок' },
+    before: { id:crypto.randomUUID(),createdAt:timestamp,filename: String(filename || 'Снимок'), image, caption: 'Исходный снимок' },
     signals: { mechanical: EMPTY(), coating: EMPTY() },
     request: automaticRequest(normalizedScores),
     rephoto: null,

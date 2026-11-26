@@ -8,10 +8,7 @@ import onnxruntime as ort
 from PIL import Image, ImageOps
 
 from scripts.cabinet_final import HEADS, assign_groups, estimator, load_images, read_dss, score_set, splits
-
-SIDE = 224
-MEAN = np.asarray([.485, .456, .406], dtype=np.float32)
-STD = np.asarray([.229, .224, .225], dtype=np.float32)
+from scripts.probe_browser_cabinet import LOCAL_VIEWS, MEAN, SIDE, STD, VIEWS, sampled, summarize
 
 
 def sample(image, inset):
@@ -34,11 +31,23 @@ def vector(session, image):
     return np.concatenate(parts)
 
 
+def local_average_vector(session, image):
+    pixels = np.asarray(image)
+    parts = []
+    for name in LOCAL_VIEWS:
+        encoded, _ = sampled(pixels, VIEWS[name])
+        tokens = session.run(None, {"pixel_values": encoded})[0][0]
+        features, _ = summarize(tokens)
+        parts.append(features)
+    return np.mean(parts, axis=0)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, action="append", required=True)
     parser.add_argument("--onnx", type=Path, required=True)
-    parser.add_argument("--out", type=Path, default=Path("browser-ml/heads.json"))
+    parser.add_argument("--recipe", choices=["baseline", "local-average"], default="baseline")
+    parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     frames = read_dss(args.source)
     _, hashes, metadata, _ = load_images(frames)
@@ -48,10 +57,11 @@ def main():
     options.intra_op_num_threads = 2
     session = ort.InferenceSession(str(args.onnx), options, providers=["CPUExecutionProvider"])
     rows = [f for f in frames if f.truth is not None]
+    extract = local_average_vector if args.recipe == "local-average" else vector
     xs = []
     for f in rows:
         with Image.open(f.path) as im:
-            xs.append(vector(session, ImageOps.exif_transpose(im).convert("RGB")))
+            xs.append(extract(session, ImageOps.exif_transpose(im).convert("RGB")))
     x = np.stack(xs)
     y = np.asarray([f.truth for f in rows])
     g = np.asarray([f.group for f in rows])
@@ -60,12 +70,15 @@ def main():
         for j in range(3):
             oof[test,j] = estimator(x.shape[1]).fit(x[train],y[train,j]).predict_proba(x[test])[:,1]
     data = {"format": 1, "heads": {}, "metrics": score_set(y,oof), "labeled":len(y),"groups":len(set(g))}
+    if args.recipe == "local-average":
+        data.update(format=2, recipe="local-average", views=[VIEWS[name] for name in LOCAL_VIEWS])
     for j, head in enumerate(HEADS):
         scaler, clf = estimator(x.shape[1]).fit(x,y[:,j]).steps
         weights = clf[1].coef_[0] / scaler[1].scale_
         bias = clf[1].intercept_[0] - weights @ scaler[1].mean_
         data["heads"][head] = {"weights":weights.round(8).tolist(),"bias":float(bias)}
-    args.out.write_text(json.dumps(data,separators=(",",":")))
+    out = args.out or Path("browser-ml/heads-v2.json" if args.recipe == "local-average" else "browser-ml/heads.json")
+    out.write_text(json.dumps(data,separators=(",",":")) + "\n", encoding="utf-8")
     print(json.dumps(data["metrics"],indent=2))
 
 
