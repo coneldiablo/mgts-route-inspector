@@ -1,7 +1,7 @@
 const DATABASE = 'mgts-browser-work-orders'
 const STORE = 'orders'
 const SIGNALS = {
-  mechanical: { code: 'МП', title: 'Механическое повреждение', task: 'Проверить дверь и корпус' },
+  mechanical: { code: 'МП', title: 'Механическое повреждение', task: 'Проверить дверь, крепления и закрывание' },
   coating: { code: 'ЛКП', title: 'Повреждение покрытия', task: 'Восстановить защитное покрытие' },
 }
 const VIEWS = {
@@ -9,6 +9,7 @@ const VIEWS = {
   front: 'Дверь спереди',
   side: 'Боковая панель крупным планом',
   corner: 'Нижний угол под углом 45°',
+  coating: 'Локальный участок покрытия при рассеянном свете',
 }
 const EMPTY = () => ({ decision: 'pending', result: null })
 const sessions = new WeakMap()
@@ -204,27 +205,45 @@ function requestPane(host) {
   const pane = node('div', 'wo-task')
   pane.append(node('h3', '', 'Прицельная пересъёмка'))
   const request = host.order.request
-  if (request) {
+  const fulfilled = Boolean(host.order.rephoto)
+  if (request && (!host.requestEditing || fulfilled)) {
     pane.append(node('p', 'wo-note', `${SIGNALS[request.signal].code} · ${VIEWS[request.view]}`))
-    if (host.order.rephoto) pane.append(node('p', 'wo-muted', 'Новый кадр привязан к этой карточке.'))
-    pane.append(attachment(host, 'rephoto'))
-    pane.append(button('Изменить запрос', () => mutate(host, (order) => {
-      order.request = null
-      order.rephoto = null
-      host.photo = 'before'
-    })))
+    if (request.source === 'model') {
+      const score = percent.format(request.score)
+      pane.append(node('p', 'wo-muted', `Ракурс предложен по пограничной оценке модели (${score}).`))
+    }
+    if (fulfilled) {
+      pane.append(node('p', 'wo-muted', 'Запрос выполнен. Новый кадр сохранён в этой карточке.'))
+    } else {
+      pane.append(attachment(host, 'rephoto'))
+      pane.append(button('Изменить запрос', () => {
+        if (host.order.rephoto) return
+        host.requestEditing = true
+        render(host)
+      }))
+    }
     return pane
   }
   const form = node('form', 'wo-form')
   const signal = choose(Object.fromEntries(Object.entries(SIGNALS).map(([key, value]) => [key, `${value.code} — ${value.title.toLowerCase()}`])))
   const view = choose(VIEWS)
-  const submit = node('button', 'wo-button wo-primary', 'Создать запрос')
+  if (request) {
+    signal.value = request.signal
+    view.value = request.view
+  }
+  const submit = node('button', 'wo-button wo-primary', request ? 'Сохранить запрос' : 'Создать запрос')
   submit.type = 'submit'
   form.append(field('Признак', signal), field('Нужный ракурс', view), submit)
   form.addEventListener('submit', (event) => {
     event.preventDefault()
-    mutate(host, (order) => { order.request = { signal: signal.value, view: view.value } })
+    if (host.order.rephoto) return
+    host.requestEditing = false
+    mutate(host, (order) => { order.request = { signal: signal.value, view: view.value, source: 'manual' } })
   })
+  if (request) form.append(button('Отменить изменение', () => {
+    host.requestEditing = false
+    render(host)
+  }))
   pane.append(form)
   return pane
 }
@@ -274,6 +293,7 @@ async function belongsToAnotherOrder(image, orderId) {
 
 function attachment(host, kind) {
   const orderId = host.order.id
+  const activeRequest = kind === 'rephoto' ? host.order.request : null
   const form = node('form', 'wo-form wo-attachment')
   const file = node('input')
   file.type = 'file'
@@ -327,6 +347,7 @@ function attachment(host, kind) {
         return
       }
       if (host.order.id !== orderId || !form.isConnected) return
+      if (kind === 'rephoto' && (host.order.request !== activeRequest || host.order.rephoto)) return
       await mutate(host, (order) => {
         order[kind] = {
           orderId,
@@ -425,6 +446,7 @@ function historyPane(host, records) {
     const link = button(`${record.id} · ${record.object_type} · ${date.format(record.createdAt)}`, () => {
       host.order = structuredClone(record)
       host.photo = 'before'
+      host.requestEditing = false
       render(host)
     })
     if (current) link.setAttribute('aria-current', 'true')
@@ -475,24 +497,41 @@ function mount(container, record) {
     previous.renderId = -1
     for (const url of previous.urls) URL.revokeObjectURL(url)
   }
-  const host = { container, order: record, photo: 'before', urls: [], persisted: true, historyOpen: false }
+  const host = { container, order: record, photo: 'before', urls: [], persisted: true, historyOpen: false, requestEditing: false }
   sessions.set(container, host)
   return host
+}
+
+function automaticRequest(scores) {
+  let signal = null
+  let nearest = Infinity
+  for (const key of Object.keys(SIGNALS)) {
+    const score = scores[key]
+    if (!Number.isFinite(score) || score < 0.4 || score > 0.6) continue
+    const distance = Math.abs(score - 0.5)
+    if (distance >= nearest - Number.EPSILON) continue
+    signal = key
+    nearest = distance
+  }
+  if (!signal) return null
+  const view = signal === 'mechanical' ? 'hinges' : 'coating'
+  return { signal, view, source: 'model', score: scores[signal] }
 }
 
 export async function openOrder(container, { object_type, scores, filename, image }) {
   const timestamp = Date.now()
   const id = `ОСМ-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
   const safeScore = (value) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : null
+  const normalizedScores = { mechanical: safeScore(scores?.mechanical), coating: safeScore(scores?.coating) }
   const order = {
     id,
     object_type: String(object_type || 'Шкаф'),
-    scores: { mechanical: safeScore(scores?.mechanical), coating: safeScore(scores?.coating) },
+    scores: normalizedScores,
     createdAt: timestamp,
     updatedAt: timestamp,
     before: { filename: String(filename || 'Снимок'), image, caption: 'Исходный снимок' },
     signals: { mechanical: EMPTY(), coating: EMPTY() },
-    request: null,
+    request: automaticRequest(normalizedScores),
     rephoto: null,
     after: null,
     location: null,
