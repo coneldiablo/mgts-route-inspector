@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650">
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#afc3d0"/><stop offset="1" stop-color="#e9eff0"/></linearGradient>
+  <linearGradient id="concrete" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bfc1b5"/><stop offset="1" stop-color="#6e777c"/></linearGradient>
+  <linearGradient id="face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cad2d6"/><stop offset=".44" stop-color="#a9b6bb"/><stop offset="1" stop-color="#7b9199"/></linearGradient>
+  <linearGradient id="door" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1dbe0"/><stop offset=".42" stop-color="#b5c1c6"/><stop offset="1" stop-color="#8298a0"/></linearGradient>
+  <linearGradient id="side"><stop stop-color="#667b82"/><stop offset="1" stop-color="#435962"/></linearGradient>
+  <linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf3f4"/><stop offset="1" stop-color="#a5b7c0"/></linearGradient>
+  <pattern id="slats" width="17" height="128" patternUnits="userSpaceOnUse"><path d="M4 0v128" stroke="#455e61" stroke-opacity=".37" stroke-width="3"/></pattern>
+  <pattern id="tread" width="15" height="15" patternUnits="userSpaceOnUse" patternTransform="rotate(15)"><path d="M1 6h5m3 8h5" stroke="#475459" stroke-opacity=".15" stroke-width="1.2"/></pattern>
+  <pattern id="vents" width="6" height="8" patternUnits="userSpaceOnUse"><path d="M1 1h4" stroke="#293d47" stroke-width="1.3"/><path d="M1 3h4" stroke="#e0ecec" stroke-width=".75" opacity=".55"/></pattern>
+  <filter id="blur"><feGaussianBlur stdDeviation="8"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".54" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <radialGradient id="vignette"><stop offset=".5" stop-color="#112734" stop-opacity="0"/><stop offset="1" stop-color="#112734" stop-opacity=".19"/></radialGradient>
+</defs>
+<path fill="url(#sky)" d="M0 0h1000v650H0z"/>
+<g opacity=".62" filter="url(#blur)">
+  <path fill="#6e8787" d="M0 208h1000v190H0z"/>
+  <path d="M0 188 104 151l174 2 73 27h278l112-70 259 22v110H0z" fill="#778e8c"/>
+  <path d="M0 222 144 194l82 7 21-25h48l118 72 152 6 88-66 96 7 121-28 130 41v57H0z" fill="#cbd4ce"/>
+</g>
+<path fill="#a8b3ac" d="M0 252h1000v105H0z"/>
+<path fill="url(#slats)" d="M0 244h1000v131H0z"/>
+<path d="M0 252h1000M0 330h1000" stroke="#6b7d7d" stroke-width="4" opacity=".49"/>
+<path d="M0 337 1000 307v343H0z" fill="url(#concrete)"/>
+<path d="M0 399 1000 350v300H0z" fill="url(#tread)" opacity=".88"/>
+<path d="m0 433 1000-54M0 558l1000-96" stroke="#555c59" stroke-opacity=".27" stroke-width="3"/>
+<path d="M306 530 432 488l240 12 161 84-260 34-221-24z" fill="#2c3b3d" opacity=".34" filter="url(#blur)"/>
+<path d="m328 546 296 26 110-91-308-16z" fill="#a1aaa9" stroke="#68787b" stroke-width="3"/>
+<path d="m328 546 296 26v17l-296-29z" fill="#687478"/>
+<path d="m624 572 110-91v17l-110 91z" fill="#53676b"/>
+<path d="M335 143 615 135 615 532 335 505z" fill="#2f414d" opacity=".95"/>
+<path d="M610 139 706 105 706 479 610 531z" fill="url(#side)" stroke="#425961" stroke-width="2"/>
+<path d="M610 153 700 120 700 466 610 516z" fill="none" stroke="#b4c8c9" stroke-opacity=".29" stroke-width="1.1"/>
+<path d="M334 144 610 137 610 527 334 503z" fill="url(#face)" stroke="#738790" stroke-width="2.5"/>
+<path d="M321 139 612 131 719 92 444 91z" fill="url(#top)" stroke="#788992" stroke-width="1.9"/>
+<path d="M321 139 612 131 612 161 321 167z" fill="#bbcbd2" stroke="#6d8189" stroke-width="2"/>
+<path d="M612 131 719 92 719 116 612 161z" fill="#7c929b" stroke="#526d76" stroke-width="2"/>
+<path d="M332 169 603 164 602 495 336 477z" fill="#596d74" opacity=".66"/>
+<path d="M346 171 595 167 592 491 347 473z" fill="url(#door)" stroke="#4b636e" stroke-width="2.8"/>
+<path d="M351 177 589 172 586 486 352 469z" fill="none" stroke="#e0edf0" stroke-opacity=".69" stroke-width="1.7"/>
+<path d="M355 477 589 495v18l-234-21z" fill="#627779" opacity=".45"/>
+<path d="m348 193 11 1v41h-11zm0 191 11 1v39l-11-1z" fill="#445961" opacity=".77"/>
+<path d="m538 267 16 1v69l-16-1z" fill="#394b57"/>
+<path d="m538 269 11 1v64l-11-1z" fill="#4e616b" stroke="#8e9fa6" stroke-width="1.15"/>
+<circle cx="543" cy="323" r="2.3" fill="#cbd7dc"/>
+<path d="m402 250 63 1v18l-63-1z" fill="#e5eaea" stroke="#798c92"/>
+<text x="408" y="263" font-family="Arial, sans-serif" font-size="10" fill="#3e5968" font-weight="700" letter-spacing="1">ТКШ-014</text>
+<path d="m421 302 13 23-27-1z" fill="#eec377" stroke="#71634b" stroke-width=".9"/>
+<path d="m422 308-4 7h4l-1 6 6-8h-4z" fill="#403c32"/>
+<path d="m627 365 54-22v96l-54 28z" fill="#799091" opacity=".55"/>
+<path d="m631 368 47-20v86l-47 23z" fill="url(#vents)" opacity=".86"/>
+<path d="M624 497 710 453" stroke="#b7c4bf" opacity=".26" stroke-width="2"/>
+<circle cx="579" cy="182" r="1.8" fill="#59717c"/><circle cx="373" cy="458" r="1.6" fill="#5d7179"/>
+
+<g stroke-linejoin="round"><path d="m368 408 13-5 7 3 7-7 5 2-2 6 13 5-5 9-11-2-3 8-8-1-6-4-9 2 3-8-7-4z" fill="#6f6658" stroke="#d3c1a9" stroke-width="1.5"/><path d="m378 414 11-5 6 2 5 7-10 4-6-2z" fill="#aa714b"/><path d="m404 398 8-2 7 5-5 5-4-4-8 2z" fill="#827260"/><path d="m399 426 9 2-1 5-5 2z" fill="#846f5c"/><path d="m367 427 6 1 3 5-8 2z" fill="#b58d72"/></g>
+<path d="M0 0h1000v650H0z" filter="url(#grain)" opacity=".22" style="mix-blend-mode:multiply"/>
+<path fill="url(#vignette)" d="M0 0h1000v650H0z"/>
+</svg>

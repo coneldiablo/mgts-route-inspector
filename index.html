@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f9fc" />
+  <meta name="description" content="Интерактивный прототип маршрутного осмотра шкафов МГТС для хакатона «Код Города»." />
+  <title>Маршрутный осмотр · МГТС</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/mark-yqKvj8Gc.svg" />
+  <script type="module" crossorigin src="./assets/index-OYZ9owkQ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-ftWdmKMp.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Маршрутный осмотр, в начало">
+      <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3e%3crect%20width='48'%20height='48'%20rx='13'%20fill='%230067a7'/%3e%3cpath%20d='M13%2022V14h8m6%200h8v8m0%205v8h-8m-6%200h-8v-8'%20fill='none'%20stroke='%23fff'%20stroke-width='2.5'/%3e%3cpath%20d='m17%2025%204-4%205%205%205-6'%20fill='none'%20stroke='%23fff'%20stroke-width='2.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" width="38" height="38" alt="" />
+      <span>Маршрутный осмотр<small>Инфраструктура МГТС</small></span>
+    </a>
+    <nav aria-label="Навигация">
+      <a href="#workbench">Сценарий</a><a href="#model">Модель</a><a href="#materials">Материалы</a>
+    </nav>
+    <a class="source pills" href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Исходный код <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="top">
+    <section class="intro wrap">
+      <div class="eyebrow"><span class="signal"></span> КОД ГОРОДА · ФИНАЛ МГТС</div>
+      <h1>От снимка<br>до <em>приёмки.</em></h1>
+      <div class="intro-aside">
+        <p>Компьютерное зрение находит видимые повреждения шкафов. Мастер выбирает действия, запрашивает нужный ракурс и проверяет результат ремонта в той же карточке.</p>
+        <div class="intro-links">
+          <a class="button primary" href="#workbench">Пройти сценарий <span aria-hidden="true">↓</span></a>
+          <a class="button" href="./predict/">Распознать своё фото <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+    <section class="workbench wrap" id="workbench" aria-labelledby="bench-title">
+      <aside class="casebar">
+        <div class="casehead">
+          <p class="eyebrow">ДЕМОНСТРАЦИОННЫЙ ОБЪЕКТ</p>
+          <h2 id="bench-title">ТКШ-014</h2>
+          <p class="brief">Телекоммуникационный шкаф</p>
+        </div>
+        <nav class="stages" aria-label="Этапы осмотра">
+          <button type="button" data-stage="inspect" aria-current="step"><b>01</b><span>Осмотр</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="rephoto"><b>02</b><span>Пересъёмка</span><span aria-hidden="true">↗</span></button>
+          <button type="button" data-stage="accept"><b>03</b><span>Приёмка</span><span aria-hidden="true">↗</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="labelline"><span class="pulse"></span> Один шкаф · два признака</div>
+          <button type="button" id="reset" class="text-button">Сбросить сценарий</button>
+        </div>
+      </aside>
+      <div class="casebody" id="stage-panel" aria-labelledby="stage-title">
+        <div class="evidence">
+          <div class="viewport" id="viewport">
+            <img id="scene-img" src="./assets/cabinet-C-FtMcsV.svg" alt="Учебное изображение телекоммуникационного шкафа" />
+            <button type="button" data-pin="mp" class="marker pin-mp" aria-label="Показать механическое повреждение"><span></span><b>МП</b></button>
+            <button type="button" data-pin="paint" class="marker pin-paint" aria-label="Показать повреждение лакокрасочного покрытия"><span></span><b>ЛКП</b></button>
+            <div id="image-tag" class="image-tag">ИСХОДНЫЙ СНИМОК</div>
+          </div>
+          <div class="evidence-foot">
+            <span id="photo-caption">Синтетическое изображение для демонстрации</span>
+            <div id="comparison" hidden aria-label="Сравнение снимков">
+              <button type="button" data-photo="before" aria-pressed="true">До</button>
+              <button type="button" data-photo="after" aria-pressed="false">После</button>
+            </div>
+          </div>
+        </div>
+        <div class="actions" id="actions"></div>
+      </div>
+      <button type="button" id="reset-mobile" class="text-button reset-mobile">Сбросить сценарий</button>
+      <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+    </section>
+    <section class="method wrap" id="model" aria-labelledby="model-title">
+      <div class="method-heading">
+        <p class="eyebrow">КОМПЬЮТЕРНОЕ ЗРЕНИЕ</p>
+        <h2 id="model-title">Два признака.<br>Два решения.</h2>
+        <p>МП и ЛКП могут встречаться вместе. Для каждого признака система показывает свою оценку, а мастер подтверждает отдельное действие.</p>
+      </div>
+      <div class="method-detail">
+        <div class="numbers" id="numbers" aria-label="Состав размеченного набора">
+          <div><strong>61</strong><span>размеченный снимок</span></div>
+          <div><strong>3</strong><span>с обоими признаками</span></div>
+          <div><strong>2</strong><span>типа шкафов</span></div>
+        </div>
+        <section class="model-check" aria-labelledby="validation-title">
+          <div class="validation-head">
+            <h3 id="validation-title">Проверка на выданных данных</h3>
+            <p id="validation-context"></p>
+          </div>
+          <dl class="validation-results" id="validation-results"></dl>
+        </section>
+        <ul class="steps">
+          <li><b>01</b><div><strong>Отдельные оценки МП и ЛКП</strong><p>Классификация фото РЩ и ТКШ с независимыми выходами для механического повреждения и повреждения покрытия.</p></div></li>
+          <li><b>02</b><div><strong>Целевой запрос ракурса</strong><p>Запрос содержит сторону шкафа и признак, который нужно уточнить. Новый кадр остаётся в исходной карточке.</p></div></li>
+          <li><b>03</b><div><strong>Подтверждение по каждому признаку</strong><p>Фото после ремонта прикладывается к карточке. Остаточный дефект сохраняет своё открытое действие.</p></div></li>
+        </ul>
+      </div>
+    </section>
+    <footer class="footer wrap" id="materials">
+      <div><p class="eyebrow">МАТЕРИАЛЫ ПРОТОТИПА</p><h2>От проекта к проверке.</h2></div>
+      <div class="footer-links">
+        <a href="https://github.com/coneldiablo/mgts-route-inspector" target="_blank" rel="noopener">Репозиторий <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/coneldiablo/mgts-route-inspector/releases" target="_blank" rel="noopener">Релизы и модели <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/coneldiablo/mgts-route-inspector/blob/main/docs/FINAL.md" target="_blank" rel="noopener">Локальный запуск ML <span aria-hidden="true">↗</span></a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
