@@ -22,7 +22,7 @@ from .vertex_vision import VertexVision
 MAX_BYTES = 5 * 1024 * 1024
 MAX_PIXELS = 16_000_000
 MAX_IN_FLIGHT = 2
-MAX_CLOUD_ATTEMPTS = 24
+MAX_CLOUD_ATTEMPTS = 80  # One full 62-frame competition set plus individual jury uploads.
 MIN_CLOUD_INTERVAL = 2.0
 CLOUD_WAIT_TIMEOUT = 35.0
 UPLOAD_TIMEOUT = 15
