@@ -347,6 +347,72 @@ function attachment(host, kind) {
   return form
 }
 
+function coordinate(raw, maximum) {
+  const text = raw.trim().replace(',', '.').replace('−', '-')
+  if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) return null
+  const value = Number(text)
+  return Number.isFinite(value) && Math.abs(value) <= maximum ? value : null
+}
+
+function locationPane(host) {
+  const pane = node('div', 'wo-task wo-location')
+  const location = host.order.location
+  pane.append(
+    node('h3', '', 'Координаты шкафа'),
+    node('p', 'wo-muted', location ? 'Источник координат · ручная привязка, WGS84' : 'Местоположение неизвестно. Введите широту и долготу шкафа в WGS84.'),
+  )
+  const form = node('form', 'wo-form wo-coordinate-form')
+  const latitude = node('input')
+  const longitude = node('input')
+  for (const input of [latitude, longitude]) {
+    input.type = 'text'
+    input.inputMode = 'decimal'
+    input.autocomplete = 'off'
+    input.maxLength = 24
+  }
+  latitude.name = 'latitude'
+  latitude.placeholder = '55.751244'
+  longitude.name = 'longitude'
+  longitude.placeholder = '37.618423'
+  latitude.value = location ? String(location.lat) : ''
+  longitude.value = location ? String(location.lon) : ''
+  const submit = node('button', 'wo-button wo-primary', 'Сохранить координаты')
+  submit.type = 'submit'
+  const message = node('p', 'wo-error')
+  message.setAttribute('role', 'alert')
+  form.append(field('Широта', latitude), field('Долгота', longitude), submit, message)
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const latRaw = latitude.value.trim()
+    const lonRaw = longitude.value.trim()
+    latitude.removeAttribute('aria-invalid')
+    longitude.removeAttribute('aria-invalid')
+    if (!latRaw && !lonRaw) {
+      mutate(host, (order) => { order.location = null })
+      return
+    }
+    const lat = coordinate(latRaw, 90)
+    const lon = coordinate(lonRaw, 180)
+    if (lat === null || lon === null) {
+      if (lat === null) latitude.setAttribute('aria-invalid', 'true')
+      if (lon === null) longitude.setAttribute('aria-invalid', 'true')
+      message.textContent = 'Введите обе координаты. Широта от −90 до 90, долгота от −180 до 180.'
+      return
+    }
+    mutate(host, (order) => { order.location = { lat, lon, source: 'manual' } })
+  })
+  pane.append(form)
+  if (location) {
+    const link = node('a', 'wo-button wo-map-link', 'Показать на карте ↗')
+    const { lat, lon } = location
+    link.href = `https://www.openstreetmap.org/?mlat=${encodeURIComponent(lat)}&mlon=${encodeURIComponent(lon)}#map=17/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+    pane.append(link)
+  }
+  return pane
+}
+
 function historyPane(host, records) {
   const history = node('details', 'wo-history')
   history.open = host.historyOpen
@@ -392,7 +458,7 @@ async function render(host) {
   const note = node('p', 'wo-muted wo-storage', storageNote(host))
   note.dataset.storageNote = ''
   note.setAttribute('aria-live', 'polite')
-  card.append(header, main, followUp, note)
+  card.append(header, main, followUp, locationPane(host), note)
   host.container.hidden = false
   host.container.replaceChildren(card)
   if (focusInside) {
@@ -429,6 +495,7 @@ export async function openOrder(container, { object_type, scores, filename, imag
     request: null,
     rephoto: null,
     after: null,
+    location: null,
   }
   const host = mount(container, order)
   await persist(host)

@@ -67,3 +67,12 @@
 }
 .wo-upload-preview { display: block; width: 100%; max-height: 180px; object-fit: contain; background: #e8f1f7; border-radius: 6px; }
 .wo-upload-preview[hidden] { display: none; }
+.wo-location { margin-top: 13px; }
+.wo-coordinate-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: end; }
+.wo-coordinate-form .wo-error { grid-column: 1 / -1; }
+.wo-coordinate-form [aria-invalid="true"] { border-color: #a1362e; }
+.wo-map-link { display: inline-flex; align-items: center; text-decoration: none; }
+@media (max-width: 680px) {
+  .wo-coordinate-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wo-coordinate-form button { grid-column: 1 / -1; }
+}
