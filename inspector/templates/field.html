@@ -25,7 +25,19 @@ if(!f||['proposed','dismissed'].includes(f.state))row.append(btn(f?'Подтве
 if(f&&['proposed','confirmed'].includes(f.state))row.append(btn('Снять замечание',()=>send('/findings/'+code,{action:'dismiss'})));
 if(f?.state!=='accepted')row.append(btn('Запросить крупный план',()=>send('/retakes',{scope:code})));
 if(f?.state==='confirmed'){fileControl(s,'Фото после работ',{scope:code,purpose:'after'});const after=c.photos.filter(p=>p.purpose==='after'&&[code,'object'].includes(p.scope));if(after.length){const label=node('label','Снимок для приёмки'),sel=node('select');after.forEach((p,i)=>{const o=node('option','Фото '+(i+1)+' · '+p.created+' UTC');o.value=p.id;sel.append(o)});sel.value=after.at(-1).id;label.append(sel);s.append(label,btn('Принять эту работу',()=>send('/findings/'+code,{action:'accept',photo_id:sel.value})))}}}
-const requests=section(pane,'Пересъёмка');requests.append(btn('Запросить общий вид',()=>send('/retakes',{scope:'object'})));for(const r of c.requests){requests.append(node('p',r.instruction+' · '+(r.evidence?'Снимок получен':'Ожидается снимок')));if(!r.evidence)fileControl(requests,'Ответ на запрос',{purpose:'retake',request_id:r.id})}}
+const requests=section(pane,'Пересъёмка');requests.append(btn('Запросить общий вид',()=>send('/retakes',{scope:'object'})));
+for(const r of c.requests){
+  const origin=r.origin==='automatic'?'Автоматический запрос':'Запрос мастера';
+  requests.append(node('p',origin+' · '+(r.evidence?'Снимок получен':'Ожидается снимок')),node('p',r.instruction));
+  if(r.source_photo_id){
+    const link=node('a','Исходный кадр запроса');
+    link.href='/api/inspections/'+c.id+'/photos/'+r.source_photo_id;
+    link.target='_blank';
+    link.rel='noopener';
+    requests.append(link);
+  }
+  if(!r.evidence)fileControl(requests,'Ответ на запрос',{purpose:'retake',request_id:r.id});
+}}
 $('#new').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);for(const key of ['lat','lon'])if(!f.get(key))f.delete(key);work(async()=>{const b=$('#new button');b.disabled=true;try{change(await api('/api/inspections',{method:'POST',body:f}));$('#new').reset()}finally{b.disabled=false}})};
 api('/api/inspections').then(items=>{cards=items;if(items.length)change(items[0]);else queue()}).catch(e=>$('#live').textContent=e.message);
 </script></html>

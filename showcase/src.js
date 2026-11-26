@@ -12,7 +12,7 @@ const comparison = $('#comparison')
 const scene = $('#scene-img')
 const viewport = $('#viewport')
 const signals = {
-  mp: { code: 'МП', title: 'Механическое повреждение', action: 'Проверить дверь и корпус' },
+  mp: { code: 'МП', title: 'Механическое повреждение', action: 'Проверить дверь, крепления и закрывание' },
   paint: { code: 'ЛКП', title: 'Повреждение покрытия', action: 'Восстановить защитное покрытие' },
 }
 const views = {

@@ -22,6 +22,10 @@ TASKS = {
     "mechanical": ("Механическое повреждение", "Проверить дверь, крепления и закрывание", "Снять дверь спереди и крупно её петли и кромку"),
     "coating": ("Повреждение покрытия", "Осмотреть и восстановить повреждённое покрытие", "Снять поверхность с повреждением крупно при рассеянном свете"),
 }
+AUTOMATIC_RETAKE_INSTRUCTIONS = {
+    "mechanical": "Снять петли и крепления крупным планом.",
+    "coating": "Снять участок покрытия крупным планом при рассеянном свете.",
+}
 MAX_BYTES = 20 * 1024 * 1024
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS cards(id TEXT PRIMARY KEY, created TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -31,7 +35,9 @@ CREATE TABLE IF NOT EXISTS photos(id TEXT PRIMARY KEY, card TEXT NOT NULL REFERE
 CREATE TABLE IF NOT EXISTS findings(card TEXT NOT NULL REFERENCES cards(id), code TEXT NOT NULL,
     state TEXT NOT NULL, evidence TEXT REFERENCES photos(id), PRIMARY KEY(card,code));
 CREATE TABLE IF NOT EXISTS requests(id TEXT PRIMARY KEY, card TEXT NOT NULL REFERENCES cards(id),
-    scope TEXT NOT NULL, instruction TEXT NOT NULL, evidence TEXT REFERENCES photos(id));
+    scope TEXT NOT NULL, instruction TEXT NOT NULL, evidence TEXT REFERENCES photos(id),
+    origin TEXT NOT NULL DEFAULT 'manual' CHECK(origin IN ('manual', 'automatic')),
+    source_photo_id TEXT REFERENCES photos(id));
 """
 
 
@@ -84,6 +90,28 @@ def require_card(db, card):
     return row
 
 
+def retake_instruction(scope: str) -> str:
+    return TASKS[scope][2] if scope in TASKS else "Снять шкаф целиком, прямо и при хорошем освещении."
+
+
+def automatic_retake_scope(result: dict) -> str | None:
+    if (result.get("quality") or {}).get("ok") is False:
+        return "object"
+
+    scores = result.get("scores") or {}
+    selected = None
+    nearest = math.inf
+    # TASKS orders mechanical first so it wins ties, including decimal pairs such as 0.55 and 0.45.
+    for scope in TASKS:
+        score = scores.get(scope)
+        if not isinstance(score, (int, float)) or not 0.40 <= score <= 0.60:
+            continue
+        distance = abs(score - 0.5)
+        if distance < nearest and not math.isclose(distance, nearest, rel_tol=0.0, abs_tol=1e-12):
+            selected, nearest = scope, distance
+    return selected
+
+
 def details(db, card):
     row = require_card(db, card)
     findings = []
@@ -91,7 +119,10 @@ def details(db, card):
         title, work, retake = TASKS[item["code"]]
         findings.append(dict(item) | dict(title=title, work=work, retake=retake))
     photos = [dict(p) for p in db.execute("SELECT id,purpose,scope,created FROM photos WHERE card=? ORDER BY rowid", (card,))]
-    requests = [dict(r) for r in db.execute("SELECT id,scope,instruction,evidence FROM requests WHERE card=? ORDER BY rowid", (card,))]
+    requests = [dict(r) for r in db.execute(
+        "SELECT id,scope,instruction,evidence,origin,source_photo_id FROM requests WHERE card=? ORDER BY rowid",
+        (card,),
+    )]
     closed = any(f["state"] == "accepted" for f in findings) and all(f["state"] in {"accepted", "dismissed"} for f in findings) and all(r["evidence"] for r in requests)
     return dict(id=card, created=row["created"], lat=row["lat"], lon=row["lon"], prediction=json.loads(row["prediction"]),
                 findings=findings, photos=photos, requests=requests, closed=bool(closed))
@@ -104,6 +135,13 @@ def create_app(db_path=None, predictor=None):
         db_path = state_dir / "inspections.sqlite3"
     with connection(db_path) as db:
         db.executescript(SCHEMA)
+        db.execute("BEGIN IMMEDIATE")
+        columns = {row["name"] for row in db.execute("PRAGMA table_info(requests)")}
+        if "origin" not in columns:
+            db.execute("ALTER TABLE requests ADD COLUMN origin TEXT NOT NULL DEFAULT 'manual' "
+                       "CHECK(origin IN ('manual', 'automatic'))")
+        if "source_photo_id" not in columns:
+            db.execute("ALTER TABLE requests ADD COLUMN source_photo_id TEXT REFERENCES photos(id)")
     model_lock = threading.Lock()
 
     def predict(image):
@@ -137,14 +175,22 @@ def create_app(db_path=None, predictor=None):
             raise HTTPException(422, "Укажите обе координаты объекта в градусах WGS84.")
         pixels, evidence = await read_photo(image)
         result = await run_in_threadpool(predict, pixels)
+        scope = automatic_retake_scope(result)
         card = uuid.uuid4().hex
+        photo = uuid.uuid4().hex
         with connection(db_path) as db:
             db.execute("INSERT INTO cards(id,prediction,lat,lon) VALUES(?,?,?,?)", (card, json.dumps(result, ensure_ascii=False), lat, lon))
-            db.execute("INSERT INTO photos(id,card,purpose,scope,data) VALUES(?,?,?,?,?)", (uuid.uuid4().hex,card,"initial","object",evidence))
+            db.execute("INSERT INTO photos(id,card,purpose,scope,data) VALUES(?,?,?,?,?)", (photo,card,"initial","object",evidence))
             for finding in result["findings"]:
                 code = finding["code"]
                 if code in TASKS:
                     db.execute("INSERT OR IGNORE INTO findings(card,code,state) VALUES(?,?,'proposed')", (card, code))
+            if scope is not None:
+                instruction = AUTOMATIC_RETAKE_INSTRUCTIONS.get(scope) or retake_instruction(scope)
+                db.execute(
+                    "INSERT INTO requests(id,card,scope,instruction,origin,source_photo_id) VALUES(?,?,?,?,?,?)",
+                    (uuid.uuid4().hex, card, scope, instruction, "automatic", photo),
+                )
             return details(db, card)
 
     @app.get("/api/inspections/{card}")
@@ -179,7 +225,7 @@ def create_app(db_path=None, predictor=None):
     def request(card: str, payload: Retake):
         if payload.scope not in {*TASKS, "object"}:
             raise HTTPException(422, "Неизвестная зона.")
-        instruction = payload.instruction.strip() or (TASKS[payload.scope][2] if payload.scope in TASKS else "Снять шкаф целиком, прямо и при хорошем освещении.")
+        instruction = payload.instruction.strip() or retake_instruction(payload.scope)
         with connection(db_path) as db:
             db.execute("BEGIN IMMEDIATE")
             require_card(db, card)
