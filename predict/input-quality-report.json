@@ -1,0 +1,91 @@
+{
+  "browser": "Chromium 149.0.7827.55",
+  "policy": {
+    "shortestSide": 192,
+    "longestSide": 256,
+    "minimumVisibleFraction": 0.9,
+    "clippedFraction": 0.985,
+    "maximumDarkP90": 28,
+    "minimumContrast": 10,
+    "flatEdgeFraction": 0.004,
+    "maximumBlurRms": 1.35,
+    "maximumBlurEdgeFraction": 0.01
+  },
+  "cases": {
+    "original": {
+      "total": 61,
+      "passed": 61,
+      "rejected": 0,
+      "rejection_reasons": {},
+      "rejected_fraction": 0
+    },
+    "blur_moderate": {
+      "total": 61,
+      "passed": 61,
+      "rejected": 0,
+      "rejection_reasons": {},
+      "rejected_fraction": 0
+    },
+    "blur_severe": {
+      "total": 61,
+      "passed": 22,
+      "rejected": 39,
+      "rejection_reasons": {
+        "blur": 39
+      },
+      "rejected_fraction": 0.639344262295082
+    },
+    "dark_severe": {
+      "total": 61,
+      "passed": 0,
+      "rejected": 61,
+      "rejection_reasons": {
+        "dark": 61
+      },
+      "rejected_fraction": 1
+    },
+    "clipped_severe": {
+      "total": 61,
+      "passed": 0,
+      "rejected": 61,
+      "rejection_reasons": {
+        "clipped": 61
+      },
+      "rejected_fraction": 1
+    },
+    "tiny": {
+      "total": 61,
+      "passed": 0,
+      "rejected": 61,
+      "rejection_reasons": {
+        "resolution": 61
+      },
+      "rejected_fraction": 1
+    },
+    "flat": {
+      "total": 61,
+      "passed": 0,
+      "rejected": 61,
+      "rejection_reasons": {
+        "flat": 61
+      },
+      "rejected_fraction": 1
+    }
+  },
+  "version": 1,
+  "method": "Actual JavaScript gate in headless Chromium, with a 390 px mobile viewport and external requests blocked.",
+  "sample": "All labeled DSS frames as supplied, plus one deterministic transform of each per distortion.",
+  "variants": {
+    "original": "Raw supplied photo, decoded by the browser with EXIF orientation.",
+    "blur_moderate": "Gaussian blur with a 3 px radius at the gate's 224 px analysis scale.",
+    "blur_severe": "Gaussian blur with a 14 px radius at the gate's 224 px analysis scale.",
+    "dark_severe": "RGB intensity multiplied by 0.08.",
+    "clipped_severe": "RGB remapped to [250, 255], clipping highlights and removing contrast.",
+    "tiny": "Longest side 112 px.",
+    "flat": "Uniform fill with the mean color of the original."
+  },
+  "limits": [
+    "Corrupted cases are paired with the original frames. They are controlled diagnostic cases, not measured field rejection rates.",
+    "The gate tests readability and has no semantics or object-location signal."
+  ]
+}

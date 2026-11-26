@@ -56,6 +56,7 @@ export async function recognize(bitmap, status) {
   ctx.drawImage(bitmap,0,0);
   const pix=ctx.getImageData(0,0,canvas.width,canvas.height).data;
   const features=new Float64Array(recipe.heads.telecom.weights.length);
+  const viewFeatures=[];
   for (const [i, bounds] of recipe.views.entries()) {
     status(`Проверяем области кадра · ${i+1} из ${recipe.views.length}`);
     await new Promise(requestAnimationFrame);
@@ -64,17 +65,28 @@ export async function recognize(bitmap, status) {
     try {
       output=(await session.run({pixel_values:input})).last_hidden_state;
       const vector=embedTokens(output);
+      viewFeatures.push(vector);
       for (let j=0;j<features.length;j++) features[j]+=vector[j]/recipe.views.length;
     } finally {
       input.dispose();
       output?.dispose();
     }
   }
-  const scores={};
+  const scores={}, regions={};
   for (const [code, {weights,bias}] of Object.entries(recipe.heads)) {
     let value=bias;for(let i=0;i<features.length;i++) value+=features[i]*weights[i];
     scores[code]=1/(1+Math.exp(-value));
+    if (code !== 'telecom') {
+      // Each window contributes its linear score equally to the final logit.
+      const contributions=viewFeatures.map(v=>v.reduce((sum,x,j)=>sum+weights[j]*x,0));
+      const highest=Math.max(...contributions);
+      if (highest-Math.min(...contributions)>1e-8) {
+        const view=contributions.indexOf(highest);
+        regions[code]={view, bounds:recipe.views[view]};
+      }
+    }
   }
   return {object_type:scores.telecom>=.5?'telecom_cabinet':'distribution_board',
+          regions,model_version:'DINOv2 INT8 · 4 фрагмента',
           scores:{mechanical:scores.mechanical,coating:scores.coating},object_type_score:Math.max(scores.telecom,1-scores.telecom)};
 }
