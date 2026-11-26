@@ -1,0 +1,34 @@
+[project]
+name = "mgts-route-inspector"
+version = "0.1.0"
+description = "Route inspection queue for MGTS outside plant: images -> visible sign -> master's card"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pillow>=10.2",
+    "pandas>=2.1",
+    "scikit-learn>=1.4",
+    "joblib>=1.3",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+cv = ["torch>=2.2", "torchvision>=0.17"]
+dino = ["torch>=2.2", "transformers>=4.50,<5", "safetensors>=0.4.3"]
+vertex = ["google-auth[requests]>=2,<3"]
+yolo = ["ultralytics>=8.4,<9"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+excel = ["openpyxl>=3.1"]
+
+[tool.setuptools]
+packages = ["inspector"]
+
+[tool.setuptools.package-data]
+inspector = ["templates/*.html", "static/*.css", "static/*.js"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

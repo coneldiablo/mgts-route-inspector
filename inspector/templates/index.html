@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Маршрутный осмотр · МГТС</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">МГТС</div>
+        <div class="brand-text">
+          <h1>Маршрутный осмотр</h1>
+          <p>Очередь объектов по видимому признаку на снимках</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span class="chip chip-muted" id="modelChip">модель…</span>
+        <button class="btn btn-primary" id="uploadBtn" aria-label="Загрузить новый кадр">Новый кадр</button>
+        <div class="menu-wrap" role="group" aria-label="Экспорт прогона">
+          <a class="btn btn-ghost" href="/api/export.csv" title="Выгрузить карточки в CSV">CSV</a>
+          <a class="btn btn-ghost" href="/api/export.json" title="Выгрузить карточки в JSON">JSON</a>
+          <a class="btn btn-ghost" href="/api/export.geojson" title="Выгрузить точки объектов в GeoJSON">GeoJSON</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice" id="syntheticNotice" hidden>
+      <strong>Демонстрационный режим.</strong>
+      Снимки синтетические: проверяется весь путь «кадр → признак → карточка», а не качество на реальных данных МГТС.
+    </div>
+
+    <div class="notice" id="publicNotice" hidden>Публичное демо проверяет, видна ли крышка на фото. Открытые люки требуют отдельной разметки.</div>
+
+    <section class="kpis" id="kpis" aria-label="Сводка прогона"></section>
+
+    <section class="toolbar">
+      <div class="filters" id="filters" role="group" aria-label="Результат осмотра">
+        <button class="filter active" data-filter="queue" aria-pressed="true">Очередь <span id="countQueue">0</span></button>
+        <button class="filter" data-filter="finding" aria-pressed="false">К проверке <span id="countFinding">0</span></button>
+        <button class="filter" data-filter="uncertain" aria-pressed="false">Слабый сигнал <span id="countUncertain">0</span></button>
+        <button class="filter" data-filter="rephoto" aria-pressed="false">Нужен кадр <span id="countRephoto">0</span></button>
+        <button class="filter" data-filter="all" aria-pressed="false">Все объекты <span id="countAll">0</span></button>
+      </div>
+      <div class="toolbar-right">
+        <label class="search">
+          <span>Поиск</span>
+          <input id="searchInput" type="search" placeholder="ID или адрес">
+        </label>
+        <label class="location-filter">
+          <span>Местоположение</span>
+          <select id="locationFilter">
+            <option value="all">Любая привязка</option>
+            <option value="located">Есть координаты</option>
+            <option value="confirmed">Подтверждено</option>
+            <option value="pending">Нужна сверка</option>
+            <option value="unlocated">Место не указано</option>
+          </select>
+        </label>
+        <details class="threshold-menu">
+          <summary class="btn btn-ghost">Порог <b id="thresholdValue">0.50</b></summary>
+          <div class="threshold-options">
+            <label class="threshold">
+              <span>Предпросмотр порога</span>
+              <input id="thresholdInput" type="range" min="0" max="1" step="0.01" value="0.5">
+              <span class="hint">По выбранному кадру каждой сохранённой карточки</span>
+            </label>
+            <button class="btn btn-ghost" id="resetThreshold">Вернуть порог прогона</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <main class="workspace">
+      <aside class="queue" aria-label="Очередь объектов">
+        <div class="queue-head">
+          <span>Очередь мастера</span>
+          <span id="queueMeta">—</span>
+        </div>
+        <details class="location-overview" id="locationOverview" open>
+          <summary>
+            <span>Схема объектов</span>
+            <span id="locationMeta">—</span>
+          </summary>
+          <div id="locationMap" class="location-map"></div>
+        </details>
+        <div class="queue-list" id="queueList"></div>
+      </aside>
+      <section class="detail" id="detail" aria-label="Карточка объекта">
+        <div class="empty-state">
+          <div class="empty-icon">◎</div>
+          <h2>Выберите объект в очереди</h2>
+          <p>К карточке приложены исходный кадр, геопривязка и предлагаемое действие.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Решение о ремонте принимает мастер с учётом регламента и текущих работ.</span>
+      <span>Оценка модели — не вероятность аварии. Непригодный кадр не превращается в замечание.</span>
+    </footer>
+  </div>
+
+  <div class="modal" id="uploadModal" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="closeUpload" aria-label="Закрыть">×</button>
+      <h2>Новый кадр</h2>
+      <p class="muted">Проверьте путь на тестовом снимке: кадр проходит проверку качества, модель оценивает признак, результат появляется карточкой. В очередь прогона он не записывается.</p>
+      <p class="muted" id="uploadCloudNotice" hidden></p>
+      <form id="uploadForm" class="upload-form">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="image/*" required>
+          <span id="dropText">Выберите файл или перетащите снимок</span>
+        </label>
+        <label class="field">
+          <span>ID объекта</span>
+          <input id="assetInput" type="text" value="UPLOAD-001" maxlength="40">
+        </label>
+        <button class="btn btn-primary" type="submit" id="analyzeBtn">Проверить кадр</button>
+      </form>
+      <div id="uploadResult" class="upload-result"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
